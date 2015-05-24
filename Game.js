@@ -22,7 +22,7 @@ socket.onmessage = function(message) {
   yPosition = pos[2];
   //console.log(xPosition + ", " + yPosition);
 } else if (message.data.indexOf("dat") == 0){
-  var splitted = [message.data].split(":")[1].split(",");
+  var splitted = message.data.split(":")[1].split(",");
   enemies = [];
   for (i = 0; i < splitted.length - 1; i++){
     enemies[i] = splitted[i+1];
