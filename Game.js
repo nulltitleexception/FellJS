@@ -24,7 +24,7 @@ socket.onmessage = function(message) {
 } else if (message.data.indexOf("dat") == 0){
   var splitted = message.data.split(":")[1].split(",");
   enemies = [];
-  for (i = 0; i < splitted.length - 1; i++){
+  for (i = 0; i < splitted.length; i++){
     enemies[i] = splitted[i];
   }
 }
