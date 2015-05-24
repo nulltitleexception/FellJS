@@ -20,7 +20,7 @@ socket.onmessage = function(message) {
   var pos = regex.exec(message.data);
   xPosition = pos[1];
   yPosition = pos[2];
-  console.log(xPosition + ", " + yPosition);
+  //console.log(xPosition + ", " + yPosition);
 } else if (message.data.indexOf("dat") == 0){
   var splitted = [message.data].split(":")[1].split(",");
   enemies = [];
