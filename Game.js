@@ -56,12 +56,13 @@ for (i = 0; i < 256; i++){
 }
 $('body').append('<canvas id="GameCanvas">');
 var canvasElement = $('#GameCanvas');
-canvasElement.select().focus().click();
 canvasElement.attr('width', windowWidth);
 canvasElement.attr('height', windowHeight);
-canvasElement.arrt('tabIndex', 1);
-document.getElementById("GameCanvas").focus();
+canvasElement.attr('tabIndex', 1);
+canvasElement.select().focus().click();
+
 var canvas = canvasElement[0];
+
 window.addEventListener( "keydown", keyPress, false);
 window.addEventListener( "keyup", keyRelease, false);
 context = canvas.getContext('2d');
