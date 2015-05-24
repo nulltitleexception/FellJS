@@ -54,6 +54,7 @@ for (i = 0; i < 256; i++){
   isKeyDown[i] = false;
 }
 $('body').append('<canvas id="GameCanvas">');
+$("#GameCanvas").focus();
 var $canvas = $('#GameCanvas');
 $canvas.attr('width', $(window).innerWidth());
 $canvas.attr('height', $(window).innerHeight());
