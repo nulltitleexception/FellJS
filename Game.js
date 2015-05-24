@@ -31,8 +31,6 @@ socket.onerror = function() {
     window.addEventListener( "keydown", keyPress, false);
     window.addEventListener( "keyup", keyRelease, false);
     context = canvas.getContext('2d');
-    while (!connected){
-    }
     setTimeout(socket.send("Test Message!"), 500);
     gameLoop();
   }
