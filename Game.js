@@ -57,7 +57,7 @@ for (i = 0; i < 256; i++){
 $('body').append('<canvas id="GameCanvas">');
 var canvasElement = $('#GameCanvas');
 canvasElement.attr('width', windowWidth);
-canvasElement.attr('height', windowHegiht);
+canvasElement.attr('height', windowHeight);
 canvasElement.attr('tabIndex', 0);
 canvasElement.select().focus().click();
 
