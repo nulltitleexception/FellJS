@@ -75,13 +75,13 @@ function gameLoop() {
   }
   context.clearRect(0, 0, document.body.clientWidth, document.body.clientHeight);
   context.fillStyle = userData[2];
-  context.fillRect(userData[0], userData[1], 30, 50);
+  context.fillRect(userData[2], userData[1], 30, 50);
   context.font = "15px Arial";
   context.fillText(user,(userData[0] - (context.measureText(user).width / 2)) + 15,userData[1] - 5);
   for (i = 0; i < enemies.length; i += 4){
   context.fillStyle = enemies[i+2];
   context.fillRect(enemies[i], enemies[i+1], 30, 50);
-  context.fillText(enemies[i+3],(enemies[i] - (context.measureText(enemies[i+3]).width / 2)) + 15,enemies[i+1] - 5);
+  context.fillText(enemies[i+2],(enemies[i] - (context.measureText(enemies[i+3]).width / 2)) + 15,enemies[i+1] - 5);
   }
   setTimeout(gameLoop, frameLength);
 }
