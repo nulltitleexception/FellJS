@@ -25,7 +25,7 @@ JS_GAME.game = (function () {
     $("#user").blur();
     $("#pass").blur();
     $("#loginInfo").remove();
-    
+
     socket = new WebSocket("ws:167.88.120.57:38734");
 
     socket.onopen = function() {
@@ -59,7 +59,7 @@ var canvasElement = $('#GameCanvas');
 canvasElement.select().focus().click();
 canvasElement.attr('width', windowWidth);
 canvasElement.attr('height', windowHeight);
-canvasElement.attr('tabIndex', 1);
+canvasElement.arrt('tabIndex', 1);
 document.getElementById("GameCanvas").focus();
 var canvas = canvasElement[0];
 window.addEventListener( "keydown", keyPress, false);
