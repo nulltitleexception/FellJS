@@ -14,6 +14,9 @@ JS_GAME.game = (function () {
   function init() {
     user = document.getElementById("loginInfo").user.value;
     pass = document.getElementById("loginInfo").pass.value;
+    $("#user").blur();
+    $("#pass").blur();
+    $("#loginInfo").remove();
     if (user.indexOf(",") >= 0 || user.indexOf(":") >= 0){
       document.getElementById("loginInfo").user.value = "INVALID INPUT";
       return;
@@ -98,9 +101,6 @@ return {
 $(document).ready(function() {
   $("#loginInfo").submit(function(event){
     event.preventDefault();
-    $("#user").blur();
-    $("#pass").blur();
-    this.remove();
     JS_GAME.game.init();
     return false;
   });
