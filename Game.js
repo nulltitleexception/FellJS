@@ -98,10 +98,10 @@ return {
 $(document).ready(function() {
   $("#loginInfo").submit(function(event){
     event.preventDefault();
-    JS_GAME.game.init();
     $("#user").blur();
     $("#pass").blur();
     this.remove();
+    JS_GAME.game.init();
     return false;
   });
 });
