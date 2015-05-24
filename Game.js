@@ -48,7 +48,7 @@ for (i = 0; i < 256; i++){
 }
 $('body').append('<canvas id="GameCanvas">');
 var $canvas = $('#GameCanvas');
-$canvas.select().focus();
+$canvas.select().focus().click();
 $canvas.attr('width', $(window).innerWidth());
 $canvas.attr('height', $(window).innerHeight());
 var canvas = $canvas[0];
