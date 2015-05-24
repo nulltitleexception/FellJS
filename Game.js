@@ -80,8 +80,9 @@ function gameLoop() {
   context.font = "15px Arial";
   context.fillText(user,(xPosition - (context.measureText(user).width / 2)) + 15,yPosition - 5);
   context.fillStyle = '#a157fe';
-  for (i = 0; i < enemies.length; i += 2){
+  for (i = 0; i < enemies.length; i += 3){
     context.fillRect(enemies[i], enemies[i+1], 30, 50);
+  context.fillText(enemies[i+2],(xPosition - (context.measureText(enemies[i+2]).width / 2)) + 15,yPosition - 5);
   }
   setTimeout(gameLoop, frameLength);
 }
