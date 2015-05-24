@@ -14,6 +14,7 @@ socket.onopen = function() {
 };
  
 socket.onmessage = function(message) {
+  console.log("Received: \"" + message.data + "\"");
 };
  
 socket.onclose = function() {
@@ -23,6 +24,9 @@ socket.onerror = function() {
 };
 
   function init() {
+    for (i = 0; i < 256; i++){
+      isKeyDown[i] = false;
+    }
     $('body').append('<canvas id="GameCanvas">');
     var $canvas = $('#GameCanvas');
     $canvas.attr('width', document.body.clientWidth);
@@ -31,22 +35,17 @@ socket.onerror = function() {
     window.addEventListener( "keydown", keyPress, false);
     window.addEventListener( "keyup", keyRelease, false);
     context = canvas.getContext('2d');
-    setTimeout(socket.send("Test Message!"), 500);
     gameLoop();
   }
 
   function gameLoop() {
-    if (isKeyPressed("W")) {
-        yPosition--;
+    var keyData = "";
+    for (i = 0; i < 256; i++){
+      keyData += isKeyDown[i] ? 1 : 0;
     }
-    if (isKeyPressed("A")) {
-        xPosition--;
-    }
-    if (isKeyPressed("S")) {
-        yPosition++;
-    }
-    if (isKeyPressed("D")) {
-        xPosition++;
+    try {
+      socket.send("keys:" + keyData);
+    } catch (err) {
     }
     context.clearRect(0, 0, document.body.clientWidth, document.body.clientHeight);
     context.fillStyle = '#fe57a1';
