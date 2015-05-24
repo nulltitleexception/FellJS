@@ -17,8 +17,8 @@ JS_GAME.game = (function () {
 
   function init() {
    
-    user = $('#user').value;
-    pass = $('#pass').value;
+    user = ($('#user').value);
+    pass = ($('#pass').value);
     if (user.indexOf(",") >= 0 || user.indexOf(":") >= 0){
       loginInfo.user.value = "INVALID INPUT";
       return;
