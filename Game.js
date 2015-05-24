@@ -102,10 +102,10 @@ return {
 };
 })();
 
-$(document).ready(function() {
-  $( "#loginInfo" ).submit(function(event){
-    event.preventDefault();
-    JS_GAME.game.init();
-    return false;
-  });
-});
+// $(document).ready(function() {
+//   $( "#loginInfo" ).submit(function(event){
+//     event.preventDefault();
+//     JS_GAME.game.init();
+//     return false;
+//   });
+// });
