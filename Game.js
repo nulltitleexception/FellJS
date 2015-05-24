@@ -50,13 +50,13 @@ for (i = 0; i < 256; i++){
   isKeyDown[i] = false;
 }
 $('body').append('<canvas id="GameCanvas">');
-var $canvas = $('#GameCanvas');
-$canvas.select().focus().click();
-$canvas.attr('width', $(window).innerWidth());
-$canvas.attr('height', $(window).innerHeight());
-$canvas.attr('tabIndex', 1);
+var canvasElement = $('#GameCanvas');
+canvasElement.select().focus().click();
+canvasElement.attr('width', $(window).innerWidth());
+canvasElement.attr('height', $(window).innerHeight());
+canvasElement.attr('tabIndex', 1);
 document.getElementById("GameCanvas").focus();
-var canvas = $canvas[0];
+var canvas = canvasElement[0];
 window.addEventListener( "keydown", keyPress, false);
 window.addEventListener( "keyup", keyRelease, false);
 context = canvas.getContext('2d');
