@@ -60,8 +60,7 @@ canvasElement.attr({
   width: windowWidth,
   height: windowHeight,
   tabIndex: 0,
-});
-canvasElement.focus();
+}).focus();
 
 var canvas = canvasElement[0];
 
