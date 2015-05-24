@@ -77,11 +77,19 @@ function gameLoop() {
   context.fillStyle = userData[2];
   context.fillRect(userData[0], userData[1], 30, 50);
   context.font = "15px Arial";
+<<<<<<< HEAD
   context.fillText(user,(userData[0] - (context.measureText(user).width / 2)) + 15,userData[1] - 5);
   for (i = 0; i < enemies.length; i += 4){
   context.fillStyle = enemies[i+2];
   context.fillRect(enemies[i], enemies[i+1], 30, 50);
   context.fillText(enemies[i+3],enemies[i] - (context.measureText(enemies[i+3]).width / 2)) + 15,enemies[i+1] - 5);
+=======
+  context.fillText(user,(xPosition - (context.measureText(user).width / 2)) + 15,yPosition - 5);
+  context.fillStyle = '#a157fe';
+  for (i = 0; i < enemies.length; i += 3){
+    context.fillRect(enemies[i], enemies[i+1], 30, 50);
+  context.fillText((enemies[i+2],enemies[i] - (context.measureText(enemies[i+2]).width / 2)) + 15,enemies[i+1] - 5);
+>>>>>>> origin/gh-pages
   }
   setTimeout(gameLoop, frameLength);
 }
@@ -101,9 +109,10 @@ return {
 };
 })();
 
-$(document).ready(function() {
-  $( "#loginInfo" ).submit(function(e){
-    e.preventDefault();
-    JS_GAME.game.init();
-  });
-});
+// $(document).ready(function() {
+//   $( "#loginInfo" ).submit(function(event){
+//     event.preventDefault();
+//     JS_GAME.game.init();
+//     return false;
+//   });
+// });
