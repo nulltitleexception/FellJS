@@ -33,7 +33,7 @@ socket.onerror = function() {
     context = canvas.getContext('2d');
     while (!connected){
     }
-    socket.send("Test Message!");
+    setTimeout(socket.send("Test Message!"), 500);
     gameLoop();
   }
 
