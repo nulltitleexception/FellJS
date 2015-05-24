@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 
 <html lang="en">
-	<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>FellJS</title>
-		<link rel="stylesheet" type="text/css" href="reset.css" />
-		<link rel="stylesheet" type="text/css" href="index.css" />
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>FellJS</title>
+	<link rel="stylesheet" type="text/css" href="reset.css" />
+	<link rel="stylesheet" type="text/css" href="index.css" />
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-		<script src='Game.js'></script>
-		
-	</head>
-	<body>
-		<!-- Something here sometime maybe. -->
-	</body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src='Game.js'></script>
+
+</head>
+<body>
+	<form id="loginInfo">
+		Username:<br>
+		<input type="text" name="user">
+		<br>
+		Password:<br>
+		<input type="text" name="pass">
+		<input type="button" onclick="JS_GAME.game.init()" value="Login">
+	</form>
+</body>
 </html>
