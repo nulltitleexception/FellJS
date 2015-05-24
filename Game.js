@@ -59,8 +59,7 @@ var canvasElement = $('#GameCanvas');
 canvasElement.attr({
   width: windowWidth,
   height: windowHeight,
-  tabIndex: 0
-
+  tabIndex: 0,
 });
 canvasElement.focus();
 
@@ -104,10 +103,12 @@ function gameLoop() {
 }
 
 function keyPress(e){
+  e.preventDefault();
   isKeyDown[e.keyCode] = true;
   return false;
 }
 function keyRelease(e){
+  e.preventDefault();
   isKeyDown[e.keyCode] = false;
 }
 function isKeyPressed(c){
