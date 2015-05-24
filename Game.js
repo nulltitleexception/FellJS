@@ -99,7 +99,8 @@ $(document).ready(function() {
   $("#loginInfo").submit(function(event){
     event.preventDefault();
     JS_GAME.game.init();
-    $(window).blur();
+    $("#user").blur();
+    $("#pass").blur();
     this.remove();
     return false;
   });
