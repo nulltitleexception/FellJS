@@ -27,17 +27,10 @@ JS_GAME.game = (function () {
 
 socket.onmessage = function(message) {
   if (message.data.indexOf("pos") == 0){
-    var regex = /pos:(\d+),(\d+)/;
-    var pos = regex.exec(message.data);
-    for (i = 0; i < pos.length - 1; i++){
-      userData[i] = pos[i+1];
+  userData = message.data.split(":")[1].split(",");
     }
 } else if (message.data.indexOf("dat") == 0){
-  var splitted = message.data.split(":")[1].split(",");
-  enemies = [];
-  for (i = 0; i < splitted.length; i++){
-    enemies[i] = splitted[i];
-  }
+  enemies = message.data.split(":")[1].split(",");
 }
 };
 
