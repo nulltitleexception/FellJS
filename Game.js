@@ -14,7 +14,11 @@ socket.onopen = function() {
 };
  
 socket.onmessage = function(message) {
-  console.log("Received: \"" + message.data + "\"");
+  var regex = /pos:(\d+),(\d+)/;
+  var pos = regex.exec(message.data);
+  xPosition = pos[0];
+  yPosition = pos[1];
+  console.log(xPosition + ", " + yPosition);
 };
  
 socket.onclose = function() {
