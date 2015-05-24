@@ -7,19 +7,31 @@ JS_GAME.game = (function () {
   var yPosition = 0;
   var enemies = [];
   var frameLength = 1;// in milliseconds
-  var socket = new WebSocket("ws:25.117.117.69:38734");
+  var socket;
   var connected = false;
- 
-socket.onopen = function() {
-  connected = true;
-};
- 
+  var user = "";
+  var pass = "";
+
+  function init() {
+    user = document.getElementById("loginInfo").user.value;
+    pass = document.getElementById("loginInfo").pass.value;
+    if (user.indexOf(",") >= 0 || user.indexOf(":") >= 0){
+      document.getElementById("loginInfo").user.value = "INVALID INPUT";
+      return;
+    }
+    socket = new WebSocket("ws:25.117.117.69:38734");
+
+    socket.onopen = function() {
+      connected = true;
+      socket.send("login:" + user + "," + pass);
+    };
+
 socket.onmessage = function(message) {
   if (message.data.indexOf("pos") == 0){
-  var regex = /pos:(\d+),(\d+)/;
-  var pos = regex.exec(message.data);
-  xPosition = pos[1];
-  yPosition = pos[2];
+    var regex = /pos:(\d+),(\d+)/;
+    var pos = regex.exec(message.data);
+    xPosition = pos[1];
+    yPosition = pos[2];
   //console.log(xPosition + ", " + yPosition);
 } else if (message.data.indexOf("dat") == 0){
   var splitted = message.data.split(":")[1].split(",");
@@ -29,63 +41,62 @@ socket.onmessage = function(message) {
   }
 }
 };
- 
+
 socket.onclose = function() {
+  window.location.reload(false); 
 };
- 
+
 socket.onerror = function() {
 };
 
-  function init() {
-    for (i = 0; i < 256; i++){
-      isKeyDown[i] = false;
-    }
-    $('body').append('<canvas id="GameCanvas">');
-    var $canvas = $('#GameCanvas');
-    $canvas.attr('width', $(window).width());
-    $canvas.attr('height', $(window).height());
-    var canvas = $canvas[0];
-    window.addEventListener( "keydown", keyPress, false);
-    window.addEventListener( "keyup", keyRelease, false);
-    context = canvas.getContext('2d');
-    gameLoop();
-  }
 
-  function gameLoop() {
-    var keyData = "";
-    for (i = 0; i < 256; i++){
-      keyData += isKeyDown[i] ? 1 : 0;
-    }
-    try {
-      socket.send("keys:" + keyData);
-    } catch (err) {
-    }
-    context.clearRect(0, 0, document.body.clientWidth, document.body.clientHeight);
-    context.fillStyle = '#fe57a1';
-    context.fillRect(xPosition, yPosition, 30, 50);
-    context.fillStyle = '#a157fe';
-    for (i = 0; i < enemies.length; i += 2){
-      context.fillRect(enemies[i], enemies[i+1], 30, 50);
-    }
-    setTimeout(gameLoop, frameLength);
-  }
+document.body.innerHTML = "";
+for (i = 0; i < 256; i++){
+  isKeyDown[i] = false;
+}
+$('body').append('<canvas id="GameCanvas">');
+var $canvas = $('#GameCanvas');
+$canvas.attr('width', $(window).innerWidth());
+$canvas.attr('height', $(window).innerHeight());
+var canvas = $canvas[0];
+window.addEventListener( "keydown", keyPress, false);
+window.addEventListener( "keyup", keyRelease, false);
+context = canvas.getContext('2d');
+gameLoop();
+}
 
-  function keyPress(e){
-    isKeyDown[e.keyCode] = true;
+function gameLoop() {
+  var keyData = "";
+  for (i = 0; i < 256; i++){
+    keyData += isKeyDown[i] ? 1 : 0;
   }
-  function keyRelease(e){
-    isKeyDown[e.keyCode] = false;
+  try {
+    socket.send("keys:" + keyData);
+  } catch (err) {
   }
-  function isKeyPressed(c){
-    return isKeyDown[c.charCodeAt(0)];
+  context.clearRect(0, 0, document.body.clientWidth, document.body.clientHeight);
+  context.fillStyle = '#fe57a1';
+  context.fillRect(xPosition, yPosition, 30, 50);
+  context.font = "15px Arial";
+  context.fillText(user,(xPosition - (context.measureText(user).width / 2)) + 15,yPosition - 5);
+  context.fillStyle = '#a157fe';
+  for (i = 0; i < enemies.length; i += 2){
+    context.fillRect(enemies[i], enemies[i+1], 30, 50);
   }
+  setTimeout(gameLoop, frameLength);
+}
 
-  return {
-    init: init
-  };
+function keyPress(e){
+  isKeyDown[e.keyCode] = true;
+}
+function keyRelease(e){
+  isKeyDown[e.keyCode] = false;
+}
+function isKeyPressed(c){
+  return isKeyDown[c.charCodeAt(0)];
+}
+
+return {
+  init: init
+};
 })();
-
-
-$(document).ready(function () {
-  JS_GAME.game.init();
-});
