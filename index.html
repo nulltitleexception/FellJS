@@ -11,14 +11,14 @@
 
 </head>
 <body>
-	<form id="loginInfo">
+	<form id="loginInfo" onsubmit="JS_GAME.game.init()">
 		Username:
 		<input type="text" name="user">
 		<br>
 		Password:
 		<input type="password" name="pass">
 		<br>
-		<input type="button" onclick="JS_GAME.game.init()" value="Login">
+		<input type="submit" value="Login">
 	</form>
 </body>
 </html>
