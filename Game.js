@@ -6,7 +6,7 @@ JS_GAME.game = (function () {
   var xPosition = 0;
   var yPosition = 0;
   var frameLength = 1;// in milliseconds
-  var socket = new WebSocket("ws:localhost:38734");
+  var socket = new WebSocket("ws:25.117.117.69:38734");
   var connected = false;
  
 socket.onopen = function() {
@@ -16,8 +16,8 @@ socket.onopen = function() {
 socket.onmessage = function(message) {
   var regex = /pos:(\d+),(\d+)/;
   var pos = regex.exec(message.data);
-  xPosition = pos[0];
-  yPosition = pos[1];
+  xPosition = pos[1];
+  yPosition = pos[2];
   console.log(xPosition + ", " + yPosition);
 };
  
