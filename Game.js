@@ -7,8 +7,10 @@ JS_GAME.game = (function () {
   var yPosition = 0;
   var frameLength = 1;// in milliseconds
   var socket = new WebSocket("ws:localhost:3000");
+  var connected = false;
  
 socket.onopen = function() {
+  connected = true;
 };
  
 socket.onmessage = function(message) {
@@ -29,6 +31,8 @@ socket.onerror = function() {
     window.addEventListener( "keydown", keyPress, false);
     window.addEventListener( "keyup", keyRelease, false);
     context = canvas.getContext('2d');
+    while (!connected){
+    }
     socket.send("Test Message!");
     gameLoop();
   }
