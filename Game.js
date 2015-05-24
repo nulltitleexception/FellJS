@@ -58,6 +58,10 @@ socket.onerror = function() {
     context.clearRect(0, 0, document.body.clientWidth, document.body.clientHeight);
     context.fillStyle = '#fe57a1';
     context.fillRect(xPosition, yPosition, 30, 50);
+    context.fillStyle = '#a157fe';
+    for (i = 0; i < enemies.length; i += 2){
+      context.fillRect(enemies[i], enemies[i+1], 30, 50);
+    }
     setTimeout(gameLoop, frameLength);
   }
 
