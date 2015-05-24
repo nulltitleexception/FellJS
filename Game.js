@@ -53,7 +53,7 @@ JS_GAME.game = (function () {
       isKeyDown[i] = false;
     }
     $('body').append('<canvas id="GameCanvas">');
-    var canvasElement = $('#GameCanvas');
+    canvasElement = $('#GameCanvas');
     canvasElement.attr({
       width: windowWidth,
       height: windowHeight,
@@ -66,6 +66,16 @@ JS_GAME.game = (function () {
     window.addEventListener( "keyup", keyRelease, false);
     context = canvas.getContext('2d');
     gameLoop();
+
+    $(window).resize(function() {
+      windowWidth = $(window).innerWidth();
+      windowHeight = $(window).innerHeight();
+
+      canvasElement.attr({
+        width: windowWidth,
+        height: windowHeight
+      });
+    });
   }
 
   function gameLoop() {
@@ -116,15 +126,6 @@ JS_GAME.game = (function () {
     return isKeyDown[c.charCodeAt(0)];
   }
 
-  $(window).resize(function() {
-    windowWidth = $(window).innerWidth();
-    windowHeight = $(window).innerHeight();
-
-    canvasElement.attr({
-      width: windowWidth,
-      height: windowHeight
-    });
-  });
 
   return {
     init: init
