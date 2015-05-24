@@ -43,3 +43,10 @@ JS_GAME.game = (function () {
 		init: init
 	};
 })();
+
+$(document).ready(function() {
+  $( "#loginInfo" ).submit(function(e){
+    e.preventDefault();
+    JS_GAME.game.init();
+  });
+});
