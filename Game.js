@@ -58,7 +58,7 @@ $('body').append('<canvas id="GameCanvas">');
 var canvasElement = $('#GameCanvas');
 canvasElement.attr('width', windowWidth);
 canvasElement.attr('height', windowHegiht);
-canvasElement.attr('tabIndex', 1);
+canvasElement.attr('tabIndex', 0);
 canvasElement.select().focus().click();
 
 var canvas = canvasElement[0];
@@ -102,6 +102,7 @@ function gameLoop() {
 
 function keyPress(e){
   isKeyDown[e.keyCode] = true;
+  return false;
 }
 function keyRelease(e){
   isKeyDown[e.keyCode] = false;
