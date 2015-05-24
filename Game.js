@@ -6,6 +6,19 @@ JS_GAME.game = (function () {
   var xPosition = 0;
   var yPosition = 0;
   var frameLength = 1;// in milliseconds
+  var socket = new WebSocket("localhost:3000");
+ 
+socket.onopen = function() {
+};
+ 
+socket.onmessage = function(message) {
+};
+ 
+socket.onclose = function() {
+};
+ 
+socket.onerror = function() {
+};
 
   function init() {
     $('body').append('<canvas id="GameCanvas">');
@@ -16,6 +29,7 @@ JS_GAME.game = (function () {
     window.addEventListener( "keydown", keyPress, false);
     window.addEventListener( "keyup", keyRelease, false);
     context = canvas.getContext('2d');
+    socket.send("Test Message!");
     gameLoop();
   }
 
