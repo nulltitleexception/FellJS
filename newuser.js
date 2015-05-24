@@ -18,7 +18,7 @@ JS_GAME.game = (function () {
 			document.getElementById("loginInfo").pass1.value = "PASSWORDS DO NOT MATCH";
 			return;
 		}
-		socket = new WebSocket("ws:167.88.120.57:38734");
+		socket = new WebSocket("ws:25.117.117.69:38734");
 
 		socket.onopen = function() {
 			connected = true;
@@ -26,7 +26,7 @@ JS_GAME.game = (function () {
 		};
 		socket.onmessage = function(message) {
 			if (message.data.indexOf("valid") == 0){
-				window.location.href = "monolc.com/FellJS";
+				window.location.href = "http://monolc.com/FellJS";
 			} else {
 				document.getElementById("loginInfo").pass1.value = "Creating Failed";
 			}

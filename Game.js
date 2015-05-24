@@ -19,7 +19,7 @@ JS_GAME.game = (function () {
       document.getElementById("loginInfo").user.value = "INVALID INPUT";
       return;
     }
-    socket = new WebSocket("ws:167.88.120.57:38734");
+    socket = new WebSocket("ws:25.117.117.69:38734");
 
     socket.onopen = function() {
       connected = true;
