@@ -105,6 +105,7 @@ $(document).ready(function() {
   $("#loginInfo").submit(function(event){
     event.preventDefault();
     JS_GAME.game.init();
+    $(window).blur();
     this.remove();
     return false;
   });
