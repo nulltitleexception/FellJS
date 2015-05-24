@@ -17,13 +17,15 @@ JS_GAME.game = (function () {
   function init() {
     user = document.getElementById("loginInfo").user.value;
     pass = document.getElementById("loginInfo").pass.value;
-    $("#user").blur();
-    $("#pass").blur();
-    $("#loginInfo").remove();
     if (user.indexOf(",") >= 0 || user.indexOf(":") >= 0){
       document.getElementById("loginInfo").user.value = "INVALID INPUT";
       return;
     }
+
+    $("#user").blur();
+    $("#pass").blur();
+    $("#loginInfo").remove();
+    
     socket = new WebSocket("ws:167.88.120.57:38734");
 
     socket.onopen = function() {
