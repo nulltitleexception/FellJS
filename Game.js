@@ -5,6 +5,7 @@ JS_GAME.game = (function () {
   var context;
   var xPosition = 0;
   var yPosition = 0;
+  var enemies = [];
   var frameLength = 1;// in milliseconds
   var socket = new WebSocket("ws:25.117.117.69:38734");
   var connected = false;
@@ -14,11 +15,14 @@ socket.onopen = function() {
 };
  
 socket.onmessage = function(message) {
+  if (message.indexOf("pos") == 0){
   var regex = /pos:(\d+),(\d+)/;
   var pos = regex.exec(message.data);
   xPosition = pos[1];
   yPosition = pos[2];
   console.log(xPosition + ", " + yPosition);
+} else if (message.indexOf("dat") == 0){
+}
 };
  
 socket.onclose = function() {
