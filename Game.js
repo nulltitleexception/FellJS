@@ -54,7 +54,7 @@ var $canvas = $('#GameCanvas');
 $canvas.select().focus().click();
 $canvas.attr('width', $(window).innerWidth());
 $canvas.attr('height', $(window).innerHeight());
-$canvas.arrt('tabIndex', 1);
+$canvas.attr('tabIndex', 1);
 document.getElementById("GameCanvas").focus();
 var canvas = $canvas[0];
 window.addEventListener( "keydown", keyPress, false);
