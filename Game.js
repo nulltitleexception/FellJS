@@ -24,7 +24,7 @@ JS_GAME.game = (function () {
 
     $("#user").blur();
     $("#pass").blur();
-    $("#loginInfo").remove();
+    $("#loginInfo").blur().remove();
 
     socket = new WebSocket("ws:167.88.120.57:38734");
 
@@ -57,7 +57,7 @@ for (i = 0; i < 256; i++){
 $('body').append('<canvas id="GameCanvas">');
 var canvasElement = $('#GameCanvas');
 canvasElement.attr('width', windowWidth);
-canvasElement.attr('height', windowHeight);
+canvasElement.attr('height', windowHegiht);
 canvasElement.attr('tabIndex', 1);
 canvasElement.select().focus().click();
 
