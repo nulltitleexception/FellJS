@@ -12,7 +12,6 @@ JS_GAME.game = (function () {
   var pass = "";
   var windowWidth = $(window).innerWidth();
   var windowHeight = $(window).innerHeight();
-  var body = $("body");
 
 
   function init() {
@@ -47,7 +46,7 @@ JS_GAME.game = (function () {
 
     };
 
-    body.empty();
+    $("body").empty();
 
     for (i = 0; i < 256; i++){
       isKeyDown[i] = false;
