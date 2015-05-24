@@ -3,8 +3,7 @@ var JS_GAME = {};
 JS_GAME.game = (function () {
   var isKeyDown = [];
   var context;
-  var xPosition = 0;
-  var yPosition = 0;
+  var userData = [];
   var enemies = [];
   var frameLength = 1;// in milliseconds
   var socket;
@@ -30,9 +29,9 @@ socket.onmessage = function(message) {
   if (message.data.indexOf("pos") == 0){
     var regex = /pos:(\d+),(\d+)/;
     var pos = regex.exec(message.data);
-    xPosition = pos[1];
-    yPosition = pos[2];
-  //console.log(xPosition + ", " + yPosition);
+    for (i = 0; i < pos.length - 1; i++){
+      userData[i] = pos[i+1];
+    }
 } else if (message.data.indexOf("dat") == 0){
   var splitted = message.data.split(":")[1].split(",");
   enemies = [];
@@ -75,14 +74,14 @@ function gameLoop() {
   } catch (err) {
   }
   context.clearRect(0, 0, document.body.clientWidth, document.body.clientHeight);
-  context.fillStyle = '#fe57a1';
-  context.fillRect(xPosition, yPosition, 30, 50);
+  context.fillStyle = userData[2];
+  context.fillRect(userData[0], userData[1], 30, 50);
   context.font = "15px Arial";
-  context.fillText(user,(xPosition - (context.measureText(user).width / 2)) + 15,yPosition - 5);
-  context.fillStyle = '#a157fe';
-  for (i = 0; i < enemies.length; i += 3){
-    context.fillRect(enemies[i], enemies[i+1], 30, 50);
-  context.fillText(enemies[i+2],enemies[i] - (context.measureText(enemies[i+2]).width / 2)) + 15,enemies[i+1] - 5);
+  context.fillText(user,(userData[0] - (context.measureText(user).width / 2)) + 15,userData[1] - 5);
+  for (i = 0; i < enemies.length; i += 4){
+  context.fillStyle = enemies[i+2];
+  context.fillRect(enemies[i], enemies[i+1], 30, 50);
+  context.fillText(enemies[i+3],enemies[i] - (context.measureText(enemies[i+3]).width / 2)) + 15,enemies[i+1] - 5);
   }
   setTimeout(gameLoop, frameLength);
 }
