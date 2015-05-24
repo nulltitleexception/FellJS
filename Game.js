@@ -15,13 +15,13 @@ socket.onopen = function() {
 };
  
 socket.onmessage = function(message) {
-  if (message.indexOf("pos") == 0){
+  if (message.data.indexOf("pos") == 0){
   var regex = /pos:(\d+),(\d+)/;
   var pos = regex.exec(message.data);
   xPosition = pos[1];
   yPosition = pos[2];
   console.log(xPosition + ", " + yPosition);
-} else if (message.indexOf("dat") == 0){
+} else if (message.data.indexOf("dat") == 0){
 }
 };
  
