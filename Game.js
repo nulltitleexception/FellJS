@@ -116,6 +116,16 @@ JS_GAME.game = (function () {
     return isKeyDown[c.charCodeAt(0)];
   }
 
+  $(window).resize(function() {
+    windowWidth = $(window).innerWidth();
+    windowHeight = $(window).innerHeight();
+
+    canvasElement.attr({
+      width: windowWidth,
+      height: windowHeight
+    });
+  });
+
   return {
     init: init
   };
