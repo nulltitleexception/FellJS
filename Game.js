@@ -6,7 +6,7 @@ JS_GAME.game = (function () {
   var xPosition = 0;
   var yPosition = 0;
   var frameLength = 1;// in milliseconds
-  var socket = new WebSocket("localhost:3000");
+  var socket = new WebSocket("ws:localhost:3000");
  
 socket.onopen = function() {
 };
