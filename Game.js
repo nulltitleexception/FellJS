@@ -28,7 +28,7 @@ JS_GAME.game = (function () {
 socket.onmessage = function(message) {
   if (message.data.indexOf("pos") == 0){
   userData = message.data.split(":")[1].split(",");
-    }
+    
 } else if (message.data.indexOf("dat") == 0){
   enemies = message.data.split(":")[1].split(",");
 }
