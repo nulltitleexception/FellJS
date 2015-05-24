@@ -17,10 +17,10 @@ JS_GAME.game = (function () {
 
   function init() {
    
-    user = $('#user');
-    pass = $('#pass').val();
-    if (user.value.indexOf(",") >= 0 || user.value.indexOf(":") >= 0){
-      user.value = "INVALID INPUT";
+    user = document.getElementById("loginInfo").user.value;
+    pass = document.getElementById("loginInfo").pass.value;
+    if (user.indexOf(",") >= 0 || user.indexOf(":") >= 0){
+      document.getElementById("loginInfo").user.value = "INVALID INPUT";
       return;
     }
 
