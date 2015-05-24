@@ -82,7 +82,7 @@ function gameLoop() {
   context.fillStyle = '#a157fe';
   for (i = 0; i < enemies.length; i += 3){
     context.fillRect(enemies[i], enemies[i+1], 30, 50);
-  context.fillText(enemies[i+2],enemies[i] - (context.measureText(enemies[i+2]).width / 2)) + 15,enemies[i+1] - 5);
+  context.fillText((enemies[i+2],enemies[i] - (context.measureText(enemies[i+2]).width / 2)) + 15,enemies[i+1] - 5);
   }
   setTimeout(gameLoop, frameLength);
 }
