@@ -33,8 +33,8 @@ socket.onerror = function() {
     }
     $('body').append('<canvas id="GameCanvas">');
     var $canvas = $('#GameCanvas');
-    $canvas.attr('width', document.body.clientWidth);
-    $canvas.attr('height', document.body.clientHeight);
+    $canvas.attr('width', $(window).width());
+    $canvas.attr('height', $(window).height());
     var canvas = $canvas[0];
     window.addEventListener( "keydown", keyPress, false);
     window.addEventListener( "keyup", keyRelease, false);
