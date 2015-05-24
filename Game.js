@@ -10,6 +10,9 @@ JS_GAME.game = (function () {
   var connected = false;
   var user = "";
   var pass = "";
+  var windowWidth = $(window).innerWidth();
+  var windowHeight = $(window).innerHeight();
+
 
   function init() {
     user = document.getElementById("loginInfo").user.value;
@@ -52,8 +55,8 @@ for (i = 0; i < 256; i++){
 $('body').append('<canvas id="GameCanvas">');
 var canvasElement = $('#GameCanvas');
 canvasElement.select().focus().click();
-canvasElement.attr('width', $(window).innerWidth());
-canvasElement.attr('height', $(window).innerHeight());
+canvasElement.attr('width', windowWidth);
+canvasElement.attr('height', windowHeight);
 canvasElement.attr('tabIndex', 1);
 document.getElementById("GameCanvas").focus();
 var canvas = canvasElement[0];
@@ -72,7 +75,7 @@ function gameLoop() {
     socket.send("keys:" + keyData);
   } catch (err) {
   }
-  context.clearRect(0, 0, document.body.clientWidth, document.body.clientHeight);
+  context.clearRect(0, 0, windowWidth, windowHeight);
   //draw enemies
   for (i = 0; i < enemies.length; i += 4){
   context.fillStyle = enemies[i+2];
