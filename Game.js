@@ -5,6 +5,7 @@ JS_GAME.game = (function () {
   var context;
   var userData = [];
   var enemies = [];
+  var enemyStride = 6;
   var frameLength = 1;// in milliseconds
   var socket;
   var connected = false;
@@ -35,6 +36,7 @@ JS_GAME.game = (function () {
         userData = message.data.split(":")[1].split(",");   
       } else if (message.data.indexOf("dat") == 0){
         enemies = message.data.split(":")[1].split(",");
+        enemyStride = message.data.split(":")[0].replace("dat", "");
       }
     };
 
@@ -89,25 +91,25 @@ JS_GAME.game = (function () {
     context.clearRect(0, 0, windowWidth, windowHeight);
 
     //draw enemies
-    for (i = 0; i < enemies.length; i += 4){
-      context.fillStyle = enemies[i+2];
-      context.fillRect(enemies[i], enemies[i+1], 30, 50);
+    for (i = 0; i < enemies.length; i += enemyStride){
+      context.fillStyle = enemies[i+4];
+      context.fillRect(enemies[i], enemies[i+1], enemies[i+2], enemies[i+3]);
     } 
 
     //draw player
-    context.fillStyle = userData[2];
-    context.fillRect(userData[0], userData[1], 30, 50);
+    context.fillStyle = userData[4];
+    context.fillRect(userData[0], userData[1], userData[2], userData[3]);
 
     //draw enemy names
-    for (i = 0; i < enemies.length; i += 4){
-      context.fillStyle = enemies[i+2];
-      context.fillText(enemies[i+3],(enemies[i] - (context.measureText(enemies[i+3]).width / 2)) + 15,enemies[i+1] - 5);
+    for (i = 0; i < enemies.length; i += enemyStride){
+      context.fillStyle = enemies[i+4];
+      context.fillText(enemies[i+5],(enemies[i] - (context.measureText(enemies[i+5]).width / 2)) + 15,enemies[i+1] - 5);
     }
 
     //draw player name
-    context.fillStyle = userData[2];
+    context.fillStyle = userData[4];
     context.font = "15px Arial";
-    context.fillText(userData[3],(userData[0] - (context.measureText(userData[3]).width / 2)) + 15,userData[1] - 5);
+    context.fillText(userData[5],(userData[0] - (context.measureText(userData[5]).width / 2)) + 15,userData[1] - 5);
     
     setTimeout(gameLoop, frameLength);
   }
