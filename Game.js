@@ -116,7 +116,10 @@ JS_GAME.game = (function () {
 
   function gPIV(x, y){
     //getPositionInViewport
-    return {x, y};
+    var ret = new Array();
+    ret[0] = x;
+    ret[1] = y;
+    return ret;
   }
 
   function keyPress(e){
