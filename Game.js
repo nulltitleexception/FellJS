@@ -5,7 +5,7 @@ JS_GAME.game = (function () {
   var context;
   var userData = [];
   var enemies = [];
-  var enemyStride = 6;
+  var enemyStride = 7;
   var frameLength = 1;// in milliseconds
   var socket;
   var connected = false;
@@ -33,10 +33,13 @@ JS_GAME.game = (function () {
 
     socket.onmessage = function(message) {
       if (message.data.indexOf("pos") == 0){
-        userData = message.data.split(":")[1].split(",");   
+        userData = message.data.split(":")[1].split(",");
+        for (i = 0; i < 4; i++) {
+          userData[i] = Number(userData[i]);
+        }
       } else if (message.data.indexOf("dat") == 0){
         enemies = message.data.split(":")[1].split(",");
-        enemyStride = message.data.split(":")[0].replace("dat", "");
+        enemyStride = Number(message.data.split(":")[0].replace("dat", ""));
       }
     };
 
@@ -93,33 +96,35 @@ JS_GAME.game = (function () {
     //draw enemies
     for (i = 0; i < enemies.length; i += enemyStride){
       context.fillStyle = enemies[i+4];
-      context.fillRect(gPIV(enemies[i],0).x, gPIV(0,enemies[i+1]).y, enemies[i+2], enemies[i+3]);
+      context.fillRect(gPIVX(enemies[i]), gPIVY(enemies[i+1]), enemies[i+2], enemies[i+3]);
     } 
 
     //draw player
     context.fillStyle = userData[4];
-    context.fillRect(gPIV(userData[0],0).x, gPIV(0,userData[1]).y, userData[2], userData[3]);
+    context.fillRect(gPIVX(userData[0]), gPIVY(userData[1]), userData[2], userData[3]);
 
     //draw enemy names
     for (i = 0; i < enemies.length; i += enemyStride){
       context.fillStyle = enemies[i+4];
-      context.fillText(enemies[i+5],(gPIV(enemies[i],0).x - (context.measureText(enemies[i+5]).width / 2)) + 15,gPIV(0,enemies[i+1]).y - 5);
+      context.fillText(enemies[i+5],(gPIVX(enemies[i]) - (context.measureText(enemies[i+5]).width / 2)) + 15,gPIVY(enemies[i+1]) - 5);
     }
 
     //draw player name
     context.fillStyle = userData[4];
     context.font = "15px Arial";
-    context.fillText(userData[5],(gPIV(userData[0], 0).x - (context.measureText(userData[5]).width / 2)) + 15,gPIV(0, userData[1]).y - 5);
+    context.fillText(userData[5],(gPIVX(userData[0]) - (context.measureText(userData[5]).width / 2)) + 15,gPIVY(userData[1]) - 5);
     
     setTimeout(gameLoop, frameLength);
   }
 
-  function gPIV(x, y){
-    //getPositionInViewport
+  function gPIVX(x){
+    //getPositionInViewportX
     var ret = new Object();
-    ret['x'] = x;
-    ret['y'] = y;
-    return ret;
+    return ((x - (userData[0] + userData[2])) + (windowWidth / 2.0));
+  }
+  function gPIVY(y){
+    //getPositionInViewportY
+    return ((y - (userData[1] + userData[3])) + (windowHeight / 2.0));
   }
 
   function keyPress(e){
