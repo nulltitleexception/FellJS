@@ -93,25 +93,30 @@ JS_GAME.game = (function () {
     //draw enemies
     for (i = 0; i < enemies.length; i += enemyStride){
       context.fillStyle = enemies[i+4];
-      context.fillRect(enemies[i], enemies[i+1], enemies[i+2], enemies[i+3]);
+      context.fillRect(gPIV(enemies[i])[0], gPIV(enemies[i+1])[1], enemies[i+2], enemies[i+3]);
     } 
 
     //draw player
     context.fillStyle = userData[4];
-    context.fillRect(userData[0], userData[1], userData[2], userData[3]);
+    context.fillRect(gPIV(userData[0])[0], gPIV(userData[1])[1], userData[2], userData[3]);
 
     //draw enemy names
     for (i = 0; i < enemies.length; i += enemyStride){
       context.fillStyle = enemies[i+4];
-      context.fillText(enemies[i+5],(enemies[i] - (context.measureText(enemies[i+5]).width / 2)) + 15,enemies[i+1] - 5);
+      context.fillText(enemies[i+5],(gPIV(enemies[i])[0] - (context.measureText(enemies[i+5]).width / 2)) + 15,gPIV(enemies[i+1])[1] - 5);
     }
 
     //draw player name
     context.fillStyle = userData[4];
     context.font = "15px Arial";
-    context.fillText(userData[5],(userData[0] - (context.measureText(userData[5]).width / 2)) + 15,userData[1] - 5);
+    context.fillText(userData[5],(gPIV(userData[0])[0] - (context.measureText(userData[5]).width / 2)) + 15,gPIV(userData[1])[1] - 5);
     
     setTimeout(gameLoop, frameLength);
+  }
+
+  function gPIV(x, y){
+    //getPositionInViewport
+    return {x, y};
   }
 
   function keyPress(e){
