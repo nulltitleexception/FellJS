@@ -62,7 +62,9 @@ JS_GAME.game = (function () {
       width: windowWidth,
       height: windowHeight,
       tabIndex: 0,
+      onblur: clearInput,
     }).focus();
+    window.onblur = clearInput;
 
     var canvas = canvasElement[0];
 
@@ -125,6 +127,12 @@ JS_GAME.game = (function () {
   function gPIVY(y){
     //getPositionInViewportY
     return ((y - (userData[1] + userData[3])) + (windowHeight / 2.0));
+  }
+
+  function clearInput(){
+    for (i = 0; i < 256; i++){
+      isKeyDown[i] = false;
+    }
   }
 
   function keyPress(e){
