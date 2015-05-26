@@ -13,6 +13,7 @@ JS_GAME.game = (function () {
   var pass = "";
   var windowWidth = $(window).innerWidth();
   var windowHeight = $(window).innerHeight();
+  var textures = new Object();
 
 
   function init() {
@@ -103,7 +104,8 @@ JS_GAME.game = (function () {
 
     //draw player
     context.fillStyle = userData[4];
-    context.fillRect(gPIVX(userData[0]), gPIVY(userData[1]), userData[2], userData[3]);
+    context.drawImage(getImage("player") ,gPIVX(userData[0]), gPIVY(userData[1]), userData[2], userData[3]);
+    //context.fillRect(gPIVX(userData[0]), gPIVY(userData[1]), userData[2], userData[3]);
 
     //draw enemy names
     for (i = 0; i < enemies.length; i += enemyStride){
@@ -146,6 +148,16 @@ JS_GAME.game = (function () {
   }
   function isKeyPressed(c){
     return isKeyDown[c.charCodeAt(0)];
+  }
+
+  function getImage(name){
+  	if ((name) in textures){
+  		return textures[name];
+  	} else {
+  		textures[name] = new Image;
+  		textures[name].src = 'res/' + name + '.png';
+  		return textures[name];
+  	}
   }
 
 
