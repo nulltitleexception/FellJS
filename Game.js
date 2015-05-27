@@ -102,7 +102,7 @@ JS_GAME.game = (function () {
     //draw enemies
     for (i = 0; i < enemies.length; i += enemyStride){
       context.fillStyle = enemies[i+4];
-      context.drawImage(getImageMasked("player"),gPIVX(enemies[i]), gPIVY(enemies[i+1]), enemies[i+2], enemies[i+3]);
+      context.drawImage(getImageMasked("player", enemies[i+4]),gPIVX(enemies[i]), gPIVY(enemies[i+1]), enemies[i+2], enemies[i+3]);
     }
 
     //draw enemy names
