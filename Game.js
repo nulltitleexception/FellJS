@@ -179,7 +179,7 @@ JS_GAME.game = (function () {
     for (i = 0; i < 3; i++){
       colorRGB[i] = parseInt(colorRGBS[i], 16);
     }
-    for (i = 0; i < masData.data.length; i+=4){
+    for (i = 0; i < maskData.data.length; i+=4){
       maskData.data[i] =  colorRGB[0];
       maskData.data[i+1] =  colorRGB[1];
       maskData.data[i+2] =  colorRGB[2];
