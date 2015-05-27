@@ -72,6 +72,7 @@ JS_GAME.game = (function () {
     window.addEventListener( "keydown", keyPress, false);
     window.addEventListener( "keyup", keyRelease, false);
     context = canvas.getContext('2d');
+    context.globalCompositeOperation = "normal";
     gameLoop();
 
     $(window).resize(function() {
@@ -95,17 +96,14 @@ JS_GAME.game = (function () {
     } catch (err) {
     }
     context.clearRect(0, 0, windowWidth, windowHeight);
+    context.fillStyle = "#FFFFFF"
+    context.fillRect(0, 0, windowWidth, windowHeight);
 
     //draw enemies
     for (i = 0; i < enemies.length; i += enemyStride){
       context.fillStyle = enemies[i+4];
-      context.fillRect(gPIVX(enemies[i]), gPIVY(enemies[i+1]), enemies[i+2], enemies[i+3]);
-    } 
-
-    //draw player
-    context.fillStyle = userData[4];
-    context.drawImage(getImage("player") ,gPIVX(userData[0]), gPIVY(userData[1]), userData[2], userData[3]);
-    //context.fillRect(gPIVX(userData[0]), gPIVY(userData[1]), userData[2], userData[3]);
+      context.drawImage(getImageMasked("player"),gPIVX(enemies[i]), gPIVY(enemies[i+1]), enemies[i+2], enemies[i+3]);
+    }
 
     //draw enemy names
     for (i = 0; i < enemies.length; i += enemyStride){
@@ -114,9 +112,9 @@ JS_GAME.game = (function () {
     }
 
     //draw player name
-    context.fillStyle = userData[4];
-    context.font = "15px Arial";
-    context.fillText(userData[5],(gPIVX(userData[0]) - (context.measureText(userData[5]).width / 2)) + 15,gPIVY(userData[1]) - 5);
+    //context.fillStyle = userData[4];
+    //context.font = "15px Arial";
+    //context.fillText(userData[5],(gPIVX(userData[0]) - (context.measureText(userData[5]).width / 2)) + 15,gPIVY(userData[1]) - 5);
     
     setTimeout(gameLoop, frameLength);
   }
@@ -150,6 +148,15 @@ JS_GAME.game = (function () {
     return isKeyDown[c.charCodeAt(0)];
   }
 
+  function getImageData(image){
+    var tempCanv = document.createElement('canvas');
+    tempCanv.width = image.width;
+    tempCanv.height = image.height;
+    var tempCTX = tempCanv.getContext('2d');
+    tempCTX.drawImage(image, 0, 0, image.width, image.height);
+    return tempCTX.getImageData(0, 0, image.width, image.height);
+  }
+
   function getImage(name){
   	if ((name) in textures){
   		return textures[name];
@@ -158,6 +165,33 @@ JS_GAME.game = (function () {
   		textures[name].src = 'res/' + name + '.png';
   		return textures[name];
   	}
+  }
+  function getImageMasked(name, color){
+    var image = getImage(name);
+    var mask = getImage(name + "-mask");
+    if (image.width == 0 || image.height == 0 || mask.width == 0 || mask.height == 0){
+      return new Image();
+    }
+    var maskData = getImageData(mask);
+    var colorRGBS = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    var colorRGB = [];
+    for (i = 0; i < 3; i++){
+      colorRGB[i] = parseInt(colorRGBS[i], 16);
+    }
+    for (i = 0; i < masData.data.length; i+=4){
+      maskData.data[i] =  colorRGB[0];
+      maskData.data[i+1] =  colorRGB[1];
+      maskData.data[i+2] =  colorRGB[2];
+    }
+    var tempCanv = document.createElement('canvas');
+    tempCanv.width = image.width;
+    tempCanv.height = image.height;
+    var tempCTX=tempCanv.getContext("2d");
+    tempCTX.drawImage(image,0,0,image.width, image.height);
+    tempCTX.putImageData(maskData, 0, 0)
+    var ret = new Image();
+    ret.src = tempCanv.toDataURL("image/png");
+    return ret;
   }
 
 
