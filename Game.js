@@ -173,7 +173,8 @@ JS_GAME.game = (function () {
       return new Image();
     }
     var maskData = getImageData(mask);
-    var colorRGBS = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color);
+    var regex = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i;
+    var colorRGBS = regex.exec(color);
     var colorRGB = [];
     for (i = 0; i < 3; i++){
       colorRGB[i] = parseInt(colorRGBS[i], 16);
