@@ -167,6 +167,9 @@ JS_GAME.game = (function () {
   	}
   }
   function getImageMasked(name, color){
+  	if ((name + "-mask" + color) in textures){
+  		return textures[name + "-mask" + color];
+  	}
     var image = getImage(name);
     var mask = getImage(name + "-mask");
     if (image.width == 0 || image.height == 0 || mask.width == 0 || mask.height == 0){
@@ -192,6 +195,7 @@ JS_GAME.game = (function () {
     tempCTX.putImageData(maskData, 0, 0)
     var ret = new Image();
     ret.src = tempCanv.toDataURL("image/png");
+    textures[name + "-mask" + color] = ret;
     return ret;
   }
 
