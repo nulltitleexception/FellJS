@@ -64,7 +64,7 @@ JS_GAME.game = (function () {
     canvasElement.attr({
       width: windowWidth / 2,
       height: windowHeight / 2,
-      style: "width: " + windowWidth + "px; height: " + windowHeight + "px;"
+      style: "width: " + windowWidth + "px; height: " + windowHeight + "px;",
       tabIndex: 0,
       onblur: clearInput,
     }).focus();
