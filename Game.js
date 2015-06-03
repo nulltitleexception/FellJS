@@ -40,7 +40,7 @@ JS_GAME.game = (function () {
       if (message.data.indexOf("pos") == 0){
         userData = message.data.split(":")[1].split(",");
         for (i = 0; i < 4; i++) {
-          userData[i] = Number(userData[i]);
+          userData[i] = Number(userData[i])|0;
         }
       } else if (message.data.indexOf("dat") == 0){
         enemies = message.data.split(":")[1].split(",");
