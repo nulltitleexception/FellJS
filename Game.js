@@ -99,7 +99,7 @@ JS_GAME.game = (function () {
     context.fillStyle = "#FFFFFF"
     context.fillRect(0, 0, windowWidth, windowHeight);
     //draw BG
-    context.drawImage(getImage("BG"), 0, 0);
+    context.drawImage(getImage("BG"), gPIVX(0), gPIVY(0)), 30000, 30000;
     //draw enemies
     for (i = 0; i < enemies.length; i += enemyStride){
       context.fillStyle = enemies[i+4];
