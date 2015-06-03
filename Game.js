@@ -62,8 +62,9 @@ JS_GAME.game = (function () {
     $('body').append('<canvas id="GameCanvas">');
     canvasElement = $('#GameCanvas');
     canvasElement.attr({
-      width: windowWidth,
-      height: windowHeight,
+      width: windowWidth / 2,
+      height: windowHeight / 2,
+      style: "width: " + windowWidth + "px; height: " + windowHeight + "px;"
       tabIndex: 0,
       onblur: clearInput,
     }).focus();
@@ -82,8 +83,9 @@ JS_GAME.game = (function () {
       windowHeight = $(window).innerHeight();
 
       canvasElement.attr({
-        width: windowWidth,
-        height: windowHeight
+        width: windowWidth / 2,
+        height: windowHeight / 2,
+        style: "width: " + windowWidth + "px; height: " + windowHeight + "px;"
       });
     });
   }
