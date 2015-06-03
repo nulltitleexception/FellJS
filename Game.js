@@ -181,7 +181,7 @@ JS_GAME.game = (function () {
     console.log(color + "|" + colorRGBS[0] + "|" + colorRGBS[1] + "|" + colorRGBS[2] + "|" + colorRGBS[3]);
     var colorRGB = [];
     for (i = 0; i < 3; i++){
-      colorRGB[i] = parseInt(colorRGBS[i], 16);
+      colorRGB[i] = parseInt(colorRGBS[i+1], 16);
     }
     for (i = 0; i < maskData.data.length; i+=4){
       maskData.data[i] =  colorRGB[0];
