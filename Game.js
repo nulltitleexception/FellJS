@@ -177,8 +177,8 @@ JS_GAME.game = (function () {
     }
     var maskData = getImageData(mask);
     var regex = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i;
-    console.log(color + "|" + colorRGBS[0] + "|" + colorRGBS[1] + "|" + colorRGBS[2] + "|" + colorRGBS[3])
     var colorRGBS = regex.exec(color);
+    console.log(color + "|" + colorRGBS[0] + "|" + colorRGBS[1] + "|" + colorRGBS[2] + "|" + colorRGBS[3]);
     var colorRGB = [];
     for (i = 0; i < 3; i++){
       colorRGB[i] = parseInt(colorRGBS[i], 16);
