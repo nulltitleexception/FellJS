@@ -1,2 +1,3 @@
 # FellJS
-javascript game
+
+A javascript-based online multiplayer game.
