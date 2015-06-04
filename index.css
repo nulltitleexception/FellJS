@@ -6,3 +6,102 @@ canvas {
   image-rendering: pixelated;					/* Awesome future-browsers			*/
   -ms-interpolation-mode: nearest-neighbor;		/* IE								*/
 }
+
+body {
+	background: #111;
+	font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;
+	color: #b3b3b3;
+}
+
+
+#wrapper {
+	width: 324px;
+	height: 440px;
+	top: 50%;
+	left: 50%;
+	margin-top: -225px;
+	margin-left: -162px;
+	position: absolute;
+}
+
+#wrapper header {
+	margin-bottom: 56px;
+}
+
+#wrapper header #title {
+	display: block;
+	width: 100%;
+}
+
+#wrapper header #title .toptitle {
+	display: inline-block;
+}
+
+#wrapper header #title h1.toptitle {
+	font-size: 120px;
+	font-family: 'IM Fell English SC', Georgia, Times, sans-serif;
+	line-height: .9;
+	color: #de2b36;
+}
+
+#wrapper header #title h6.toptitle {
+	vertical-align: top;
+	padding-top: 16px;
+	font-size: 18px;
+	color: #737373;
+}
+
+#wrapper header h2 {
+	font-size: 26px;
+	text-align: center;
+}
+
+/*#wrapper #login h3 {
+	font-size: 24px;
+}*/
+
+#wrapper #login form {
+	margin-top: 10px;
+}
+
+#wrapper #login form input {
+	-webkit-appearance: none;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 325px;
+	height: 50px;
+	border: none;
+	margin: 0 0 20px 0;
+	font-size: 20px;
+	background: #333;
+	font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;
+	color: #c9c9c9;
+	border-radius: 5px;
+}
+
+#wrapper #login form input:focus {
+	background: #3c3c3c;
+}
+
+
+#wrapper #login form input.text {
+	padding: 0 20px;
+}
+
+/*Browser specific element style things are so dumb.*/
+#wrapper #login form input.text::-webkit-input-placeholder {
+	color: #6a6a6a;
+}
+#wrapper #login form input.text::-moz-placeholder{
+	color: #6a6a6a;
+}
+#wrapper #login form input.text:-ms-input-placeholder {
+	color: #6a6a6a;
+}
+
+#wrapper #login form input#submit {
+	margin-bottom: 0;
+}
