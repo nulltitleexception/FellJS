@@ -1,12 +1,3 @@
-canvas {
-  image-rendering: optimizeSpeed;				/* Older versions of FF				*/
-  image-rendering: -moz-crisp-edges;			/* FF 6.0+							*/
-  image-rendering: -webkit-optimize-contrast;	/* Safari							*/
-  image-rendering: -o-crisp-edges;				/* OS X & Windows Opera (12.02+)	*/
-  image-rendering: pixelated;					/* Awesome future-browsers			*/
-  -ms-interpolation-mode: nearest-neighbor;		/* IE								*/
-}
-
 body {
 	background: #111111;
 	font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;
@@ -19,12 +10,12 @@ body {
 	width: 100%;
 	height: 100%;
 	background-color: #111111;
-	background-image: -webkit-gradient(radial, 50% 0%,0,50% 0%,200, from(#111111), to(#262626));
-	background-image: -webkit-radial-gradient(50% 0%, #262626, #111111);
-	background-image: -moz-radial-gradient(50% 0%, #262626, #111111);
-	background-image: -o-radial-gradient(50% 0%, #262626, #111111);
-	background-image: -ms-radial-gradient(50% 0%, #262626, #111111);
-	background-image: radial-gradient(circle at top center, #262626, #111111);
+	background-image: -webkit-gradient(radial, 50% 0%,0,50% 0%,200, from(#111111), to(#282828));
+	background-image: -webkit-radial-gradient(50% 0%, #282828, #111111);
+	background-image: -moz-radial-gradient(50% 0%, #282828, #111111);
+	background-image: -o-radial-gradient(50% 0%, #282828, #111111);
+	background-image: -ms-radial-gradient(50% 0%, #282828, #111111);
+	background-image: radial-gradient(circle at top center, #282828, #111111);
 }	
 
 #wrapper {
