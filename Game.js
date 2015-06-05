@@ -176,7 +176,9 @@ JS_GAME.game = (function () {
     tempCanv.height = data.height;
     var tempCTX = tempCanv.getContext('2d');
     tempCTX.putImageData(data, 0, 0);
-    var img = tempCanv.toDataURL("image/png");
+    var src = tempCanv.toDataURL("image/png");
+    var img = new Image();
+    img.src = src;
     return img;
   }
 
