@@ -170,6 +170,16 @@ JS_GAME.game = (function () {
     return tempCTX.getImageData(0, 0, image.width, image.height);
   }
 
+  function getImageFromData(data){
+    var tempCanv = document.createElement('canvas');
+    tempCanv.width = data.width;
+    tempCanv.height = data.height;
+    var tempCTX = tempCanv.getContext('2d');
+    tempCTX.putImageData(data, 0, 0);
+    var img = tempCanv.toDataURL("image/png");
+    return img;
+  }
+
   function getImage(name){
   	if ((name) in textures){
   		return textures[name];
@@ -206,7 +216,7 @@ JS_GAME.game = (function () {
     tempCanv.height = image.height;
     var tempCTX=tempCanv.getContext("2d");
     tempCTX.drawImage(image,0,0,image.width, image.height);
-    tempCTX.putImageData(maskData, 0, 0)
+    tempCTX.drawImage(getImageFromData(maskData),0,0,maskData.width, maskData.height);
     var ret = new Image();
     ret.src = tempCanv.toDataURL("image/png");
     textures[name + "-mask" + color] = ret;
