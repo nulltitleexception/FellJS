@@ -175,7 +175,7 @@ JS_GAME.game = (function () {
   		return textures[name];
   	} else {
   		textures[name] = new Image;
-  		textures[name].src = 'http://monolc.com/FellJS/res/' + name + '.png';
+  		textures[name].src = '/res/' + name + '.png';
   		return textures[name];
   	}
   }
