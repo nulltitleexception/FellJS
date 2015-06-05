@@ -187,7 +187,7 @@ JS_GAME.game = (function () {
   		return textures[name];
   	} else {
   		textures[name] = new Image;
-  		textures[name].src = '/res/' + name + '.png';
+  		textures[name].src = '../images' + name + '.png';
   		return textures[name];
   	}
   }
