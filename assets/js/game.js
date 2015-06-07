@@ -13,8 +13,6 @@ JS_GAME.game = (function () {
   var pass = "";
   var windowWidth = $(window).innerWidth();
   var windowHeight = $(window).innerHeight();
-  var canvasWidth = windowWidth / 2;
-  var canvasHeight = windowHeight / 2;
   var textures = new Object();
 
 
@@ -64,9 +62,8 @@ JS_GAME.game = (function () {
     $('body').append('<canvas id="GameCanvas">');
     canvasElement = $('#GameCanvas');
     canvasElement.attr({
-      width: canvasWidth,
-      height: canvasHeight,
-      style: "width: " + windowWidth + "px; height: " + windowHeight + "px;",
+      width: windowWidth,
+      height: windowHeight,
       tabIndex: 0,
       onblur: clearInput,
     }).focus();
@@ -83,13 +80,9 @@ JS_GAME.game = (function () {
     $(window).resize(function() {
       windowWidth = $(window).innerWidth();
       windowHeight = $(window).innerHeight();
-      canvasWidth = windowWidth / 2;
-      canvasHeight = windowHeight / 2;
-
       canvasElement.attr({
-        width: canvasWidth,
-        height: canvasHeight,
-        style: "width: " + windowWidth + "px; height: " + windowHeight + "px;"
+        width: windowWidth,
+        height: windowHeight,
       });
     });
   }
@@ -135,11 +128,11 @@ JS_GAME.game = (function () {
   function gPIVX(x){
     //getPositionInViewportX
     var ret = new Object();
-    return ((x - (userData[0] + (userData[2] / 2))) + (canvasWidth / 2.0));
+    return ((x - (userData[0] + (userData[2] / 2))) + (windowWidth / 2.0));
   }
   function gPIVY(y){
     //getPositionInViewportY
-    return ((y - (userData[1] + (userData[3] / 2))) + (canvasHeight / 2.0));
+    return ((y - (userData[1] + (userData[3] / 2))) + (windowHeight / 2.0));
   }
 
   function clearInput(){
