@@ -1,6 +1,4 @@
-var JS_GAME = {};
-
-JS_GAME.game = (function () {
+var JS_GAME = {
   var isKeyDown = [];
   var context;
   var userData = [];
@@ -13,8 +11,6 @@ JS_GAME.game = (function () {
   var pass = "";
   var windowWidth = $(window).innerWidth();
   var windowHeight = $(window).innerHeight();
-  var canvasWidth = windowWidth / 2;
-  var canvasHeight = windowHeight / 2;
   var textures = new Object();
 
 
@@ -64,8 +60,8 @@ JS_GAME.game = (function () {
     $('body').append('<canvas id="GameCanvas">');
     canvasElement = $('#GameCanvas');
     canvasElement.attr({
-      width: canvasWidth,
-      height: canvasHeight,
+      width: windowWidth,
+      height: windowHeight,
       style: "width: " + windowWidth + "px; height: " + windowHeight + "px;",
       tabIndex: 0,
       onblur: clearInput,
@@ -83,12 +79,12 @@ JS_GAME.game = (function () {
     $(window).resize(function() {
       windowWidth = $(window).innerWidth();
       windowHeight = $(window).innerHeight();
-      canvasWidth = windowWidth / 2;
-      canvasHeight = windowHeight / 2;
+      windowWidth = windowWidth / 2;
+      windowHeight = windowHeight / 2;
 
       canvasElement.attr({
-        width: canvasWidth,
-        height: canvasHeight,
+        width: windowWidth,
+        height: windowHeight,
         style: "width: " + windowWidth + "px; height: " + windowHeight + "px;"
       });
     });
@@ -132,16 +128,6 @@ JS_GAME.game = (function () {
     setTimeout(gameLoop, frameLength);
   }
 
-  function gPIVX(x){
-    //getPositionInViewportX
-    var ret = new Object();
-    return ((x - (userData[0] + (userData[2] / 2))) + (canvasWidth / 2.0));
-  }
-  function gPIVY(y){
-    //getPositionInViewportY
-    return ((y - (userData[1] + (userData[3] / 2))) + (canvasHeight / 2.0));
-  }
-
   function clearInput(){
     for (i = 0; i < 256; i++){
       isKeyDown[i] = false;
@@ -159,69 +145,6 @@ JS_GAME.game = (function () {
   }
   function isKeyPressed(c){
     return isKeyDown[c.charCodeAt(0)];
-  }
-
-  function getImageData(image){
-    var tempCanv = document.createElement('canvas');
-    tempCanv.width = image.width;
-    tempCanv.height = image.height;
-    var tempCTX = tempCanv.getContext('2d');
-    tempCTX.drawImage(image, 0, 0, image.width, image.height);
-    return tempCTX.getImageData(0, 0, image.width, image.height);
-  }
-
-  function getImageFromData(data){
-    var tempCanv = document.createElement('canvas');
-    tempCanv.width = data.width;
-    tempCanv.height = data.height;
-    var tempCTX = tempCanv.getContext('2d');
-    tempCTX.putImageData(data, 0, 0);
-    var src = tempCanv.toDataURL("image/png");
-    var img = new Image();
-    img.src = src;
-    return img;
-  }
-
-  function getImage(name){
-  	if ((name) in textures){
-  		return textures[name];
-  	} else {
-  		textures[name] = new Image;
-  		textures[name].src = '/assets/images/' + name + '.png';
-  		return textures[name];
-  	}
-  }
-  function getImageMasked(name, color){
-  	if ((name + "-mask" + color) in textures){
-  		return textures[name + "-mask" + color];
-  	}
-    var image = getImage(name);
-    var mask = getImage(name + "-mask");
-    if (image.width == 0 || image.height == 0 || mask.width == 0 || mask.height == 0){
-      return new Image();
-    }
-    var maskData = getImageData(mask);
-    var regex = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i;
-    var colorRGBS = regex.exec(color);
-    var colorRGB = [];
-    for (i = 0; i < 3; i++){
-      colorRGB[i] = parseInt(colorRGBS[i+1], 16);
-    }
-    for (i = 0; i < maskData.data.length; i+=4){
-      maskData.data[i] =  colorRGB[0];
-      maskData.data[i+1] =  colorRGB[1];
-      maskData.data[i+2] =  colorRGB[2];
-    }
-    var tempCanv = document.createElement('canvas');
-    tempCanv.width = image.width;
-    tempCanv.height = image.height;
-    var tempCTX=tempCanv.getContext("2d");
-    tempCTX.drawImage(image,0,0,image.width, image.height);
-    tempCTX.drawImage(getImageFromData(maskData),0,0,maskData.width, maskData.height);
-    var ret = new Image();
-    ret.src = tempCanv.toDataURL("image/png");
-    textures[name + "-mask" + color] = ret;
-    return ret;
   }
 
 
