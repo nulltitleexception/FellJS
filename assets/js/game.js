@@ -35,6 +35,7 @@ JS_GAME.game = (function () {
     };
 
     socket.onmessage = function(message) {
+    	console.log(message);
       if (message.data.indexOf("pos") == 0){
         var msg = JSON.parse(message.data.split(":")[1]);
         playerData = msg
@@ -121,7 +122,6 @@ JS_GAME.game = (function () {
 
   function gPIVX(x){
     //getPositionInViewportX
-    var ret = new Object();
     return ((x - (playerData.x + (playerData.width / 2))) + (windowWidth / 2.0));
   }
   function gPIVY(y){
