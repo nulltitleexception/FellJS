@@ -117,7 +117,7 @@ JS_GAME.game = (function () {
       context.fillText(enemies[i+5],(gPIVX(enemies[i]) - (context.measureText(enemies[i+5]).width / 2)) + 15,gPIVY(enemies[i+1]) - 5);
     }
 
-    context.fillText("Pos: (" + userData[0] + ", " + userData[1] + ")",5,5);
+    context.fillText("Pos: (" + userData[0] + ", " + userData[1] + ")",5,-5);
     
     setTimeout(gameLoop, frameLength);
   }
