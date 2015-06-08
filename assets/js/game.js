@@ -3,7 +3,7 @@ var JS_GAME = {};
 JS_GAME.game = (function () {
   var isKeyDown = [];
   var context;
-  var playerData;
+  var playerData = {name: "", x:0,y:0,width:0,height:0,color:"#000000"};
   var entityNum = 0;
   var entities;
   var frameLength = 1;// in milliseconds
