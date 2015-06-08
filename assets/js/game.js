@@ -44,7 +44,6 @@ JS_GAME.game = (function () {
       	if ("player" in msg){
       		playerData = msg.player;
       	}
-      }
     };
 
     socket.onclose = function() {
