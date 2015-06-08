@@ -3,10 +3,9 @@ var JS_GAME = {};
 JS_GAME.game = (function () {
   var isKeyDown = [];
   var context;
-  var userData = [];
+  var playerData;
   var entityNum = 0;
   var entities;
-  var enemyStride = 7;
   var frameLength = 1;// in milliseconds
   var socket;
   var connected = false;
@@ -38,7 +37,7 @@ JS_GAME.game = (function () {
     socket.onmessage = function(message) {
       if (message.data.indexOf("pos") == 0){
         var msg = JSON.parse(message.data.split(":")[1]);
-        userData = msg
+        playerData = msg
       } else {
       	var msg = JSON.parse(message);
       	if ("entities" in msg && "enum" in msg){
@@ -108,18 +107,14 @@ JS_GAME.game = (function () {
     	}
     }
     //draw enemies
-    for (i = 0; i < enemies.length; i += enemyStride){
-      context.fillStyle = enemies[i+4];
-      context.drawImage(getImageMasked("player", enemies[i+4]),gPIVX(enemies[i]), gPIVY(enemies[i+1]), enemies[i+2], enemies[i+3]);
+    for (i = 0; i < entityNum; i++){
+      var e = entities[i];
+      context.fillStyle = e.color;
+      context.drawImage(getImageMasked("player", e.color),gPIVX(e.x), gPIVY(e.y), e.width, e.height);
+      context.fillText(e.name,(gPIVX(e.x) - (context.measureText(e.name).width / 2)) + 15,gPIVY(e.y) - 5);
     }
 
-    //draw enemy names
-    for (i = 0; i < enemies.length; i += enemyStride){
-      context.fillStyle = enemies[i+4];
-      context.fillText(enemies[i+5],(gPIVX(enemies[i]) - (context.measureText(enemies[i+5]).width / 2)) + 15,gPIVY(enemies[i+1]) - 5);
-    }
-
-    context.fillText("Pos: (" + userData[0] + ", " + userData[1] + ")",5,15);
+    context.fillText("Pos: (" + playerData.x + ", " + playerData.y + ")",5,15);
     
     setTimeout(gameLoop, frameLength);
   }
@@ -127,11 +122,11 @@ JS_GAME.game = (function () {
   function gPIVX(x){
     //getPositionInViewportX
     var ret = new Object();
-    return ((x - (userData[0] + (userData[2] / 2))) + (windowWidth / 2.0));
+    return ((x - (playerData.x + (playerData.width / 2))) + (windowWidth / 2.0));
   }
   function gPIVY(y){
     //getPositionInViewportY
-    return ((y - (userData[1] + (userData[3] / 2))) + (windowHeight / 2.0));
+    return ((y - (playerData.y + (playerData.height / 2))) + (windowHeight / 2.0));
   }
 
   function clearInput(){
