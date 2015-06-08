@@ -117,10 +117,7 @@ JS_GAME.game = (function () {
       context.fillText(enemies[i+5],(gPIVX(enemies[i]) - (context.measureText(enemies[i+5]).width / 2)) + 15,gPIVY(enemies[i+1]) - 5);
     }
 
-    //draw player name
-    //context.fillStyle = userData[4];
-    //context.font = "15px Arial";
-    //context.fillText(userData[5],(gPIVX(userData[0]) - (context.measureText(userData[5]).width / 2)) + 15,gPIVY(userData[1]) - 5);
+    context.fillText("Pos: (" + userData[0] + ", " + userData[1] + ")",5,5);
     
     setTimeout(gameLoop, frameLength);
   }
