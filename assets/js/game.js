@@ -4,7 +4,8 @@ JS_GAME.game = (function () {
   var isKeyDown = [];
   var context;
   var userData = [];
-  var enemies = [];
+  var entityNum = 0;
+  var entities;
   var enemyStride = 7;
   var frameLength = 1;// in milliseconds
   var socket;
@@ -36,13 +37,14 @@ JS_GAME.game = (function () {
 
     socket.onmessage = function(message) {
       if (message.data.indexOf("pos") == 0){
-        userData = message.data.split(":")[1].split(",");
-        for (i = 0; i < 4; i++) {
-          userData[i] = Number(userData[i])|0;
-        }
-      } else if (message.data.indexOf("dat") == 0){
-        enemies = message.data.split(":")[1].split(",");
-        enemyStride = Number(message.data.split(":")[0].replace("dat", ""));
+        var msg = JSON.parse(message.data.split(":")[1]);
+        userData = msg
+      } else {
+      	var msg = JSON.parse(message);
+      	if ("entities" in msg && "enum" in msg){
+      		entities = msg.entities;
+      		entityNum = msg.enum;
+      	}
       }
     };
 
