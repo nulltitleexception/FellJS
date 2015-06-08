@@ -35,15 +35,14 @@ JS_GAME.game = (function () {
     };
 
     socket.onmessage = function(message) {
-      if (message.data.indexOf("pos") == 0){
-        var msg = JSON.parse(message.data.split(":")[1]);
-        playerData = msg
-      } else {
       	var msg = JSON.parse(message.data);
       	if ("entities" in msg && "enum" in msg){
       		console.log(msg);
       		entities = msg.entities;
       		entityNum = msg.enum;
+      	}
+      	if ("player" in msg){
+      		playerData = msg.player;
       	}
       }
     };
