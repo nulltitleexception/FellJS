@@ -6,7 +6,8 @@ JS_GAME.game = (function () {
   var playerData = {name: "", x:0,y:0,width:0,height:0,color:"#000000"};
   var entityNum = 0;
   var entities;
-  var tileWidth;
+  var tilesWidth;
+  var tilesHeight;
   var tiles;
   var frameLength = 1;// in milliseconds
   var socket;
@@ -47,7 +48,9 @@ JS_GAME.game = (function () {
       		playerData = msg.player;
       	}
       	if ("level" in msg){
-
+      		tiles = msg.level.tiles;
+      		tilesWidth = msg.level.width;
+      		tilesHeight = msg.level.height;
       	}
     };
 
@@ -104,13 +107,12 @@ JS_GAME.game = (function () {
     context.clearRect(0, 0, windowWidth, windowHeight);
     context.fillStyle = "#FFFFFF"
     context.fillRect(0, 0, windowWidth, windowHeight);
-    //draw BG
-    for (a = -2; a < 3; a++){
-    	for (b = -2; b < 3; b++){
-    		drawImage("BG", (gPIVX(0) % 1000) + (1000 * a), (gPIVY(0) % 1000) + (1000 * b), 1000, 1000);
+    //draw Tiles
+    for (a = 0; a < tilesWidth; a++){
+    	for (b = 0; b < tilesHeight; b++){
+    		drawImageSection("tilesheet", gPIVX(a * 32), gPIVY*b * 32), tiles[a][b].id, 32, 32);//MAGIC NUMBERS (i.e. 32 is width of tile image and draw)
     	}
     }
-    drawImageSection("player", 200, 200, 0, 16, 16);
     //draw enemies
     for (i = 0; i < entityNum; i++){
       var e = entities[i];
