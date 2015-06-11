@@ -110,7 +110,7 @@ JS_GAME.game = (function () {
     //draw Tiles
     for (a = 0; a < tilesWidth; a++){
     	for (b = 0; b < tilesHeight; b++){
-    		drawImageSection("tilesheet", gPIVX(a * 32), gPIVY*b * 32), tiles[a][b].id, 32, 32);//MAGIC NUMBERS (i.e. 32 is width of tile image and draw)
+    		drawImageSection("tilesheet", gPIVX(a * 32), gPIVY(b * 32), tiles[a][b].id, 32, 32);//MAGIC NUMBERS (i.e. 32 is width of tile image and draw)
     	}
     }
     //draw enemies
