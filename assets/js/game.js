@@ -6,6 +6,8 @@ JS_GAME.game = (function () {
   var playerData = {name: "", x:0,y:0,width:0,height:0,color:"#000000"};
   var entityNum = 0;
   var entities;
+  var tileWidth;
+  var tiles;
   var frameLength = 1;// in milliseconds
   var socket;
   var connected = false;
@@ -43,6 +45,9 @@ JS_GAME.game = (function () {
       	}
       	if ("player" in msg){
       		playerData = msg.player;
+      	}
+      	if ("level" in msg){
+
       	}
     };
 
@@ -144,6 +149,17 @@ JS_GAME.game = (function () {
   }
   function isKeyPressed(c){
     return isKeyDown[c.charCodeAt(0)];
+  }
+
+  function drawImage(name, x, y, xSize, ySize){
+  	xSize = typeof xSize !== 'undefined' ? xSize : getImage(name).width;
+  	ySize = typeof ySize !== 'undefined' ? ySize : getImage(name).height;
+  	context.drawImage(getImage(name), x, y, xSize, ySize);
+  }
+  function drawImageMasked(name, color, x, y, xSize, ySize){
+  	xSize = typeof xSize !== 'undefined' ? xSize : getImage(name).width;
+  	ySize = typeof ySize !== 'undefined' ? ySize : getImage(name).height;
+  	context.drawImage(getImageMasked(name, color), x, y, xSize, ySize);
   }
 
   function getImageData(image){
