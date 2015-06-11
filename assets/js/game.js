@@ -107,14 +107,14 @@ JS_GAME.game = (function () {
     //draw BG
     for (a = -2; a < 3; a++){
     	for (b = -2; b < 3; b++){
-    		context.drawImage(getImage("BG"), (gPIVX(0) % 1000) + (1000 * a), (gPIVY(0) % 1000) + (1000 * b), 1000, 1000);
+    		drawImage("BG", , (gPIVX(0) % 1000) + (1000 * a), (gPIVY(0) % 1000) + (1000 * b), 1000, 1000);
     	}
     }
     //draw enemies
     for (i = 0; i < entityNum; i++){
       var e = entities[i];
       context.fillStyle = e.color;
-      context.drawImage(getImageMasked("player", e.color),gPIVX(e.x), gPIVY(e.y), e.width, e.height);
+      drawImageMasked("player", e.color, gPIVX(e.x), gPIVY(e.y), e.width, e.height);
       context.fillText(e.name,(gPIVX(e.x) - (context.measureText(e.name).width / 2)) + 15,gPIVY(e.y) - 5);
     }
 
