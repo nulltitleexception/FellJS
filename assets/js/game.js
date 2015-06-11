@@ -110,6 +110,7 @@ JS_GAME.game = (function () {
     		drawImage("BG", (gPIVX(0) % 1000) + (1000 * a), (gPIVY(0) % 1000) + (1000 * b), 1000, 1000);
     	}
     }
+    drawImageSection("player", 200, 200, 0, 16, 16);
     //draw enemies
     for (i = 0; i < entityNum; i++){
       var e = entities[i];
@@ -149,6 +150,14 @@ JS_GAME.game = (function () {
   }
   function isKeyPressed(c){
     return isKeyDown[c.charCodeAt(0)];
+  }
+
+  function drawImageSection(name, x, y, id, spriteWidth, spriteHeight, xSize, ySize){}
+  	xSize = typeof xSize !== 'undefined' ? xSize : spriteWidth;
+  	ySize = typeof ySize !== 'undefined' ? ySize : spriteHeight;
+  	sheetCols = getImage(name).width / spriteWidth;
+  	sheetRows = getImage(name).height / spriteHeight;
+  	context.drawImage(getImage(name), id % sheetCols, Math.floor(id / sheetRows), spriteWidth, spriteHeight, x, y, xSize, ySize);
   }
 
   function drawImage(name, x, y, xSize, ySize){
