@@ -107,7 +107,7 @@ JS_GAME.game = (function () {
     //draw BG
     for (a = -2; a < 3; a++){
     	for (b = -2; b < 3; b++){
-    		drawImage("BG", , (gPIVX(0) % 1000) + (1000 * a), (gPIVY(0) % 1000) + (1000 * b), 1000, 1000);
+    		drawImage("BG", (gPIVX(0) % 1000) + (1000 * a), (gPIVY(0) % 1000) + (1000 * b), 1000, 1000);
     	}
     }
     //draw enemies
