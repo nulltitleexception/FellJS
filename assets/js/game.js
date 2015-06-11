@@ -152,7 +152,7 @@ JS_GAME.game = (function () {
     return isKeyDown[c.charCodeAt(0)];
   }
 
-  function drawImageSection(name, x, y, id, spriteWidth, spriteHeight, xSize, ySize){}
+  function drawImageSection(name, x, y, id, spriteWidth, spriteHeight, xSize, ySize){
   	xSize = typeof xSize !== 'undefined' ? xSize : spriteWidth;
   	ySize = typeof ySize !== 'undefined' ? ySize : spriteHeight;
   	sheetCols = getImage(name).width / spriteWidth;
