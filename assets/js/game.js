@@ -35,6 +35,7 @@ JS_GAME.game = (function () {
     };
 
     socket.onmessage = function(message) {
+    	console.log(message.data);
       	var msg = JSON.parse(message.data);
       	if ("entities" in msg && "enum" in msg){
       		entities = msg.entities;
