@@ -53,6 +53,7 @@
                   f.size, ' bytes, last modified: ',
                   f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
                   '</li>');
+      console.log(f.name);
       JS_GAME.game.textures[f.name.replace(".png", "")] = new Image(reader.readAsDataURL(f));
     }
     document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
