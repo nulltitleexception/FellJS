@@ -57,8 +57,6 @@
       reader.onload = (function(theFile) {
         return function(e) {
       var img = new Image();
-      console.log(e.target.result);
-      console.log(theFile.name);
       img.src = e.target.result;
       JS_GAME.game.textures[theFile.name.replace(".png", "")] = img;
         };
