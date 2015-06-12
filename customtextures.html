@@ -45,11 +45,16 @@
     var files = evt.dataTransfer.files; // FileList object.
 
     var reader = new FileReader();
-    reader.onload = function(theFile){
+
+    reader.onload = (function(theFile) {
+        return function(e) {
+
       var img = new Image();
-      img.src = reader.result;
+      img.src = e.target.result;
       JS_GAME.game.textures[theFile.name.replace(".png", "")] = img;
-    }
+        };
+      })(f);
+
     // files is a FileList of File objects. List some properties.
     var output = [];
     for (var i = 0, f; f = files[i]; i++) {
