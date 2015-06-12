@@ -19,7 +19,6 @@ JS_GAME.game = (function () {
   var windowHeight = $(window).innerHeight();
   var textures = new Object();
 
-
   function init() {
   	document.documentElement.style.overflow = 'hidden';  // firefox, chrome
     document.body.scroll = "no"; // ie only
@@ -252,7 +251,7 @@ JS_GAME.game = (function () {
 
 
   return {
-    init: init
+    init: init,
     textures: textures
   };
 })();
