@@ -44,9 +44,17 @@
 
     var files = evt.dataTransfer.files; // FileList object.
 
-    var reader = new FileReader();
+    // files is a FileList of File objects. List some properties.
+    var output = [];
+    for (var i = 0, f; f = files[i]; i++) {
+      output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+                  f.size, ' bytes, last modified: ',
+                  f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
+                  '</li>');
 
-    reader.onload = (function(theFile) {
+      var reader = new FileReader();
+
+      reader.onload = (function(theFile) {
         return function(e) {
       var img = new Image();
       console.log(e.target.result);
@@ -55,14 +63,7 @@
       JS_GAME.game.textures[theFile.name.replace(".png", "")] = img;
         };
       })(f);
-
-    // files is a FileList of File objects. List some properties.
-    var output = [];
-    for (var i = 0, f; f = files[i]; i++) {
-      output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
-                  f.size, ' bytes, last modified: ',
-                  f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
-                  '</li>');
+      reader.readAsDataURL(f);
     }
     document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
   }
