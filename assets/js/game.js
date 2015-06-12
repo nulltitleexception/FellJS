@@ -1,6 +1,8 @@
 var JS_GAME = {};
 
 JS_GAME.game = (function () {
+  var connected = false;
+  var disconnectMessage = "Unknown (could be unexpected server shutdown, internet outage, etc.)";
   var isKeyDown = [];
   var context;
   var playerData = {name: "", x:0,y:0,width:0,height:0,color:"#000000"};
@@ -11,7 +13,6 @@ JS_GAME.game = (function () {
   var tiles;
   var frameLength = 1;// in milliseconds
   var socket;
-  var connected = false;
   var user = "";
   var pass = "";
   var windowWidth = $(window).innerWidth();
@@ -40,6 +41,15 @@ JS_GAME.game = (function () {
     socket.onmessage = function(message) {
       	var msg = JSON.parse(message.data);
       	console.log(msg);
+      	if ("kicked" in msg){
+      		connected = false;
+      		disconnectMessage = msg.kicked
+      	}
+      	if ("validated" in msg){
+      		if (msg.validated){
+      			gameLoop();
+      		}
+      	}
       	if ("entities" in msg && "enum" in msg){
       		entities = msg.entities;
       		entityNum = msg.enum;
@@ -83,7 +93,6 @@ JS_GAME.game = (function () {
     window.addEventListener( "keyup", keyRelease, false);
     context = canvas.getContext('2d');
     context.globalCompositeOperation = "normal";
-    gameLoop();
 
     $(window).resize(function() {
       windowWidth = $(window).innerWidth();
@@ -96,6 +105,11 @@ JS_GAME.game = (function () {
   }
 
   function gameLoop() {
+  	if (!connected){
+  		$("body").empty();
+  		$('body').append('<h1>Disconnected</h1><br/><h2>Reason: ' + disconnectMessage);
+  		return;
+  	}
     var keyData = "";
     for (i = 0; i < 256; i++){
       keyData += isKeyDown[i] ? 1 : 0;
