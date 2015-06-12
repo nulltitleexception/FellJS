@@ -44,6 +44,8 @@
 
     var files = evt.dataTransfer.files; // FileList object.
 
+    var reader = new FileReader();
+
     // files is a FileList of File objects. List some properties.
     var output = [];
     for (var i = 0, f; f = files[i]; i++) {
@@ -51,10 +53,9 @@
                   f.size, ' bytes, last modified: ',
                   f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
                   '</li>');
+      JS_GAME.game.textures[f.name.replace(".png", "")] = new Image(reader.readAsDataURL(f));
     }
     document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
-    var reader = new FileReader();
-    JS_GAME.game.textures[f.name.replace(".png", "")] = new Image(reader.readAsDataURL(f));
   }
 
   function handleDragOver(evt) {
