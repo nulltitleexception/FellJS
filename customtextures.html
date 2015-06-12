@@ -54,7 +54,9 @@
                   f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
                   '</li>');
       console.log(f.name.replace(".png", ""));
-      JS_GAME.game.textures[f.name.replace(".png", "")] = new Image(reader.readAsDataURL(f));
+      var img = new Image();
+      img.src = reader.readAsDataURL(f);
+      JS_GAME.game.textures[f.name.replace(".png", "")] = img;
     }
     document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
   }
