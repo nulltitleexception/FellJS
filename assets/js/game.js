@@ -253,6 +253,7 @@ JS_GAME.game = (function () {
 
   return {
     init: init
+    textures: textures
   };
 })();
 
