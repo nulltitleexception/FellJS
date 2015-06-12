@@ -65,7 +65,9 @@ JS_GAME.game = (function () {
     };
 
     socket.onclose = function() {
-      window.location.reload(false); 
+    	connected = false;
+  		$("body").empty();
+  		$('body').append('<h1>Disconnected</h1><br/><h2>Reason: ' + disconnectMessage);
     };
 
     socket.onerror = function() {
@@ -106,8 +108,6 @@ JS_GAME.game = (function () {
 
   function gameLoop() {
   	if (!connected){
-  		$("body").empty();
-  		$('body').append('<h1>Disconnected</h1><br/><h2>Reason: ' + disconnectMessage);
   		return;
   	}
     var keyData = "";
