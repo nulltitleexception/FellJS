@@ -39,7 +39,6 @@ JS_GAME.game = (function () {
 
     socket.onmessage = function(message) {
       	var msg = JSON.parse(message.data);
-      	console.log(msg);
       	if ("kicked" in msg){
       		connected = false;
       		disconnectMessage = msg.kicked
