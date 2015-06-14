@@ -33,7 +33,7 @@ JS_GAME.game = (function () {
 			return;
 		}
 
-		socket = new WebSocket(socketInfo);
+		socket = new WebSocket(connectionInfo);
 
 		socket.onopen = function() {
 			connected = true;
