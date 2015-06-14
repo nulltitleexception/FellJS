@@ -77,9 +77,8 @@ JS_GAME.game = (function () {
 
     $("body").empty();
 
-    for (i = 0; i < 256; i++){
-      isKeyDown[i] = false;
-    }
+    clearInput();
+    
     $('body').append('<canvas id="GameCanvas">');
     canvasElement = $('#GameCanvas');
     canvasElement.attr({
