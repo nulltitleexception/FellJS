@@ -1,6 +1,9 @@
 var JS_GAME = {};
 
 JS_GAME.game = (function () {
+	var gameIP = "167.88.120.57";
+	var gamePort = "38734";
+	var connectionInfo = "ws:" + gameIP + ":" + gamePort;
 	var socket;
 	var user = "";
 	var pass1 = "";
@@ -18,7 +21,7 @@ JS_GAME.game = (function () {
 			document.getElementById("loginInfo").pass1.value = "PASSWORDS DO NOT MATCH";
 			return;
 		}
-		socket = new WebSocket("ws:167.88.120.57:38734");
+		socket = new WebSocket(connectionInfo);
 
 		socket.onopen = function() {
 			connected = true;
