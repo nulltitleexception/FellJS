@@ -37,7 +37,12 @@ JS_GAME.game = (function () {
 
     socket.onopen = function() {
       connected = true;
-      socket.send("login:" + user + "," + pass);
+      var ret = {"login": {
+          "user": user,
+          "pass": pass
+        }
+      };
+      socket.send(JSON.stringify(ret));
     };
 
     socket.onmessage = function(message) {
@@ -78,7 +83,7 @@ JS_GAME.game = (function () {
     $("body").empty();
 
     clearInput();
-    
+
     $('body').append('<canvas id="GameCanvas">');
     canvasElement = $('#GameCanvas');
     canvasElement.attr({
@@ -111,11 +116,9 @@ JS_GAME.game = (function () {
   		return;
   	}
     var keyData = "";
-    for (i = 0; i < 256; i++){
-      keyData += isKeyDown[i] ? 1 : 0;
-    }
     try {
-      socket.send("keys:" + keyData);
+      var ret = {"keys": isKeyDown};
+      socket.send(JSON.stringify(ret));
     } catch (err) {
     }
     context.clearRect(0, 0, windowWidth, windowHeight);
