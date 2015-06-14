@@ -43,7 +43,7 @@ JS_GAME.game = (function () {
       	var msg = JSON.parse(message.data);
       	if ("kicked" in msg){
       		connected = false;
-      		disconnectMessage = msg.kicked
+      		disconnectMessage = msg.kicked;
       	}
       	if ("validated" in msg){
       		if (msg.validated){
@@ -119,7 +119,7 @@ JS_GAME.game = (function () {
     } catch (err) {
     }
     context.clearRect(0, 0, windowWidth, windowHeight);
-    context.fillStyle = "#FFFFFF"
+    context.fillStyle = "#FFFFFF";
     context.fillRect(0, 0, windowWidth, windowHeight);
     //draw Tiles
     for (a = 0; a < tilesWidth; a++){
