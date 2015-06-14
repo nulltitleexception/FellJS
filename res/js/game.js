@@ -15,7 +15,7 @@ JS_GAME.game = (function () {
 	var frameLength = 1;// in milliseconds
 	var gameIP = "167.88.120.57";
 	var gamePort = "38734";
-	var socketInfo = "ws:" + gameIP + ":" + gamePort;
+	var connectionInfo = "ws:" + gameIP + ":" + gamePort;
 	var socket;
 	var user = "";
 	var pass = "";
