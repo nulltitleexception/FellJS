@@ -151,7 +151,7 @@ JS_GAME.game = (function () {
   }
 
   function clearInput(){
-    for (i = 0; i < 256; i++){
+    for (i = 0; i < isKeyDown.length; i++){
       isKeyDown[i] = false;
     }
   }
