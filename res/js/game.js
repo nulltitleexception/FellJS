@@ -143,11 +143,11 @@ JS_GAME.game = (function () {
 
   function gPIVX(x){
     //getPositionInViewportX
-    return ((x - (playerData.x + (playerData.width / 2))) + (windowWidth / 2.0));
+    return ((x - (playerData.x + (playerData.width / 2))) + (windowWidth / 2));
   }
   function gPIVY(y){
     //getPositionInViewportY
-    return ((y - (playerData.y + (playerData.height / 2))) + (windowHeight / 2.0));
+    return ((y - (playerData.y + (playerData.height / 2))) + (windowHeight / 2));
   }
 
   function clearInput(){
