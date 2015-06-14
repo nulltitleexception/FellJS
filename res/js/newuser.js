@@ -45,9 +45,9 @@ JS_GAME.game = (function () {
 })();
 
 $(document).ready(function() {
-  $("#loginInfo").submit(function(e){
-    e.preventDefault();
-    JS_GAME.game.init();
-    return false;
-  });
+	$("#loginInfo").submit(function(e){
+		e.preventDefault();
+		JS_GAME.game.init();
+		return false;
+	});
 });
