@@ -20,7 +20,6 @@ JS_GAME.game = (function () {
   var textures = new Object();
 
   function init() {
-  	document.documentElement.style.overflow = 'hidden';  // firefox, chrome
     document.body.scroll = "no"; // ie only
 
     user = document.getElementById("loginInfo").user.value;
