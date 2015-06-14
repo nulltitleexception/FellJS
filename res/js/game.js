@@ -12,6 +12,9 @@ JS_GAME.game = (function () {
   var tilesHeight;
   var tiles;
   var frameLength = 1;// in milliseconds
+  var gameIP = "167.88.120.57";
+  var gamePort = "38734";
+  var socketInfo = "ws:" + gameIP + ":" + gamePort;
   var socket;
   var user = "";
   var pass = "";
@@ -22,14 +25,14 @@ JS_GAME.game = (function () {
   function init() {
     document.body.scroll = "no"; // ie only
 
-    user = document.getElementById("loginInfo").user.value;
     pass = document.getElementById("loginInfo").pass.value;
+    user = document.getElementById("loginInfo").user.value;
     if (user.indexOf(",") >= 0 || user.indexOf(":") >= 0){
       document.getElementById("loginInfo").user.value = "INVALID INPUT";
       return;
     }
 
-    socket = new WebSocket("ws:167.88.120.57:38734");
+    socket = new WebSocket(socketInfo);
 
     socket.onopen = function() {
       connected = true;
