@@ -211,7 +211,7 @@ JS_GAME.game = (function () {
   		return textures[name];
   	} else {
   		textures[name] = new Image;
-  		textures[name].src = '/assets/images/' + name + '.png';
+  		textures[name].src = '/res/tex/' + name + '.png';
   		return textures[name];
   	}
   }
