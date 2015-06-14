@@ -171,6 +171,7 @@ JS_GAME.game = (function () {
   	ySize = typeof ySize !== 'undefined' ? ySize : spriteHeight;
   	sheetCols = Math.floor(getImage(name).width / spriteWidth);
   	sheetRows = Math.floor(getImage(name).height / spriteHeight);
+  	//console.log all params of following call?
   	context.drawImage(getImage(name), (id % sheetCols) * spriteWidth, Math.floor(id / sheetRows) * spriteHeight, spriteWidth, spriteHeight, x, y, xSize, ySize);
   }
 
