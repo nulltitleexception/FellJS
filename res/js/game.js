@@ -172,20 +172,24 @@ JS_GAME.game = (function() {
     }
 
     function clearInput() {
-        for (i = 0; i < isKeyDown.length; i++) {
+        for (i = 0; i < 256; i++) {
             isKeyDown[i] = false;
         }
     }
 
     function keyPress(e) {
-        e.preventDefault();
-        isKeyDown[e.keyCode] = true;
+    	if (e.keyCode < 265) {
+        	e.preventDefault();
+    	    isKeyDown[e.keyCode] = true;
+    	}
         return false;
     }
 
     function keyRelease(e) {
-        e.preventDefault();
-        isKeyDown[e.keyCode] = false;
+    	if (e.keyCode < 265) {
+        	e.preventDefault();
+        	isKeyDown[e.keyCode] = false;
+    	}
     }
 
     function isKeyPressed(c) {
