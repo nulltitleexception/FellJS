@@ -263,7 +263,7 @@ JS_GAME.game = (function () {
 
 
 	function failedLogin () {
-		alert("login failed");
+		alert("login failed"); //Just testing it out. I'll make it pretty later.
 	}
 
 	return {
