@@ -22,7 +22,7 @@ JS_GAME.game = (function () {
 	var pass = "";
 	var windowWidth = $(window).innerWidth();
 	var windowHeight = $(window).innerHeight();
-	var textures = new Object();
+	var textures = new Object();x
 	var errs = {
 		100: "failedLogin"
 	};
@@ -39,23 +39,23 @@ JS_GAME.game = (function () {
 
 		socket = new WebSocket(connectionInfo);
 
-	    socket.onopen = function() {
-	      connected = true;
-	      var ret = {"login": {
-	          "user": user,
-	          "pass": pass
-	        }
-	      };
-	      socket.send(JSON.stringify(ret));
-	    };
-
-		socket.onmessage = function(message) {
-			var msg = JSON.parse(message.data);
-			if ("kicked" in msg){
-				connected = false;
-				disconnectMessage = msg.kicked;
+		socket.onopen = function() {
+			connected = true;
+			var ret = {"login": {
+				"user": user,
+				"pass": pass
 			}
-			if ("err" in msg && msg.err in errs) {
+		};
+		socket.send(JSON.stringify(ret));
+	};
+
+	socket.onmessage = function(message) {
+		var msg = JSON.parse(message.data);
+		if ("kicked" in msg){
+			connected = false;
+			disconnectMessage = msg.kicked;
+		}
+		if ("err" in msg && msg.err in errs) {
 				msg.err(); //I hope this works!
 			}
 			if ("validated" in msg){
@@ -121,19 +121,19 @@ JS_GAME.game = (function () {
 		canvas = canvasElement[0];
 	}
 
-  function gameLoop() {
-  	if (!connected){
-  		return;
-  	}
-    var keyData = "";
-    try {
-      var ret = {"keys": isKeyDown};
-      socket.send(JSON.stringify(ret));
-    } catch (err) {
-    }
-    context.clearRect(0, 0, windowWidth, windowHeight);
-    context.fillStyle = "#FFFFFF";
-    context.fillRect(0, 0, windowWidth, windowHeight);
+	function gameLoop() {
+		if (!connected){
+			return;
+		}
+		var keyData = "";
+		try {
+			var ret = {"keys": isKeyDown};
+			socket.send(JSON.stringify(ret));
+		} catch (err) {
+		}
+		context.clearRect(0, 0, windowWidth, windowHeight);
+		context.fillStyle = "#FFFFFF";
+		context.fillRect(0, 0, windowWidth, windowHeight);
     //draw Tiles
     for (a = 0; a < tilesWidth; a++){
     	for (b = 0; b < tilesHeight; b++){
@@ -142,47 +142,17 @@ JS_GAME.game = (function () {
     }
     //draw enemies
     for (i = 0; i < entityNum; i++){
-      var e = entities[i];
-      context.fillStyle = e.color;
-      drawImageMasked("player", e.color, gPIVX(e.x), gPIVY(e.y), e.width, e.height);
-      context.fillText(e.name,(gPIVX(e.x) - (context.measureText(e.name).width / 2)) + 15,gPIVY(e.y) - 5);
+    	var e = entities[i];
+    	context.fillStyle = e.color;
+    	drawImageMasked("player", e.color, gPIVX(e.x), gPIVY(e.y), e.width, e.height);
+    	context.fillText(e.name,(gPIVX(e.x) - (context.measureText(e.name).width / 2)) + 15,gPIVY(e.y) - 5);
     }
+    context.fillText("Pos: (" + playerData.x + ", " + playerData.y + ")",5,15);
 
-	function gameLoop() {
-		if (!connected){
-			return;
-		}
-		var keyData = "";
-		for (i = 0; i < 256; i++){
-			keyData += isKeyDown[i] ? 1 : 0;
-		}
-		try {
-			socket.send("keys:" + keyData);
-		} catch (err) {
-		}
-		context.clearRect(0, 0, windowWidth, windowHeight);
-		context.fillStyle = "#FFFFFF";
-		context.fillRect(0, 0, windowWidth, windowHeight);
-		//draw Tiles
-		for (a = 0; a < tilesWidth; a++){
-			for (b = 0; b < tilesHeight; b++){
-				drawImageSection("tilesheet", gPIVX(a * singleTileWidth), gPIVY(b * singleTileWidth), tiles[a][b].id, singleTileWidth, singleTileWidth);
-			}
-		}
-		//draw enemies
-		for (i = 0; i < entityNum; i++){
-			var e = entities[i];
-			context.fillStyle = e.color;
-			drawImageMasked("player", e.color, gPIVX(e.x), gPIVY(e.y), e.width, e.height);
-			context.fillText(e.name,(gPIVX(e.x) - (context.measureText(e.name).width / 2)) + 15,gPIVY(e.y) - 5);
-		}
+    setTimeout(gameLoop, frameLength);
+}
 
-		context.fillText("Pos: (" + playerData.x + ", " + playerData.y + ")",5,15);
-		
-		setTimeout(gameLoop, frameLength);
-	}
-
-	function gPIVX(x){
+function gPIVX(x){
 		//getPositionInViewportX
 		return ((x - (playerData.x + (playerData.width / 2))) + (windowWidth / 2));
 	}
