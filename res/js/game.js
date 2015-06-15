@@ -45,16 +45,17 @@ JS_GAME.game = (function () {
 				"user": user,
 				"pass": pass
 			}
-			socket.send(JSON.stringify(ret));
 		};
+		socket.send(JSON.stringify(ret));
+	}
 
-		socket.onmessage = function(message) {
-			var msg = JSON.parse(message.data);
-			if ("kicked" in msg){
-				connected = false;
-				disconnectMessage = msg.kicked;
-			}
-			if ("err" in msg && msg.err in errs) {
+	socket.onmessage = function(message) {
+		var msg = JSON.parse(message.data);
+		if ("kicked" in msg){
+			connected = false;
+			disconnectMessage = msg.kicked;
+		}
+		if ("err" in msg && msg.err in errs) {
 					msg.err(); //I hope this works!
 				}
 				if ("validated" in msg){
