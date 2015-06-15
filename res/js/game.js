@@ -22,7 +22,7 @@ JS_GAME.game = (function () {
 	var pass = "";
 	var windowWidth = $(window).innerWidth();
 	var windowHeight = $(window).innerHeight();
-	var textures = new Object();x
+	var textures = new Object();
 	var errs = {
 		100: "failedLogin"
 	};
