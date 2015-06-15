@@ -25,6 +25,11 @@ JS_GAME.game = (function () {
 
 		socket.onopen = function() {
 			connected = true;
+			var ret = {"add": {
+				 	"user": user,
+				 	"pass": pass
+				}
+			};
 			socket.send("add:" + user + "," + pass1);
 		};
 		socket.onmessage = function(message) {

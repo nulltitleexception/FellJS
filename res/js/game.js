@@ -5,6 +5,7 @@ JS_GAME.game = (function () {
 	var disconnectMessage = "Unknown (could be unexpected server shutdown, internet outage, etc.)";
 	var isKeyDown = [];
 	var context;
+	var canvas;
 	var playerData = {name: "", x:0,y:0,width:0,height:0,color:"#000000"};
 	var entityNum = 0;
 	var entities;
@@ -38,38 +39,43 @@ JS_GAME.game = (function () {
 
 		socket = new WebSocket(connectionInfo);
 
-		socket.onopen = function() {
-			connected = true;
-			socket.send("login:" + user + "," + pass);
-		};
+	    socket.onopen = function() {
+	      connected = true;
+	      var ret = {"login": {
+	          "user": user,
+	          "pass": pass
+	        }
+	      };
+	      socket.send(JSON.stringify(ret));
+	    };
 
 		socket.onmessage = function(message) {
-				var msg = JSON.parse(message.data);
-				if ("kicked" in msg){
-					connected = false;
-					disconnectMessage = msg.kicked;
+			var msg = JSON.parse(message.data);
+			if ("kicked" in msg){
+				connected = false;
+				disconnectMessage = msg.kicked;
+			}
+			if ("err" in msg && msg.err in errs) {
+				msg.err(); //I hope this works!
+			}
+			if ("validated" in msg){
+				if (msg.validated){
+					gameInitialize();
+					gameLoop();
 				}
-				if ("err" in msg && msg.err in errs) {
-					msg.err(); //I hope this works!
-				}
-				if ("validated" in msg){
-					if (msg.validated){
-						gameInitialize();
-						gameLoop();
-					}
-				}
-				if ("entities" in msg && "enum" in msg){
-					entities = msg.entities;
-					entityNum = msg.enum;
-				}
-				if ("player" in msg){
-					playerData = msg.player;
-				}
-				if ("level" in msg){
-					tiles = msg.level.tiles;
-					tilesWidth = msg.level.width;
-					tilesHeight = msg.level.height;
-				}
+			}
+			if ("entities" in msg && "enum" in msg){
+				entities = msg.entities;
+				entityNum = msg.enum;
+			}
+			if ("player" in msg){
+				playerData = msg.player;
+			}
+			if ("level" in msg){
+				tiles = msg.level.tiles;
+				tilesWidth = msg.level.width;
+				tilesHeight = msg.level.height;
+			}
 		};
 
 		socket.onclose = function() {
@@ -81,7 +87,6 @@ JS_GAME.game = (function () {
 		socket.onerror = function() {
 
 		};
-
 
 		window.addEventListener( "keydown", keyPress, false);
 		window.addEventListener( "keyup", keyRelease, false);
@@ -113,8 +118,35 @@ JS_GAME.game = (function () {
 		}).focus();
 		window.onblur = clearInput;
 
-		var canvas = canvasElement[0];
+		canvas = canvasElement[0];
 	}
+
+  function gameLoop() {
+  	if (!connected){
+  		return;
+  	}
+    var keyData = "";
+    try {
+      var ret = {"keys": isKeyDown};
+      socket.send(JSON.stringify(ret));
+    } catch (err) {
+    }
+    context.clearRect(0, 0, windowWidth, windowHeight);
+    context.fillStyle = "#FFFFFF";
+    context.fillRect(0, 0, windowWidth, windowHeight);
+    //draw Tiles
+    for (a = 0; a < tilesWidth; a++){
+    	for (b = 0; b < tilesHeight; b++){
+    		drawImageSection("tilesheet", gPIVX(a * singleTileWidth), gPIVY(b * singleTileWidth), tiles[a][b].id, singleTileWidth, singleTileWidth);
+    	}
+    }
+    //draw enemies
+    for (i = 0; i < entityNum; i++){
+      var e = entities[i];
+      context.fillStyle = e.color;
+      drawImageMasked("player", e.color, gPIVX(e.x), gPIVY(e.y), e.width, e.height);
+      context.fillText(e.name,(gPIVX(e.x) - (context.measureText(e.name).width / 2)) + 15,gPIVY(e.y) - 5);
+    }
 
 	function gameLoop() {
 		if (!connected){
