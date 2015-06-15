@@ -45,36 +45,36 @@ JS_GAME.game = (function () {
 				"user": user,
 				"pass": pass
 			}
+			socket.send(JSON.stringify(ret));
 		};
-		socket.send(JSON.stringify(ret));
-	};
 
-	socket.onmessage = function(message) {
-		var msg = JSON.parse(message.data);
-		if ("kicked" in msg){
-			connected = false;
-			disconnectMessage = msg.kicked;
-		}
-		if ("err" in msg && msg.err in errs) {
-				msg.err(); //I hope this works!
+		socket.onmessage = function(message) {
+			var msg = JSON.parse(message.data);
+			if ("kicked" in msg){
+				connected = false;
+				disconnectMessage = msg.kicked;
 			}
-			if ("validated" in msg){
-				if (msg.validated){
-					gameInitialize();
-					gameLoop();
+			if ("err" in msg && msg.err in errs) {
+					msg.err(); //I hope this works!
 				}
-			}
-			if ("entities" in msg && "enum" in msg){
-				entities = msg.entities;
-				entityNum = msg.enum;
-			}
-			if ("player" in msg){
-				playerData = msg.player;
-			}
-			if ("level" in msg){
-				tiles = msg.level.tiles;
-				tilesWidth = msg.level.width;
-				tilesHeight = msg.level.height;
+				if ("validated" in msg){
+					if (msg.validated){
+						gameInitialize();
+						gameLoop();
+					}
+				}
+				if ("entities" in msg && "enum" in msg){
+					entities = msg.entities;
+					entityNum = msg.enum;
+				}
+				if ("player" in msg){
+					playerData = msg.player;
+				}
+				if ("level" in msg){
+					tiles = msg.level.tiles;
+					tilesWidth = msg.level.width;
+					tilesHeight = msg.level.height;
+				}
 			}
 		};
 
