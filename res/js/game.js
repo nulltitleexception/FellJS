@@ -178,18 +178,18 @@ JS_GAME.game = (function() {
     }
 
     function keyPress(e) {
-    	if (e.keyCode < 265) {
-        	e.preventDefault();
-    	    isKeyDown[e.keyCode] = true;
-    	}
+        if (e.keyCode < 265) {
+            e.preventDefault();
+            isKeyDown[e.keyCode] = true;
+        }
         return false;
     }
 
     function keyRelease(e) {
-    	if (e.keyCode < 265) {
-        	e.preventDefault();
-        	isKeyDown[e.keyCode] = false;
-    	}
+        if (e.keyCode < 265) {
+            e.preventDefault();
+            isKeyDown[e.keyCode] = false;
+        }
     }
 
     function isKeyPressed(c) {
