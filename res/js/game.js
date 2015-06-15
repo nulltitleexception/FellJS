@@ -98,8 +98,6 @@ JS_GAME.game = (function() {
 
         window.addEventListener("keydown", keyPress, false);
         window.addEventListener("keyup", keyRelease, false);
-        context = canvas.getContext('2d');
-        context.globalCompositeOperation = "normal";
 
         $(window).resize(function() {
             windowWidth = $(window).innerWidth();
@@ -127,6 +125,8 @@ JS_GAME.game = (function() {
         window.onblur = clearInput;
 
         canvas = canvasElement[0];
+        context = canvas.getContext('2d');
+        context.globalCompositeOperation = "normal";
     }
 
     function gameLoop() {
