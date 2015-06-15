@@ -22,6 +22,9 @@ JS_GAME.game = (function () {
 	var windowWidth = $(window).innerWidth();
 	var windowHeight = $(window).innerHeight();
 	var textures = new Object();
+	var errs = {
+		100: "failedLogin"
+	};
 
 	function init() {
 		document.body.scroll = "no"; // ie only
@@ -46,8 +49,12 @@ JS_GAME.game = (function () {
 					connected = false;
 					disconnectMessage = msg.kicked;
 				}
+				if ("err" in msg && msg.err in errs) {
+					msg.err(); //I hope this works!
+				}
 				if ("validated" in msg){
 					if (msg.validated){
+						gameInitialize();
 						gameLoop();
 					}
 				}
@@ -75,6 +82,23 @@ JS_GAME.game = (function () {
 
 		};
 
+
+		window.addEventListener( "keydown", keyPress, false);
+		window.addEventListener( "keyup", keyRelease, false);
+		context = canvas.getContext('2d');
+		context.globalCompositeOperation = "normal";
+
+		$(window).resize(function() {
+			windowWidth = $(window).innerWidth();
+			windowHeight = $(window).innerHeight();
+			canvasElement.attr({
+				width: windowWidth,
+				height: windowHeight,
+			});
+		});
+	}
+
+	function gameInitialize () {
 		$("body").empty();
 
 		clearInput();
@@ -90,20 +114,6 @@ JS_GAME.game = (function () {
 		window.onblur = clearInput;
 
 		var canvas = canvasElement[0];
-
-		window.addEventListener( "keydown", keyPress, false);
-		window.addEventListener( "keyup", keyRelease, false);
-		context = canvas.getContext('2d');
-		context.globalCompositeOperation = "normal";
-
-		$(window).resize(function() {
-			windowWidth = $(window).innerWidth();
-			windowHeight = $(window).innerHeight();
-			canvasElement.attr({
-				width: windowWidth,
-				height: windowHeight,
-			});
-		});
 	}
 
 	function gameLoop() {
@@ -251,6 +261,10 @@ JS_GAME.game = (function () {
 		return ret;
 	}
 
+
+	function failedLogin () {
+		alert("login failed"); //Just testing it out. I'll make it pretty later.
+	}
 
 	return {
 		init: init,
