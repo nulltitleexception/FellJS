@@ -49,7 +49,7 @@ function stopDefault(e) {
 
 // Setup the listeners.
 $(document).ready(function() {
-	var dropZone = document.body;
+	var dropZone = $("#wrapper");
 	dropZone.addEventListener('dragover', handleDragOver, false);
 	dropZone.addEventListener('dragenter', handleDragEnter, false);
 	dropZone.addEventListener('dragleave', handleDragLeave, false);
