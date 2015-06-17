@@ -18,14 +18,6 @@
 	text-align: center;
 }
 
-#dropgrabber {
-	display: block;
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	z-index: 1337;
-}
-
 #listwrapper {
 	width: 324px;
 	height: 406px;
@@ -41,6 +33,8 @@
 	-o-box-sizing: border-box;
 	box-sizing: border-box;
 	display: box;
+	overflow-x: hidden;
+	overflow-y: scroll;
 }
 
 #listwrapper h3 {
