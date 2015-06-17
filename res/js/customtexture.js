@@ -1,5 +1,6 @@
  function handleFileSelect(e) {
 	stopDefault(e);
+	handleDragEffectiveCompletion(e);
 
 	var files = e.dataTransfer.files; // FileList object.
 
@@ -23,6 +24,7 @@
 		reader.readAsDataURL(f);
 	}
 	document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+	$("#listwrapper").removeClass("hide").addClass("show");
 }
 
 function handleDragOver(e) {
@@ -34,7 +36,7 @@ function handleDragEnter(e) {
 	$("#wrapper").append("<div id='dragoverelement'><h3>Drop texture to use</h3></div>");
 }
 
-function handleDragLeave(e) {
+function handleDragEffectiveCompletion(e) {
 	stopDefault(e);
 	$("#dragoverelement").remove();
 }
@@ -46,9 +48,9 @@ function stopDefault(e) {
 
 // Setup the listeners.
 $(document).ready(function() {
-	var dropZone = document.body;
+	var dropZone = document.getElementById('dropgrabber');
 	dropZone.addEventListener('dragover', handleDragOver, false);
 	dropZone.addEventListener('dragenter', handleDragEnter, false);
-	dropZone.addEventListener('dragleave', handleDragLeave, false);
+	dropZone.addEventListener('dragleave', handleDragEffectiveCompletion, false);
 	dropZone.addEventListener('drop', handleFileSelect, false);
 });
