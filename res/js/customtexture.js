@@ -31,8 +31,7 @@ function handleDragOver(e) {
 }
 
 function handleDragEnter(e) {
-	$("#wrapper").addClass("dragover");
-	$("#wrapper").addClass("dragover").append("<div id='dragoverelement'><h3>Drop texture to use</h3></div>");
+	$("#wrapper").append("<div id='dragoverelement'><h3>Drop texture to use</h3></div>");
 }
 
 function handleDragLeave(e) {
@@ -43,13 +42,11 @@ function handleDragLeave(e) {
 function stopDefault(e) {
 	e.stopPropagation();
 	e.preventDefault();
-	$("#wrapper").removeClass("dragover");
-
 }
 
 // Setup the listeners.
 $(document).ready(function() {
-	var dropZone = $("#wrapper");
+	var dropZone = document.body;
 	dropZone.addEventListener('dragover', handleDragOver, false);
 	dropZone.addEventListener('dragenter', handleDragEnter, false);
 	dropZone.addEventListener('dragleave', handleDragLeave, false);
