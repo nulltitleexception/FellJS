@@ -2,6 +2,10 @@ body {
 	background: #111111;
 	font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;
 	color: #b3b3b3;
+	display: block;
+	position: absolute;
+	width: 100%;
+	height: 100%;
 }
 
 #background {
