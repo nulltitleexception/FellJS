@@ -33,12 +33,14 @@ function handleDragOver(e) {
 }
 
 function handleDragEnter(e) {
-	$("#wrapper").append("<div id='dragoverelement'><h3>Drop texture to use</h3></div>");
+	stopDefault(e);
+	$("#dropgrabber").removeClass("inactive").addClass("active");
 }
 
 function handleDragEffectiveCompletion(e) {
 	stopDefault(e);
 	$("#dragoverelement").remove();
+	$("#dropgrabber").removeClass("active").addClass("inactive");
 }
 
 function stopDefault(e) {
@@ -48,9 +50,10 @@ function stopDefault(e) {
 
 // Setup the listeners.
 $(document).ready(function() {
-	var dropZone = document.getElementById('dropgrabber');
+	window.addEventListener('dragenter', handleDragEnter, false);
+
+	var dropZone = document.getElementById("dropgrabber");
 	dropZone.addEventListener('dragover', handleDragOver, false);
-	dropZone.addEventListener('dragenter', handleDragEnter, false);
 	dropZone.addEventListener('dragleave', handleDragEffectiveCompletion, false);
 	dropZone.addEventListener('drop', handleFileSelect, false);
 });
