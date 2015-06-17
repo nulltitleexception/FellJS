@@ -1,8 +1,7 @@
- function handleFileSelect(evt) {
-	evt.stopPropagation();
-	evt.preventDefault();
+ function handleFileSelect(e) {
+	stopDefault(e);
 
-	var files = evt.dataTransfer.files; // FileList object.
+	var files = e.dataTransfer.files; // FileList object.
 
 	// files is a FileList of File objects. List some properties.
 	var output = [];
@@ -26,15 +25,33 @@
 	document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
 }
 
-function handleDragOver(evt) {
-	evt.stopPropagation();
-	evt.preventDefault();
-	evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+function handleDragOver(e) {
+	stopDefault(e);
+	e.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
 }
 
-// Setup the dnd listeners.
+function handleDragEnter(e) {
+	$("#wrapper").addClass("dragover");
+	$("#wrapper").addClass("dragover").append("<div id='dragoverelement'><h3>Drop texture to use</h3></div>");
+}
+
+function handleDragLeave(e) {
+	stopDefault(e);
+	$("#dragoverelement").remove();
+}
+
+function stopDefault(e) {
+	e.stopPropagation();
+	e.preventDefault();
+	$("#wrapper").removeClass("dragover");
+
+}
+
+// Setup the listeners.
 $(document).ready(function() {
-	var dropZone = document.getElementById('drop_zone');
+	var dropZone = document.body;
 	dropZone.addEventListener('dragover', handleDragOver, false);
+	dropZone.addEventListener('dragenter', handleDragEnter, false);
+	dropZone.addEventListener('dragleave', handleDragLeave, false);
 	dropZone.addEventListener('drop', handleFileSelect, false);
 });
