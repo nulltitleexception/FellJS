@@ -49,8 +49,7 @@
 	-o-box-sizing: border-box;
 	box-sizing: border-box;
 	display: block;
-	overflow-x: hidden;
-	overflow-y: scroll;
+	overflow: hidden;
 }
 
 #listwrapper h3 {
@@ -66,6 +65,13 @@
 #listwrapper.show {
 	background: #191919; /*must be be first `background: color;` in the list*/
 	background: rgba(25,25,25,0.83);
+}
+
+#listwrapper #list {
+	display: block;
+	height: 334px;
+	width: 294px;
+	overflow-y: scroll;
 }
 
 #listwrapper #list ul {
