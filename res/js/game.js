@@ -146,7 +146,9 @@ JS_GAME.game = (function() {
         //draw Tiles
         for (a = 0; a < tilesWidth; a++) {
             for (b = 0; b < tilesHeight; b++) {
-                drawImageSection("tilesheet", gPIVX(a * singleTileWidth), gPIVY(b * singleTileWidth), tiles[a][b].id, singleTileWidth, singleTileWidth);
+                if (tiles[a][b].id >= 0) {
+                    drawImageSection("tilesheet", gPIVX(a * singleTileWidth), gPIVY(b * singleTileWidth), tiles[a][b].id, singleTileWidth, singleTileWidth);
+                }
             }
         }
         //draw entities
