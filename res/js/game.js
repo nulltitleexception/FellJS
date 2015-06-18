@@ -149,12 +149,13 @@ JS_GAME.game = (function() {
                 drawImageSection("tilesheet", gPIVX(a * singleTileWidth), gPIVY(b * singleTileWidth), tiles[a][b].id, singleTileWidth, singleTileWidth);
             }
         }
-        //draw enemies
+        //draw entities
+        var entityNameOffsetY = 5;
         for (i = 0; i < entityNum; i++) {
             var e = entities[i];
             context.fillStyle = e.color;
             drawImageMasked("player", e.color, gPIVX(e.x), gPIVY(e.y), e.width, e.height);
-            context.fillText(e.name, (gPIVX(e.x) - (context.measureText(e.name).width / 2)) + 15, gPIVY(e.y) - 5);
+            context.fillText(e.name, (gPIVX(e.x) - (context.measureText(e.name).width / 2)) + (e.width / 2), gPIVY(e.y) - entityNameOffsetY);
         }
         context.fillText("Pos: (" + playerData.x + ", " + playerData.y + ")", 5, 15);
 
