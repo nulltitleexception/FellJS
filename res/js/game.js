@@ -4,6 +4,8 @@ JS_GAME.game = (function() {
     var connected = false;
     var disconnectMessage = "Unknown (could be unexpected server shutdown, internet outage, etc.)";
     var isKeyDown = [];
+    var mx = 0;
+    var my = 0;
     var context;
     var canvas;
     var playerData = {
@@ -127,6 +129,20 @@ JS_GAME.game = (function() {
         canvas = canvasElement[0];
         context = canvas.getContext('2d');
         context.globalCompositeOperation = "normal";
+
+        function getMousePos(canvas, evt) {
+            var rect = canvas.getBoundingClientRect();
+            return {
+                x: Math.round((evt.clientX-rect.left)/(rect.right-rect.left)*canvas.width),
+                y: Math.round((evt.clientY-rect.top)/(rect.bottom-rect.top)*canvas.height)
+            };
+        }
+
+        canvas.addEventListener("mousemove", function(evt) {
+            var mousePos = getMousePos(canvas, evt);
+            mx = mousePos.x;
+            my = mousePos.y;
+        }, false);
     }
 
     function gameLoop() {
@@ -160,6 +176,7 @@ JS_GAME.game = (function() {
             context.fillText(e.name, (gPIVX(e.x) - (context.measureText(e.name).width / 2)) + (e.width / 2), gPIVY(e.y) - entityNameOffsetY);
         }
         context.fillText("Pos: (" + playerData.x + ", " + playerData.y + ")", 5, 15);
+        context.fillText("Mouse: (" + mx + ", " + my + ")", mx, my);
 
         setTimeout(gameLoop, frameLength);
     }
