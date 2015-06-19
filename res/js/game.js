@@ -6,6 +6,7 @@ JS_GAME.game = (function() {
     var isKeyDown = [];
     var mx = 0;
     var my = 0;
+    var mangle = 0;
     var context;
     var canvas;
     var playerData = {
@@ -140,8 +141,9 @@ JS_GAME.game = (function() {
 
         canvas.addEventListener("mousemove", function(evt) {
             var mousePos = getMousePos(canvas, evt);
-            mx = mousePos.x;
-            my = mousePos.y;
+            mx = Math.floor(mousePos.x + 0.49);
+            my = Math.floor(mousePos.y + 0.49);
+            mangle = Math.atan((my - (windowHeight / 2)) / (mx - (windowWidth / 2))) + ((mx > (windowWidth / 2)) ? (Math.PI / 2) : (Math.PI / -2));
         }, false);
     }
 
@@ -152,7 +154,12 @@ JS_GAME.game = (function() {
         var keyData = "";
         try {
             var ret = {
-                "keys": isKeyDown
+                "keys": isKeyDown,
+                "mouse": {
+                    "angle": mangle,
+                    "x": (mx - Math.floor(windowWidth / 2)),
+                    "y": (my - Math.floor(windowHeight / 2))
+                }
             };
             socket.send(JSON.stringify(ret));
         } catch (err) {}
@@ -174,7 +181,7 @@ JS_GAME.game = (function() {
             context.fillStyle = e.color;
             context.save();
             context.translate(gPIVX(e.x + (e.width / 2)), gPIVY(e.y + (e.height / 2)));
-            context.rotate(Math.atan((my - (windowHeight/2)) / (mx - (windowWidth/2))) + ((mx > (windowWidth/2)) ? (Math.PI / 2) : (Math.PI / -2)));
+            context.rotate(e.angle);
             context.translate(-gPIVX(e.x + (e.width / 2)), -gPIVY(e.y + (e.height / 2)));
             drawImageMasked("player", e.color, gPIVX(e.x), gPIVY(e.y), e.width, e.height);
             context.restore();
