@@ -133,8 +133,8 @@ JS_GAME.game = (function() {
         function getMousePos(canvas, evt) {
             var rect = canvas.getBoundingClientRect();
             return {
-                x: Math.round((evt.clientX-rect.left)/(rect.right-rect.left)*canvas.width),
-                y: Math.round((evt.clientY-rect.top)/(rect.bottom-rect.top)*canvas.height)
+                x: Math.round((evt.clientX - rect.left) / (rect.right - rect.left) * canvas.width),
+                y: Math.round((evt.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height)
             };
         }
 
@@ -176,7 +176,7 @@ JS_GAME.game = (function() {
             context.fillText(e.name, (gPIVX(e.x) - (context.measureText(e.name).width / 2)) + (e.width / 2), gPIVY(e.y) - entityNameOffsetY);
         }
         context.fillText("Pos: (" + playerData.x + ", " + playerData.y + ")", 5, 15);
-        context.fillText("Mouse: (" + mx + ", " + my + ")", mx, my);
+        context.fillText("Mouse: (" + gPIWX(mx) + ", " + gPIWY(my) + ")", mx, my);
 
         setTimeout(gameLoop, frameLength);
     }
@@ -189,6 +189,18 @@ JS_GAME.game = (function() {
     function gPIVY(y) {
         //getPositionInViewportY
         return ((y - (playerData.y + (playerData.height / 2))) + (windowHeight / 2));
+    }
+
+    function gPIWX(x) {
+        //getPositionInWorldX
+        //inverse of gPIVX() (i.e. gPIWX(gPIVX(a)) == a)
+        return ((x + (playerData.x + (playerData.width / 2))) - (windowWidth / 2));
+    }
+
+    function gPIWY(y) {
+        //getPositionInWorldY
+        //inverse of gPIVY() (i.e. gPIWY(gPIVY(a)) == a)
+        return ((y + (playerData.y + (playerData.height / 2))) - (windowHeight / 2));
     }
 
     function clearInput() {
