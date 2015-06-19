@@ -177,6 +177,7 @@ JS_GAME.game = (function() {
         }
         context.fillText("Pos: (" + playerData.x + ", " + playerData.y + ")", 5, 15);
         context.fillText("Mouse: (" + mx + ", " + my + ")", mx, my);
+        context.fillText("Mouse: (" + mx + ", " + my + ")", 5, 30);
 
         setTimeout(gameLoop, frameLength);
     }
