@@ -172,7 +172,10 @@ JS_GAME.game = (function() {
         for (i = 0; i < entityNum; i++) {
             var e = entities[i];
             context.fillStyle = e.color;
+            context.save();
+            context.rotate(Math.PI/2);
             drawImageMasked("player", e.color, gPIVX(e.x), gPIVY(e.y), e.width, e.height);
+            context.restore();
             context.fillText(e.name, (gPIVX(e.x) - (context.measureText(e.name).width / 2)) + (e.width / 2), gPIVY(e.y) - entityNameOffsetY);
         }
         context.fillText("Pos: (" + playerData.x + ", " + playerData.y + ")", 5, 15);
@@ -274,9 +277,6 @@ JS_GAME.game = (function() {
         } else {
             textures[name] = new Image;
             textures[name].src = '/res/tex/' + name + '.png';
-            if (name == "player"){
-                $(textures[name]).rotate(90);
-            }
             return textures[name];
         }
     }
