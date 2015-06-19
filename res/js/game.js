@@ -204,8 +204,7 @@ JS_GAME.game = (function() {
         ySize = typeof ySize !== 'undefined' ? ySize : spriteHeight;
         sheetCols = Math.floor(getImage(name).width / spriteWidth);
         sheetRows = Math.floor(getImage(name).height / spriteHeight);
-        console.log(((id % sheetCols) * spriteWidth) + ", " + (Math.floor(id / sheetRows) * spriteHeight));
-        context.drawImage(getImage(name), (id % sheetCols) * spriteWidth, Math.floor(id / sheetRows) * spriteHeight, spriteWidth, spriteHeight, x, y, xSize, ySize);
+        context.drawImage(getImage(name), (id % sheetCols) * spriteWidth, Math.floor((Math.floor(id / sheetRows) * spriteHeight) + 0.5), spriteWidth, spriteHeight, x, y, xSize, ySize);
     }
 
     function drawImage(name, x, y, xSize, ySize) {
