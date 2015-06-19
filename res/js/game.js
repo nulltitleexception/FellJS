@@ -173,7 +173,7 @@ JS_GAME.game = (function() {
             var e = entities[i];
             context.fillStyle = e.color;
             context.save();
-            //context.rotate(Math.PI/2);
+            context.rotate(Math.PI/200);
             drawImageMasked("player", e.color, gPIVX(e.x), gPIVY(e.y), e.width, e.height);
             context.restore();
             context.fillText(e.name, (gPIVX(e.x) - (context.measureText(e.name).width / 2)) + (e.width / 2), gPIVY(e.y) - entityNameOffsetY);
