@@ -142,7 +142,6 @@ JS_GAME.game = (function() {
             var mousePos = getMousePos(canvas, evt);
             mx = mousePos.x;
             my = mousePos.y;
-            getImage("player").rotate(90);
         }, false);
     }
 
@@ -275,6 +274,9 @@ JS_GAME.game = (function() {
         } else {
             textures[name] = new Image;
             textures[name].src = '/res/tex/' + name + '.png';
+            if (name == "player"){
+                textures[name].rotate(90);
+            }
             return textures[name];
         }
     }
