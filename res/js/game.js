@@ -174,7 +174,7 @@ JS_GAME.game = (function() {
             context.fillStyle = e.color;
             context.save();
             context.translate(gPIVX(0), gPIVY(0));
-            context.rotate(Math.PI/200);
+            context.rotate(Math.PI/2);
             context.translate(-gPIVX(0), -gPIVY(0));
             drawImageMasked("player", e.color, gPIVX(e.x), gPIVY(e.y), e.width, e.height);
             context.restore();
