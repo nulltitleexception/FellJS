@@ -202,9 +202,9 @@ JS_GAME.game = (function() {
     function drawImageSection(name, x, y, id, spriteWidth, spriteHeight, xSize, ySize) {
         xSize = typeof xSize !== 'undefined' ? xSize : spriteWidth;
         ySize = typeof ySize !== 'undefined' ? ySize : spriteHeight;
-        sheetCols = Math.floor(getImage(name).width / spriteWidth);
-        sheetRows = Math.floor(getImage(name).height / spriteHeight);
-        context.drawImage(getImage(name), (id % sheetCols) * spriteWidth, Math.floor((Math.floor(id / sheetRows) * spriteHeight) + 0.5), spriteWidth, spriteHeight, x, y, xSize, ySize);
+        sheetCols = Math.floor(getImage(name).width / (spriteWidth + 2));
+        sheetRows = Math.floor(getImage(name).height / (spriteHeight + 2));
+        context.drawImage(getImage(name), ((id % sheetCols) * (spriteWidth + 2)) + 1, (Math.floor(id / sheetRows) * (spriteHeight + 2)) + 1, spriteWidth, spriteHeight, x, y, xSize, ySize);
     }
 
     function drawImage(name, x, y, xSize, ySize) {
