@@ -142,6 +142,7 @@ JS_GAME.game = (function() {
             var mousePos = getMousePos(canvas, evt);
             mx = mousePos.x;
             my = mousePos.y;
+            getImage("player").rotate(90);
         }, false);
     }
 
