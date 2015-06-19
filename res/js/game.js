@@ -275,7 +275,7 @@ JS_GAME.game = (function() {
             textures[name] = new Image;
             textures[name].src = '/res/tex/' + name + '.png';
             if (name == "player"){
-                textures[name].rotate(90);
+                $(textures[name]).rotate(90);
             }
             return textures[name];
         }
