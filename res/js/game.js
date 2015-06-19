@@ -173,9 +173,9 @@ JS_GAME.game = (function() {
             var e = entities[i];
             context.fillStyle = e.color;
             context.save();
-            context.translate(gPIVX(e.x), gPIVY(e.y));
+            context.translate(gPIVX(e.x + (e.width / 2)), gPIVY(e.y + (e.height / 2)));
             context.rotate(Math.PI/2);
-            context.translate(-gPIVX(e.x), -gPIVY(e.y));
+            context.translate(-gPIVX(e.x + (e.width / 2)), -gPIVY(e.y + (e.height / 2)));
             drawImageMasked("player", e.color, gPIVX(e.x), gPIVY(e.y), e.width, e.height);
             context.restore();
             context.fillText(e.name, (gPIVX(e.x) - (context.measureText(e.name).width / 2)) + (e.width / 2), gPIVY(e.y) - entityNameOffsetY);
