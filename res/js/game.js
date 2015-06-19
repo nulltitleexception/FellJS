@@ -285,7 +285,7 @@ JS_GAME.game = (function() {
             return textures[name];
         } else {
             textures[name] = new Image;
-            textures[name].src = '/res/tex/' + name + '.png';
+            textures[name].src = 'res/tex/' + name + '.png';
             return textures[name];
         }
     }
