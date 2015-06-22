@@ -168,7 +168,6 @@ JS_GAME.game = (function() {
                     "y": (my - Math.floor(windowHeight / 2))
                 }
             };
-            console.log(JSON.stringify(ret));
             socket.send(JSON.stringify(ret));
         } catch (err) {}
         context.clearRect(0, 0, windowWidth, windowHeight);
@@ -192,6 +191,7 @@ JS_GAME.game = (function() {
             context.rotate(e.angle);
             context.translate(-gPIVX(e.x + (e.width / 2)), -gPIVY(e.y + (e.height / 2)));
             drawImageMasked("player", e.color, gPIVX(e.x), gPIVY(e.y), e.width, e.height);
+            drawImage("dagger", gPIVX(e.x + 10), gPIVY(e.y + 6))
             context.restore();
             context.fillText(e.name, (gPIVX(e.x) - (context.measureText(e.name).width / 2)) + (e.width / 2), gPIVY(e.y) - entityNameOffsetY);
         }
