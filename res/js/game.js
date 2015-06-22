@@ -191,7 +191,7 @@ JS_GAME.game = (function() {
             context.rotate(e.angle);
             context.translate(-gPIVX(e.x + (e.width / 2)), -gPIVY(e.y + (e.height / 2)));
             drawImageMasked("player", e.color, gPIVX(e.x), gPIVY(e.y), e.width, e.height);
-            drawImage("dagger", gPIVX(e.x + 100), gPIVY(e.y + 100))
+            drawImage("dagger", gPIVX(e.x), gPIVY(e.y))
             context.restore();
             context.fillText(e.name, (gPIVX(e.x) - (context.measureText(e.name).width / 2)) + (e.width / 2), gPIVY(e.y) - entityNameOffsetY);
         }
