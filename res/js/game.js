@@ -7,6 +7,7 @@ JS_GAME.game = (function() {
     var mx = 0;
     var my = 0;
     var mangle = 0;
+    var mb = [false, false, false];
     var context;
     var canvas;
     var playerData = {
@@ -145,6 +146,9 @@ JS_GAME.game = (function() {
             my = Math.floor(mousePos.y + 0.49);
             mangle = Math.atan((my - (windowHeight / 2)) / (mx - (windowWidth / 2))) + ((mx >= (windowWidth / 2)) ? (Math.PI / 2) : (Math.PI / -2));
         }, false);
+
+        canvas.addEventListener("mousedown", mouseClick, false);
+        canvas.addEventListener("mouseup", mouseUnclick, false);
     }
 
     function gameLoop() {
@@ -156,6 +160,9 @@ JS_GAME.game = (function() {
             var ret = {
                 "keys": isKeyDown,
                 "mouse": {
+                    "button0": mb[0],
+                    "button1": mb[1],
+                    "button2": mb[2],
                     "angle": mangle,
                     "x": (mx - Math.floor(windowWidth / 2)),
                     "y": (my - Math.floor(windowHeight / 2))
@@ -184,6 +191,9 @@ JS_GAME.game = (function() {
             context.rotate(e.angle);
             context.translate(-gPIVX(e.x + (e.width / 2)), -gPIVY(e.y + (e.height / 2)));
             drawImageMasked("player", e.color, gPIVX(e.x), gPIVY(e.y), e.width, e.height);
+            if ("weapon" in e.state) {
+                drawImage("dagger", gPIVX(e.x + e.state.weapon.x), gPIVY(e.y + e.state.weapon.y));
+            }
             context.restore();
             context.fillText(e.name, (gPIVX(e.x) - (context.measureText(e.name).width / 2)) + (e.width / 2), gPIVY(e.y) - entityNameOffsetY);
         }
@@ -237,6 +247,14 @@ JS_GAME.game = (function() {
 
     function isKeyPressed(c) {
         return isKeyDown[c.charCodeAt(0)];
+    }
+
+    function mouseClick(e) {
+        mb[e.button] = true
+    }
+
+    function mouseUnclick(e) {
+        mb[e.button] = false;
     }
 
     function drawImageSection(name, x, y, id, spriteWidth, spriteHeight, xSize, ySize) {
