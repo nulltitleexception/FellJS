@@ -7,6 +7,7 @@ JS_GAME.game = (function() {
     var mx = 0;
     var my = 0;
     var mangle = 0;
+    var sangle = 0;
     var mb = [false, false, false];
     var context;
     var canvas;
@@ -155,7 +156,8 @@ JS_GAME.game = (function() {
             mx = Math.floor(mousePos.x + 0.49);
             my = Math.floor(mousePos.y + 0.49);
             mangle = Math.atan((my - (windowHeight / 2)) / (mx - (windowWidth / 2))) + ((mx >= (windowWidth / 2)) ? (Math.PI / 2) : (Math.PI / -2));
-            console.log(mangle);
+            sangle = mangle + (Math.PI * 1.5)
+            console.log(sangle);
         }, false);
 
         canvas.addEventListener("mousedown", mouseClick, false);
