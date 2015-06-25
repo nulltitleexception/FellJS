@@ -24,10 +24,10 @@ body {
 
 #wrapper {
 	width: 324px;
-	height: 406px;
+	height: 476px;
 	top: 50%;
 	left: 50%;
-	margin-top: -203px;
+	margin-top: -238px;
 	margin-left: -162px;
 	position: absolute;
 }
@@ -67,10 +67,6 @@ body {
 /*#wrapper #login h3 {
 	font-size: 24px;
 }*/
-
-#wrapper #login form {
-	margin-top: 10px;
-}
 
 #wrapper #login form input {
 	-webkit-appearance: none;
