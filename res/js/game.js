@@ -155,8 +155,10 @@ JS_GAME.game = (function() {
             var mousePos = getMousePos(canvas, evt);
             mx = Math.floor(mousePos.x + 0.49);
             my = Math.floor(mousePos.y + 0.49);
-            mangle = -(Math.atan((my - (windowHeight / 2)) / (mx - (windowWidth / 2))) - ((mx >= (windowWidth / 2)) ? (Math.PI / 2) : (Math.PI * 1.5)));
-            console.log(mangle);
+            mangle = -(Math.atan((my - (windowHeight / 2)) / (mx - (windowWidth / 2))) - ((mx >= (windowWidth / 2)) ? 0 : (Math.PI)));
+            if (mangle < 0){
+                mangle += (Math.PI * 2);
+            }
         }, false);
 
         canvas.addEventListener("mousedown", mouseClick, false);
