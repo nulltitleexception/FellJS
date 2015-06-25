@@ -49,6 +49,12 @@ JS_GAME.game = (function() {
             return;
         }
         if (address.length > 0){
+            if (address.indexOf("ws") != 0){
+                address = "ws:" + address;
+            }
+            if ((address.split(":").length - 1) < 2){
+                address = address + gamePort;
+            }
             connectionInfo = address;
         }
 
