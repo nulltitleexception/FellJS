@@ -43,9 +43,13 @@ JS_GAME.game = (function() {
 
         pass = document.getElementById("loginInfo").pass.value;
         user = document.getElementById("loginInfo").user.value;
+        address = document.getElementById("loginInfo").ip.value;
         if (user.indexOf(",") >= 0 || user.indexOf(":") >= 0) {
             document.getElementById("loginInfo").user.value = "INVALID INPUT";
             return;
+        }
+        if (address.length > 0){
+            connectionInfo = address;
         }
 
         socket = new WebSocket(connectionInfo);
@@ -190,7 +194,8 @@ JS_GAME.game = (function() {
             context.translate(gPIVX(e.x + (e.width / 2)), gPIVY(e.y + (e.height / 2)));
             context.rotate(e.angle);
             context.translate(-gPIVX(e.x + (e.width / 2)), -gPIVY(e.y + (e.height / 2)));
-            drawImageMasked("player", e.color, gPIVX(e.x), gPIVY(e.y), e.width, e.height);
+            //drawImageMasked("player", e.color, gPIVX(e.x), gPIVY(e.y), e.width, e.height);
+            drawImage(e.state.type, gPIVX(e.x), gPIVY(e.y), e.width, e.height);
             if ("weapon" in e.state) {
                 drawImage("dagger", gPIVX(e.x + e.state.weapon.x), gPIVY(e.y + e.state.weapon.y));
             }
