@@ -160,7 +160,6 @@ JS_GAME.game = (function() {
             if (sangle < 0) {
                 sangle += (Math.PI * 2);
             }
-            console.log(sangle);
         }, false);
 
         canvas.addEventListener("mousedown", mouseClick, false);
@@ -179,7 +178,7 @@ JS_GAME.game = (function() {
                     "button0": mb[0],
                     "button1": mb[1],
                     "button2": mb[2],
-                    "angle": mangle,
+                    "angle": sangle,
                     "x": (mx - Math.floor(windowWidth / 2)),
                     "y": (my - Math.floor(windowHeight / 2))
                 }
