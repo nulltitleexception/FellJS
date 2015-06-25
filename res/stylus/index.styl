@@ -1,0 +1,88 @@
+@import "includes/helpers"
+
+body
+	background $background
+	font-family $OpenSans
+	color $text
+	display block
+	position absolute
+	width 100%
+	height 100%
+
+#background
+	display block
+	position absolute
+	width 100%
+	height 100%
+	background-color $background
+	radialGradient(#282828,$background)
+
+#wrapper
+	width $wrapperWidth
+	height $wrapperHeight
+	top 50%
+	left 50%
+	margin-top -($wrapperHeight/2)
+	margin-left -($wrapperWidth/2)
+	position absolute
+
+	header
+		margin-bottom 56px
+
+		#title
+			display block
+			width 100%
+
+			.toptitle
+				display inline-block
+
+			h1.toptitle
+				font-size 120px
+				font-family $Fell
+				line-height 0.9
+				color $red
+
+			h6.toptitle
+				vertical-align top
+				padding-top 16px
+				font-size 18px
+				color $faintText
+
+		h2
+			font-size 26px
+			text-align center
+
+		/*#login h3 {
+			font-size: 24px;
+		}*/
+		
+	#login form#loginInfo input 
+		borderBox()
+		width $wrapperWidth
+		height 50px
+		border none
+		margin 0 0 20px 0
+		font-size 20px
+		background #333
+		font-family $OpenSans
+		color #c9c9c9
+		borderRadius(5px)		
+
+		&:focus
+			background #3c3c3c
+
+		&.text
+			padding: 0 20px
+
+		/*Browser specific element style things are so dumb.*/
+		&.text::-webkit-input-placeholder
+			color #6a6a6a
+
+		&.text::-moz-placeholder
+			color #6a6a6a
+		
+		&.text:-ms-input-placeholder 
+			color #6a6a6a
+		
+		&#submit
+			margin-bottom 0

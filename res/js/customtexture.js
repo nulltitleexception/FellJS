@@ -35,6 +35,9 @@ function handleDragOver(e) {
 function handleDragEnter(e) {
 	stopDefault(e);
 	$("#dropgrabber").removeClass("inactive").addClass("active");
+	if (!$('#dragoverelement').length) {
+		$("#wrapper").append("<div id='dragoverelement'><h3>Drop texture to use</h3></div>");
+	}
 }
 
 function handleDragEffectiveCompletion(e) {
