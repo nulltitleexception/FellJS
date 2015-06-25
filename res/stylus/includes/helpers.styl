@@ -1,0 +1,48 @@
+$wrapperWidth = 324px
+$wrapperHeight = 476px
+
+$background = #111111
+$standout = #2c0811
+$text = #b3b3b3
+$faintText = #737373
+$red = #de2b36
+
+$OpenSans = 'Open Sans','Helvetica Neue',Helvetica,Arial,Verdana,sans-serif
+$Fell = 'IM Fell English SC', Georgia, Times, sans-serif
+
+retina(query)
+	@media (min--moz-device-pixel-ratio: 1.25), (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-device-pixel-ratio: 1.25), (min-resolution: 1.25dppx)
+		background-image url(query)
+
+borderBox()
+	-webkit-box-sizing border-box
+	-moz-box-sizing border-box
+	-ms-box-sizing border-box
+	-o-box-sizing border-box
+	box-sizing border-box
+
+borderRadius(radius)
+	-webkit-border-radius radius
+	-moz-border-radius radius
+	-o-border-radius radius
+	border-radius radius
+	
+radialGradient(to,from)
+	background-image -webkit-gradient(radial, 50% 0%,0,50% 0%,200, from(from), to(to))
+	background-image -webkit-radial-gradient(50% 0%, to, from)
+	background-image -moz-radial-gradient(50% 0%, to, from)
+	background-image -o-radial-gradient(50% 0%, to, from)
+	background-image -ms-radial-gradient(50% 0%, to, from)
+	background-image radial-gradient(circle at top center, to, from)
+	
+goodRendering()
+	image-rendering optimizeSpeed	
+	image-rendering -moz-crisp-edges	
+	image-rendering -webkit-optimize-contrast
+	image-rendering -o-crisp-edges
+	image-rendering pixelated
+	-ms-interpolation-mode nearest-neighbor
+
+semitransparentBackdrop()
+	background #191919
+	background rgba(25,25,25,0.83)
