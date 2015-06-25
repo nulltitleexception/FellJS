@@ -53,7 +53,7 @@ JS_GAME.game = (function() {
                 address = "ws:" + address;
             }
             if ((address.split(":").length - 1) < 2){
-                address = address + gamePort;
+                address = address + ":" + gamePort;
             }
             connectionInfo = address;
         }
