@@ -7,6 +7,7 @@ JS_GAME.game = (function() {
     var mx = 0;
     var my = 0;
     var mangle = 0;
+    var sangle = 0;
     var mb = [false, false, false];
     var context;
     var canvas;
@@ -43,9 +44,19 @@ JS_GAME.game = (function() {
 
         pass = document.getElementById("loginInfo").pass.value;
         user = document.getElementById("loginInfo").user.value;
+        address = document.getElementById("loginInfo").ip.value;
         if (user.indexOf(",") >= 0 || user.indexOf(":") >= 0) {
             document.getElementById("loginInfo").user.value = "INVALID INPUT";
             return;
+        }
+        if (address.length > 0){
+            if (address.indexOf("ws") != 0){
+                address = "ws:" + address;
+            }
+            if ((address.split(":").length - 1) < 2){
+                address = address + ":" + gamePort;
+            }
+            connectionInfo = address;
         }
 
         socket = new WebSocket(connectionInfo);
@@ -144,7 +155,10 @@ JS_GAME.game = (function() {
             var mousePos = getMousePos(canvas, evt);
             mx = Math.floor(mousePos.x + 0.49);
             my = Math.floor(mousePos.y + 0.49);
-            mangle = Math.atan((my - (windowHeight / 2)) / (mx - (windowWidth / 2))) + ((mx >= (windowWidth / 2)) ? (Math.PI / 2) : (Math.PI / -2));
+            mangle = -(Math.atan((my - (windowHeight / 2)) / (mx - (windowWidth / 2))) - ((mx >= (windowWidth / 2)) ? 0 : (Math.PI)));
+            if (mangle < 0){
+                mangle += (Math.PI * 2);
+            }
         }, false);
 
         canvas.addEventListener("mousedown", mouseClick, false);
@@ -190,7 +204,8 @@ JS_GAME.game = (function() {
             context.translate(gPIVX(e.x + (e.width / 2)), gPIVY(e.y + (e.height / 2)));
             context.rotate(e.angle);
             context.translate(-gPIVX(e.x + (e.width / 2)), -gPIVY(e.y + (e.height / 2)));
-            drawImageMasked("player", e.color, gPIVX(e.x), gPIVY(e.y), e.width, e.height);
+            //drawImageMasked("player", e.color, gPIVX(e.x), gPIVY(e.y), e.width, e.height);
+            drawImage(e.state.type, gPIVX(e.x), gPIVY(e.y), e.width, e.height);
             if ("weapon" in e.state) {
                 drawImage("dagger", gPIVX(e.x + e.state.weapon.x), gPIVY(e.y + e.state.weapon.y));
             }
