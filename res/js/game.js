@@ -155,11 +155,8 @@ JS_GAME.game = (function() {
             var mousePos = getMousePos(canvas, evt);
             mx = Math.floor(mousePos.x + 0.49);
             my = Math.floor(mousePos.y + 0.49);
-            mangle = Math.atan((my - (windowHeight / 2)) / (mx - (windowWidth / 2))) + ((mx >= (windowWidth / 2)) ? (Math.PI / 2) : (Math.PI / -2));
-            sangle = (Math.PI / 2) - mangle;
-            if (sangle < 0) {
-                sangle += (Math.PI * 2);
-            }
+            mangle = Math.atan((my - (windowHeight / 2)) / (mx - (windowWidth / 2)));// + ((mx >= (windowWidth / 2)) ? (Math.PI / 2) : (Math.PI / 2));
+            console.log(mangle);
         }, false);
 
         canvas.addEventListener("mousedown", mouseClick, false);
@@ -178,7 +175,7 @@ JS_GAME.game = (function() {
                     "button0": mb[0],
                     "button1": mb[1],
                     "button2": mb[2],
-                    "angle": sangle,
+                    "angle": mangle,
                     "x": (mx - Math.floor(windowWidth / 2)),
                     "y": (my - Math.floor(windowHeight / 2))
                 }
