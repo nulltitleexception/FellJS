@@ -210,7 +210,8 @@ JS_GAME.game = (function() {
                 drawImage("dagger", gPIVX(e.x + e.state.weapon.x), gPIVY(e.y + e.state.weapon.y));
             }
             context.restore();
-            context.fillText(e.name, (gPIVX(e.x) - (context.measureText(e.name).width / 2)) + (e.width / 2), gPIVY(e.y) - entityNameOffsetY);
+            var nameText = e.name + " (" + e.state.health  + "/" + e.state.schematic.maxHealth + ")";
+            context.fillText(nameText, (gPIVX(e.x) - (context.measureText(nameText).width / 2)) + (e.width / 2), gPIVY(e.y) - entityNameOffsetY);
         }
         context.fillText("Pos: (" + playerData.x + ", " + playerData.y + ")", 5, 15);
 
