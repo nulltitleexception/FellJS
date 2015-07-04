@@ -78,7 +78,7 @@ GRAPHICS.renderer = function(canv) {
     function setUniforms() {
         gl.uniform2f(shaderProgram.cameraUniform, false, 0, 0);
         gl.uniform2f(shaderProgram.positionUniform, false, 0, 0);
-        gl.uniform2f(shaderProgram.halfScreenUniform, false, canvas.width / 2, canvas.height / 2);
+        gl.uniform2f(shaderProgram.halfScreenUniform, false, 1000 / 2, 1000 / 2);
     }
 
 
