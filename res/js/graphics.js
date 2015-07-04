@@ -28,7 +28,7 @@ GRAPHICS.renderer = function(canv) {
         return (req.status == 200) ? req.responseText : null;
     };
 
-    function getShaderFromFile(gl, name, type) {
+    function getShaderFromFile(name, type) {
         var shader;
         if (type == "fragment") {
             shader = gl.createShader(gl.FRAGMENT_SHADER);
@@ -50,11 +50,11 @@ GRAPHICS.renderer = function(canv) {
         return shader;
     }
 
-    var shaderProgram;
+    function loadShader(name) {
+        var shaderProgram;
 
-    function initShaders() {
-        var fragmentShader = getShaderFromFile(gl, "default", "fragment");
-        var vertexShader = getShaderFromFile(gl, "default", "vertex");
+        var fragmentShader = getShaderFromFile(name, "fragment");
+        var vertexShader = getShaderFromFile(name, "vertex");
 
         shaderProgram = gl.createProgram();
         gl.attachShader(shaderProgram, vertexShader);
@@ -69,45 +69,46 @@ GRAPHICS.renderer = function(canv) {
 
         shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "vertexPosition");
         gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
-        
+
         shaderProgram.cameraUniform = gl.getUniformLocation(shaderProgram, "camera");
         shaderProgram.positionUniform = gl.getUniformLocation(shaderProgram, "pos");
         shaderProgram.halfScreenUniform = gl.getUniformLocation(shaderProgram, "halfScreen");
+        return shaderProgram;
     }
 
-    function setUniforms() {
-        gl.useProgram(shaderProgram);
-        gl.uniform2f(shaderProgram.cameraUniform, 0, 0);
-        gl.uniform2f(shaderProgram.positionUniform, 0, 0);
-        gl.uniform2f(shaderProgram.halfScreenUniform, canvas.width, canvas.height);
-    }
-
-
-
-    var squareVertexPositionBuffer;
-
-    function initBuffers() {
-        squareVertexPositionBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexPositionBuffer);
+    function createRectBuffer(width, height) {
+        var buf;
+        buf = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
         vertices = [
-            100.0, 100.0,
-            -100.0, 100.0,
-            100.0, -100.0,
-            -100.0, -100.0
+            width, height,
+            -width, height,
+            width, -height,
+            -width, -height
         ];
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
-        squareVertexPositionBuffer.itemSize = 2;
-        squareVertexPositionBuffer.numItems = 4;
+        buf.itemSize = 2;
+        buf.numItems = 4;
+        buf.bind = function(){
+            gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+        }
+        return buf;
     }
 
-
+    var shader;
+    var buffer;
     function drawScene() {
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-        gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexPositionBuffer);
-        gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, squareVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
-        setUniforms();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+        gl.vertexAttribPointer(shader.vertexPositionAttribute, buffer.itemSize, gl.FLOAT, false, 0, 0);
+
+        gl.useProgram(shader);
+        gl.uniform2f(shader.cameraUniform, 0, 0);
+        gl.uniform2f(shader.positionUniform, 0, 0);
+        gl.uniform2f(shader.halfScreenUniform, canvas.width / 2, canvas.height / 2);
+
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, squareVertexPositionBuffer.numItems);
     }
 
@@ -115,8 +116,8 @@ GRAPHICS.renderer = function(canv) {
 
     function webGLStart() {
         initGL(canvas);
-        initShaders();
-        initBuffers();
+        shader = loadShader("default");
+        buffer = createRectBuffer(400,400);
 
         gl.clearColor(0.0, 0.0, 0.0, 1.0);
         gl.enable(gl.DEPTH_TEST);
