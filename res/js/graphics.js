@@ -47,10 +47,6 @@ GRAPHICS.renderer = function(canv) {
             return null;
         }
 
-        shaderProgram.cameraUniform = gl.getUniformLocation(shaderProgram, "camera");
-        shaderProgram.positionUniform = gl.getUniformLocation(shaderProgram, "pos");
-        shaderProgram.halfScreenUniform = gl.getUniformLocation(shaderProgram, "halfScreen");
-
         return shader;
     }
 
@@ -73,6 +69,10 @@ GRAPHICS.renderer = function(canv) {
 
         shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "vertexPosition");
         gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
+        
+        shaderProgram.cameraUniform = gl.getUniformLocation(shaderProgram, "camera");
+        shaderProgram.positionUniform = gl.getUniformLocation(shaderProgram, "pos");
+        shaderProgram.halfScreenUniform = gl.getUniformLocation(shaderProgram, "halfScreen");
     }
 
     function setUniforms() {
