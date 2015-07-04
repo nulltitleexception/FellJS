@@ -95,12 +95,12 @@ GRAPHICS.renderer = function(canv) {
         return buf;
     }
 
-    function createTexture() {
+    function createTexture(name) {
         tex = gl.createTexture();
         image = new Image();
         var texo = {texture: tex, image: image, ready: false};
         image.onload = function() { handleTextureLoaded(image, texo); }
-        image.src = "res/tex/playerx32.png";
+        image.src = "res/tex/player.png";
         return texo;
     }
 
