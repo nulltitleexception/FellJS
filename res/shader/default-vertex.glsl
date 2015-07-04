@@ -5,5 +5,5 @@
     uniform vec2 halfScreen;
 
     void main(void) {
-        gl_Position = vec4(((camera - vertexPosition) + pos) / vec2(500,500), 0, 1.0);
+        gl_Position = vec4(((camera - vertexPosition) + pos) / halfScreen, 0, 1.0);
     }
