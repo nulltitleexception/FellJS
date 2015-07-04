@@ -4,5 +4,5 @@
     uniform vec2 pos;
 
     void main(void) {
-        gl_Position = vec4((camera - VertexPosition) + pos, 0, 1.0);
+        gl_Position = vec4((camera - vertexPosition) + pos, 0, 1.0);
     }

@@ -38,8 +38,6 @@ GRAPHICS.renderer = function(canv) {
             return null;
         }
         var str = getFileDataSync("res/shader/" + name + "-" + type + ".glsl");
-        str = str.replace("uPMatrix * uMVMatrix * ", "");
-        str = str.replace("(aVertexPosition", "(aVertexPosition/(vec3(10,10,1))");
 
         gl.shaderSource(shader, str);
         gl.compileShader(shader);
