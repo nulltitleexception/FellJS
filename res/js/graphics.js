@@ -100,9 +100,8 @@ GRAPHICS.renderer = function(canv) {
         image = new Image();
         image.onload = function() { handleTextureLoaded(image, tex); }
         image.src = "res/tex/playerx32.png";
-        tex.image = image;
-        tex.ready = false;
-        return tex;
+        var texo = {texture: tex, image: image, ready: false};
+        return texo;
     }
 
     function handleTextureLoaded(image, texture) {
@@ -129,7 +128,7 @@ GRAPHICS.renderer = function(canv) {
         gl.useProgram(shader);
 
         gl.activeTexture(gl.TEXTURE0);
-        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.bindTexture(gl.TEXTURE_2D, texture.texture);
 
         gl.uniform2f(shader.cameraUniform, 0, 0);
         gl.uniform2f(shader.positionUniform, 0, 0);
