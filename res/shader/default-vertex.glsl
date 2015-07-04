@@ -7,12 +7,12 @@
     varying highp vec2 texCoord;
 
     void main(void) {
-    	if (vertexPosition.x <= 0){
+    	if (vertexPosition.x <= 0.0){
     		texCoord.x = 0;
     	} else {
     		texCoord.x = 1;
     	}
-    	if (vertexPosition.y <= 0){
+    	if (vertexPosition.y <= 0.0){
     		texCoord.y = 0;
     	} else {
     		texCoord.y = 1;
