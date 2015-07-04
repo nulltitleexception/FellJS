@@ -42,6 +42,9 @@ JS_GAME.game = (function() {
     function init() {
         document.body.scroll = "no"; // ie only
 
+        gameInitialize();
+        return;
+
         pass = document.getElementById("loginInfo").pass.value;
         user = document.getElementById("loginInfo").user.value;
         address = document.getElementById("loginInfo").ip.value;
@@ -49,11 +52,11 @@ JS_GAME.game = (function() {
             document.getElementById("loginInfo").user.value = "INVALID INPUT";
             return;
         }
-        if (address.length > 0){
-            if (address.indexOf("ws") != 0){
+        if (address.length > 0) {
+            if (address.indexOf("ws") != 0) {
                 address = "ws:" + address;
             }
-            if ((address.split(":").length - 1) < 2){
+            if ((address.split(":").length - 1) < 2) {
                 address = address + ":" + gamePort;
             }
             connectionInfo = address;
@@ -140,6 +143,11 @@ JS_GAME.game = (function() {
         window.onblur = clearInput;
 
         canvas = canvasElement[0];
+
+        var renderer = new GRAPHICS.renderer(canvas);
+        renderer.webGLStart();
+        return;
+
         context = canvas.getContext('2d');
         context.globalCompositeOperation = "normal";
 
@@ -156,7 +164,7 @@ JS_GAME.game = (function() {
             mx = Math.floor(mousePos.x + 0.49);
             my = Math.floor(mousePos.y + 0.49);
             mangle = -(Math.atan((my - (windowHeight / 2)) / (mx - (windowWidth / 2))) - ((mx >= (windowWidth / 2)) ? 0 : (Math.PI)));
-            if (mangle < 0){
+            if (mangle < 0) {
                 mangle += (Math.PI * 2);
             }
         }, false);
@@ -210,7 +218,7 @@ JS_GAME.game = (function() {
                 drawImage("dagger", gPIVX(e.x + e.state.weapon.x), gPIVY(e.y + e.state.weapon.y));
             }
             context.restore();
-            var nameText = e.name + " (" + e.state.health  + "/" + e.state.schematic.maxHealth + ")";
+            var nameText = e.name + " (" + e.state.health + "/" + e.state.schematic.maxHealth + ")";
             context.fillText(nameText, (gPIVX(e.x) - (context.measureText(nameText).width / 2)) + (e.width / 2), gPIVY(e.y) - entityNameOffsetY);
         }
         context.fillText("Pos: (" + playerData.x + ", " + playerData.y + ")", 5, 15);
