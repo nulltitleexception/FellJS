@@ -8,14 +8,14 @@
 
     void main(void) {
     	if (vertexPosition.x <= 0.0){
-    		texCoord.x = 0;
+    		texCoord.x = 0.0;
     	} else {
-    		texCoord.x = 1;
+    		texCoord.x = 1.0;
     	}
     	if (vertexPosition.y <= 0.0){
-    		texCoord.y = 0;
+    		texCoord.y = 0.0;
     	} else {
-    		texCoord.y = 1;
+    		texCoord.y = 1.0;
     	}
         gl_Position = vec4(((camera - vertexPosition) + pos) / halfScreen, 0, 1.0);
     }
