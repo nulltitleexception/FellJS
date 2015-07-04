@@ -72,11 +72,13 @@ GRAPHICS.renderer = function(canv) {
 
         shaderProgram.cameraUniform = gl.getUniformLocation(shaderProgram, "camera");
         shaderProgram.positionUniform = gl.getUniformLocation(shaderProgram, "pos");
+        shaderProgram.halfScreenUniform = gl.getUniformLocation(shaderProgram, "halfScreen");
     }
 
     function setUniforms() {
         gl.uniform2f(shaderProgram.cameraUniform, false, 0, 0);
         gl.uniform2f(shaderProgram.positionUniform, false, 0, 0);
+        gl.uniform2f(shaderProgram.halfScreenUniform, false, canvas.width / 2, canvas.height / 2);
     }
 
 
@@ -87,8 +89,10 @@ GRAPHICS.renderer = function(canv) {
         squareVertexPositionBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexPositionBuffer);
         vertices = [
-            1.0, 1.0, -1.0, 1.0,
-            1.0, -1.0, -1.0, -1.0
+            100.0, 100.0,
+            -100.0, 100.0,
+            100.0, -100.0,
+            -100.0, -100.0
         ];
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
         squareVertexPositionBuffer.itemSize = 2;
