@@ -119,6 +119,7 @@ GRAPHICS.renderer = function(canv) {
     var buffer;
     var texture
     function drawScene() {
+        if (texture.ready){
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
@@ -134,7 +135,7 @@ GRAPHICS.renderer = function(canv) {
         gl.uniform2f(shader.positionUniform, 0, 0);
         gl.uniform2f(shader.halfScreenUniform, canvas.width / 2, canvas.height / 2);
 
-        gl.drawArrays(gl.TRIANGLE_STRIP, 0, buffer.numItems);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, buffer.numItems);}
         setTimeout(drawScene, 10);
     }
 
@@ -148,9 +149,6 @@ GRAPHICS.renderer = function(canv) {
 
         gl.clearColor(0.0, 0.0, 0.0, 1.0);
         gl.enable(gl.DEPTH_TEST);
-
-        while(!texture.ready){
-        }
 
         drawScene();
     }
