@@ -69,17 +69,14 @@ GRAPHICS.renderer = function(canv) {
 
         shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "vertexPosition");
         gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
-
-        shaderProgram.cameraUniform = gl.getUniformLocation(shaderProgram, "camera");
-        shaderProgram.positionUniform = gl.getUniformLocation(shaderProgram, "pos");
-        shaderProgram.halfScreenUniform = gl.getUniformLocation(shaderProgram, "halfScreen");
     }
 
     function setUniforms() {
         gl.useProgram(shaderProgram);
-        gl.uniform2f(shaderProgram.cameraUniform, false, 0, 0);
-        gl.uniform2f(shaderProgram.positionUniform, false, 0, 0);
-        gl.uniform2f(shaderProgram.halfScreenUniform, false, 500, 500);
+        gl.uniform2f(gl.getUniformLocation(shaderProgram, "camera"), false, 0, 0);
+        gl.uniform2f(gl.getUniformLocation(shaderProgram, "pos"), false, 0, 0);
+        gl.uniform2f(gl.getUniformLocation(shaderProgram, "halfScreen"), false, 500, 500);
+        console.log(gl.getUniformLocation(shaderProgram, "halfScreen"))
     }
 
 
