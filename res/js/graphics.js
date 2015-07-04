@@ -100,10 +100,10 @@ GRAPHICS.renderer = function(canv) {
         image = new Image();
         image.onload = function() { handleTextureLoaded(image, tex); }
         image.src = "res/tex/player.png";
+        return tex;
     }
 
     function handleTextureLoaded(image, texture) {
-        gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, texture);
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
@@ -114,6 +114,7 @@ GRAPHICS.renderer = function(canv) {
 
     var shader;
     var buffer;
+    var texture
     function drawScene() {
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -122,6 +123,10 @@ GRAPHICS.renderer = function(canv) {
         gl.vertexAttribPointer(shader.vertexPositionAttribute, buffer.itemSize, gl.FLOAT, false, 0, 0);
 
         gl.useProgram(shader);
+
+        gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        
         gl.uniform2f(shader.cameraUniform, 0, 0);
         gl.uniform2f(shader.positionUniform, 0, 0);
         gl.uniform2f(shader.halfScreenUniform, canvas.width / 2, canvas.height / 2);
@@ -134,7 +139,7 @@ GRAPHICS.renderer = function(canv) {
 
     function webGLStart() {
         initGL(canvas);
-        createTexture();
+        texture = createTexture();
         shader = loadShader("default");
         buffer = createRectBuffer(400,400);
 
