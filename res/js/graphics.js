@@ -47,6 +47,10 @@ GRAPHICS.renderer = function(canv) {
             return null;
         }
 
+        shaderProgram.cameraUniform = gl.getUniformLocation(shaderProgram, "camera");
+        shaderProgram.positionUniform = gl.getUniformLocation(shaderProgram, "pos");
+        shaderProgram.halfScreenUniform = gl.getUniformLocation(shaderProgram, "halfScreen");
+
         return shader;
     }
 
@@ -73,9 +77,9 @@ GRAPHICS.renderer = function(canv) {
 
     function setUniforms() {
         gl.useProgram(shaderProgram);
-        gl.uniform2f(gl.getUniformLocation(shaderProgram, "camera"), 0, 0);
-        gl.uniform2f(gl.getUniformLocation(shaderProgram, "pos"), 0, 0);
-        gl.uniform2f(gl.getUniformLocation(shaderProgram, "halfScreen"), canvas.width, canvas.height);
+        gl.uniform2f(shaderProgram.cameraUniform, 0, 0);
+        gl.uniform2f(shaderProgram.positionUniform, 0, 0);
+        gl.uniform2f(shaderProgram.halfScreenUniform, canvas.width, canvas.height);
     }
 
 
