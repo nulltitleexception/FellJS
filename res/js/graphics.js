@@ -100,6 +100,8 @@ GRAPHICS.renderer = function(canv) {
         image = new Image();
         image.onload = function() { handleTextureLoaded(image, tex); }
         image.src = "res/tex/playerx32.png";
+        tex.image = image;
+        tex.ready = false;
         return tex;
     }
 
@@ -110,6 +112,7 @@ GRAPHICS.renderer = function(canv) {
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.CLAMP_TO_EDGE);
         //gl.generateMipmap(gl.TEXTURE_2D);
         gl.bindTexture(gl.TEXTURE_2D, null);
+        texture.ready = true;
     }
 
     var shader;
@@ -145,6 +148,9 @@ GRAPHICS.renderer = function(canv) {
 
         gl.clearColor(0.0, 0.0, 0.0, 1.0);
         gl.enable(gl.DEPTH_TEST);
+
+        while(!texture.ready){
+        }
 
         drawScene();
     }
