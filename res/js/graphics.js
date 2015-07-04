@@ -81,10 +81,10 @@ GRAPHICS.renderer = function(canv) {
         buf = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, buf);
         vertices = [
-            width, height,
-            -width, height,
-            width, -height,
-            -width, -height
+            width/2, height/2,
+            width/-2, height/2,
+            width/2, height/-2,
+            width/-2, height/-2
         ];
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
         buf.itemSize = 2;
