@@ -98,20 +98,20 @@ GRAPHICS.renderer = function(canv) {
     function createTexture() {
         tex = gl.createTexture();
         image = new Image();
-        image.onload = function() { handleTextureLoaded(image, tex); }
-        image.src = "res/tex/playerx32.png";
         var texo = {texture: tex, image: image, ready: false};
+        image.onload = function() { handleTextureLoaded(image, texo); }
+        image.src = "res/tex/playerx32.png";
         return texo;
     }
 
-    function handleTextureLoaded(image, texture) {
-        gl.bindTexture(gl.TEXTURE_2D, texture);
+    function handleTextureLoaded(image, textureObj) {
+        gl.bindTexture(gl.TEXTURE_2D, textureObj.texture);
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.CLAMP_TO_EDGE);
         //gl.generateMipmap(gl.TEXTURE_2D);
         gl.bindTexture(gl.TEXTURE_2D, null);
-        texture.ready = true;
+        textureObj.ready = true;
     }
 
     var shader;
