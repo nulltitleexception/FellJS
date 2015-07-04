@@ -109,7 +109,7 @@ GRAPHICS.renderer = function(canv) {
         gl.uniform2f(shader.positionUniform, 0, 0);
         gl.uniform2f(shader.halfScreenUniform, canvas.width / 2, canvas.height / 2);
 
-        gl.drawArrays(gl.TRIANGLE_STRIP, 0, squareVertexPositionBuffer.numItems);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, buffer.numItems);
     }
 
 
