@@ -99,7 +99,7 @@ GRAPHICS.renderer = function(canv) {
         tex = gl.createTexture();
         image = new Image();
         image.onload = function() { handleTextureLoaded(image, tex); }
-        image.src = "res/tex/player.png";
+        image.src = "res/tex/playerx32.png";
         return tex;
     }
 
@@ -126,7 +126,7 @@ GRAPHICS.renderer = function(canv) {
 
         gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, texture);
-        
+
         gl.uniform2f(shader.cameraUniform, 0, 0);
         gl.uniform2f(shader.positionUniform, 0, 0);
         gl.uniform2f(shader.halfScreenUniform, canvas.width / 2, canvas.height / 2);
