@@ -142,7 +142,7 @@ GRAPHICS.renderer = function(canv) {
         //this may only need to be called once
         gl.activeTexture(gl.TEXTURE0);
         //this may not need to be called so often
-        gl.vertexAttribPointer(shader.vertexPositionAttribute, 2, gl.FLOAT, false, 0, 0);
+        gl.vertexAttribPointer(getShader("default").vertexPositionAttribute, 2, gl.FLOAT, false, 0, 0);
 
         gl.useProgram(getShader("default"));
 
