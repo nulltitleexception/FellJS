@@ -113,7 +113,6 @@ GRAPHICS.renderer = function(canv) {
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-        //gl.generateMipmap(gl.TEXTURE_2D);
         gl.bindTexture(gl.TEXTURE_2D, null);
         textureObj.ready = true;
     }
@@ -138,24 +137,20 @@ GRAPHICS.renderer = function(canv) {
         return sprite;
     }
 
+    var externalDraw = function() {return true;};
     function drawScene() {
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-        gl.useProgram(getShader("default"));
-
-        gl.uniform2f(getShader("default").halfScreenUniform, canvas.width / 2, canvas.height / 2);
-        gl.uniform2f(getShader("default").cameraUniform, 0, 0);
-
-
-        getSprite("player").draw(getShader("default"), 0, 0)
+        externalDraw();
 
         window.requestAnimFrame(drawScene);
     }
 
 
 
-    function webGLStart() {
+    function webGLStart(drawFunc) {
+        externalDraw = drawFunc;
         window.requestAnimFrame = (function() {
             return window.requestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
@@ -216,8 +211,9 @@ GRAPHICS.renderer = function(canv) {
     }
 
    return {
+        GL: gl,
         webGLStart: webGLStart,
         getShader: getShader,
-        getTexture, getTexture
+        getSprite, getSprite
     };
 };

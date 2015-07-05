@@ -9,8 +9,8 @@ JS_GAME.game = (function() {
     var mangle = 0;
     var sangle = 0;
     var mb = [false, false, false];
-    var context;
     var canvas;
+    var renderer;
     var playerData = {
         name: "",
         x: 0,
@@ -41,9 +41,6 @@ JS_GAME.game = (function() {
 
     function init() {
         document.body.scroll = "no"; // ie only
-
-        gameInitialize();
-        return;
 
         pass = document.getElementById("loginInfo").pass.value;
         user = document.getElementById("loginInfo").user.value;
@@ -144,12 +141,7 @@ JS_GAME.game = (function() {
 
         canvas = canvasElement[0];
 
-        var renderer = new GRAPHICS.renderer(canvas);
-        renderer.webGLStart();
-        return;
-
-        context = canvas.getContext('2d');
-        context.globalCompositeOperation = "normal";
+        renderer = new GRAPHICS.renderer(canvas);
 
         function getMousePos(canvas, evt) {
             var rect = canvas.getBoundingClientRect();
@@ -171,30 +163,19 @@ JS_GAME.game = (function() {
 
         canvas.addEventListener("mousedown", mouseClick, false);
         canvas.addEventListener("mouseup", mouseUnclick, false);
+        renderer.webGLStart(drawLevel);
     }
 
-    function gameLoop() {
-        if (!connected) {
-            return;
-        }
-        var keyData = "";
-        try {
-            var ret = {
-                "keys": isKeyDown,
-                "mouse": {
-                    "button0": mb[0],
-                    "button1": mb[1],
-                    "button2": mb[2],
-                    "angle": mangle,
-                    "x": (mx - Math.floor(windowWidth / 2)),
-                    "y": (my - Math.floor(windowHeight / 2))
-                }
-            };
-            socket.send(JSON.stringify(ret));
-        } catch (err) {}
-        context.clearRect(0, 0, windowWidth, windowHeight);
-        context.fillStyle = "#FFFFFF";
-        context.fillRect(0, 0, windowWidth, windowHeight);
+    function drawLevel(){
+
+        GRAPHICS.GL.useProgram(GRAPHICS.getShader("default"));
+
+        GRAPHICS.GL.uniform2f(GRAPHICS.getShader("default").halfScreenUniform, canvas.width / 2, canvas.height / 2);
+        GRAPHICS.GL.uniform2f(GRAPHICS.getShader("default").cameraUniform, 0, 0);
+
+        GRAPHICS.getSprite("player").draw(GRAPHICS.getShader("default"), 0, 0);
+
+        return;
         //draw Tiles
         for (a = 0; a < tilesWidth; a++) {
             for (b = 0; b < tilesHeight; b++) {
@@ -222,6 +203,28 @@ JS_GAME.game = (function() {
             context.fillText(nameText, (gPIVX(e.x) - (context.measureText(nameText).width / 2)) + (e.width / 2), gPIVY(e.y) - entityNameOffsetY);
         }
         context.fillText("Pos: (" + playerData.x + ", " + playerData.y + ")", 5, 15);
+
+    }
+
+    function gameLoop() {
+        if (!connected) {
+            return;
+        }
+        var keyData = "";
+        try {
+            var ret = {
+                "keys": isKeyDown,
+                "mouse": {
+                    "button0": mb[0],
+                    "button1": mb[1],
+                    "button2": mb[2],
+                    "angle": mangle,
+                    "x": (mx - Math.floor(windowWidth / 2)),
+                    "y": (my - Math.floor(windowHeight / 2))
+                }
+            };
+            socket.send(JSON.stringify(ret));
+        } catch (err) {}
 
         setTimeout(gameLoop, frameLength);
     }
