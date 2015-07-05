@@ -101,7 +101,7 @@ GRAPHICS.renderer = function(canv) {
         var tex = gl.createTexture();
         var image = new Image();
         var texo = {texture: tex, image: image, ready: false};
-        image.onload = function() { handleTextureLoaded(image, texo); };
+        image.onload = function() { handleTextureLoaded(texo); };
         image.src = "res/tex/"+name+".png";
         return texo;
     }
