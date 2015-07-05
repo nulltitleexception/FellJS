@@ -137,24 +137,34 @@ GRAPHICS.renderer = function(canv) {
         gl.uniform2f(shader.halfScreenUniform, canvas.width / 2, canvas.height / 2);
 
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, buffer.numItems);}
-        setTimeout(drawScene, 10);
+        window.requestAnimFrame(drawScene);
     }
 
 
 
     function webGLStart() {
-        initGL(canvas);
-        texture = createTexture();
-        shader = loadShader("default");
-        buffer = createRectBuffer(400,400);
+        window.requestAnimFrame = (function() {
+            return window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            function(callFunc) {
+               window.setTimeout(callFunc, 20);
+           };
+        })();
+       initGL(canvas);
+       texture = createTexture();
+       shader = loadShader("default");
+       buffer = createRectBuffer(400,400);
 
-        gl.clearColor(0.0, 0.0, 0.0, 1.0);
-        gl.enable(gl.DEPTH_TEST);
+       gl.clearColor(0.0, 0.0, 0.0, 1.0);
+       gl.enable(gl.DEPTH_TEST);
 
-        drawScene();
-    }
+       drawScene();
+   }
 
-    return {
+   return {
         webGLStart: webGLStart
     };
 };
