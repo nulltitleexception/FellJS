@@ -6,11 +6,10 @@ if (typeof GRAPHICS === "undefined") {
 
 GRAPHICS.renderer = function(canv) {
     var canvas = canv;
-    var gl;
+    var gl = canvas.getContext("experimental-webgl");
 
     function initGL() {
         try {
-            gl = canvas.getContext("experimental-webgl");
             gl.viewportWidth = canvas.width;
             gl.viewportHeight = canvas.height;
         } catch (e) {}
@@ -222,7 +221,7 @@ GRAPHICS.renderer = function(canv) {
     }
 
     return {
-        GL: gl,
+        gl: gl,
         webGLStart: webGLStart,
         getShader: getShader,
         getSprite: getSprite
