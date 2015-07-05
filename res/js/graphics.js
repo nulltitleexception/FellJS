@@ -97,7 +97,7 @@ GRAPHICS.renderer = function(canv) {
     }
 
     function loadTexture(name) {
-        console.log(name);
+        gl.activeTexture(gl.TEXTURE0);
         var tex = gl.createTexture();
         var image = new Image();
         var texo = {texture: tex, image: image, ready: false};
@@ -107,7 +107,6 @@ GRAPHICS.renderer = function(canv) {
     }
 
     function handleTextureLoaded(textureObj) {
-        gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, textureObj.texture);
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, textureObj.image);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
