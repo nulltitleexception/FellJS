@@ -166,7 +166,7 @@ JS_GAME.game = (function() {
         renderer.webGLStart(drawLevel);
     }
 
-    function drawLevel(){
+    function drawLevel() {
 
         renderer.GL.useProgram(GRAPHICS.getShader("default"));
 

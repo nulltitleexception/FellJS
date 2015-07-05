@@ -19,8 +19,6 @@ GRAPHICS.renderer = function(canv) {
         }
     }
 
-
-
     function getFileDataSync(url) {
         var req = new XMLHttpRequest();
         req.open("GET", url, false);
@@ -81,16 +79,16 @@ GRAPHICS.renderer = function(canv) {
         buf = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, buf);
         vertices = [
-            width/2, height/2,
-            width/-2, height/2,
-            width/2, height/-2,
-            width/-2, height/-2
+            width / 2, height / 2,
+            width / -2, height / 2,
+            width / 2, height / -2,
+            width / -2, height / -2
         ];
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
         gl.vertexAttribPointer(getShader("default").vertexPositionAttribute, 2, gl.FLOAT, false, 0, 0);
         buf.itemSize = 2;
         buf.numItems = 4;
-        buf.bind = function(){
+        buf.bind = function() {
             gl.bindBuffer(gl.ARRAY_BUFFER, buf);
         }
         return buf;
@@ -100,9 +98,15 @@ GRAPHICS.renderer = function(canv) {
         gl.activeTexture(gl.TEXTURE0);
         var tex = gl.createTexture();
         var image = new Image();
-        var texo = {texture: tex, image: image, ready: false};
-        image.onload = function() { handleTextureLoaded(texo); };
-        image.src = "res/tex/"+name+".png";
+        var texo = {
+            texture: tex,
+            image: image,
+            ready: false
+        };
+        image.onload = function() {
+            handleTextureLoaded(texo);
+        };
+        image.src = "res/tex/" + name + ".png";
         return texo;
     }
 
@@ -117,18 +121,18 @@ GRAPHICS.renderer = function(canv) {
         textureObj.ready = true;
     }
 
-    function loadSprite(name){
-        var str = getFileDataSync("res/sprite/"+name+".json");
+    function loadSprite(name) {
+        var str = getFileDataSync("res/sprite/" + name + ".json");
         var sprite = JSON.parse(str);
-        if ("tex" in sprite){
+        if ("tex" in sprite) {
             sprite.texture = getTexture(sprite.tex);
-        }else{
+        } else {
             sprite.texture = getTexture(name);
         }
         sprite.buffer = getBuffer(sprite.width, sprite.height);
         sprite.draw = function(shader, x, y) {
             sprite.buffer.bind();
-            if (sprite.texture.ready){
+            if (sprite.texture.ready) {
                 gl.bindTexture(gl.TEXTURE_2D, sprite.texture.texture);
             }
             gl.uniform2f(shader.positionUniform, x, y);
@@ -137,7 +141,10 @@ GRAPHICS.renderer = function(canv) {
         return sprite;
     }
 
-    var externalDraw = function() {return true;};
+    var externalDraw = function() {
+        return true;
+    };
+
     function drawScene() {
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -153,23 +160,24 @@ GRAPHICS.renderer = function(canv) {
         externalDraw = drawFunc;
         window.requestAnimFrame = (function() {
             return window.requestAnimationFrame ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame ||
-            window.oRequestAnimationFrame ||
-            window.msRequestAnimationFrame ||
-            function(callFunc) {
-               window.setTimeout(callFunc, 20);
-           };
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                window.oRequestAnimationFrame ||
+                window.msRequestAnimationFrame ||
+                function(callFunc) {
+                    window.setTimeout(callFunc, 20);
+                };
         })();
-       initGL(canvas);
+        initGL(canvas);
 
-       gl.clearColor(0.0, 0.0, 0.0, 1.0);
-       gl.enable(gl.DEPTH_TEST);
+        gl.clearColor(0.0, 0.0, 0.0, 1.0);
+        gl.enable(gl.DEPTH_TEST);
 
-       drawScene();
-   }
+        drawScene();
+    }
 
     var shaders = new Object();
+
     function getShader(name) {
         if ((name) in shaders) {
             return shaders[name];
@@ -180,6 +188,7 @@ GRAPHICS.renderer = function(canv) {
     }
 
     var textures = new Object();
+
     function getTexture(name) {
         if ((name) in textures) {
             return textures[name];
@@ -190,8 +199,9 @@ GRAPHICS.renderer = function(canv) {
     }
 
     var sprites = new Object();
+
     function getSprite(name) {
-        if((name) in sprites) {
+        if ((name) in sprites) {
             return sprites[name];
         } else {
             sprites[name] = loadSprite(name);
@@ -200,9 +210,10 @@ GRAPHICS.renderer = function(canv) {
     }
 
     var buffers = new Object();
-    function getBuffer(width, height){ 
+
+    function getBuffer(width, height) {
         var name = width + "x" + height;
-        if((name) in buffers) {
+        if ((name) in buffers) {
             return buffers[name];
         } else {
             buffers[name] = createRectBuffer(width, height);
@@ -210,10 +221,10 @@ GRAPHICS.renderer = function(canv) {
         }
     }
 
-   return {
+    return {
         GL: gl,
         webGLStart: webGLStart,
         getShader: getShader,
-        getSprite, getSprite
+        getSprite: getSprite
     };
 };
