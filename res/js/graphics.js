@@ -106,6 +106,7 @@ GRAPHICS.renderer = function(canv) {
     }
 
     function handleTextureLoaded(textureObj) {
+        gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, textureObj.texture);
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, textureObj.image);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
@@ -140,9 +141,6 @@ GRAPHICS.renderer = function(canv) {
     function drawScene() {
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-        //this may only need to be called once
-        gl.activeTexture(gl.TEXTURE0);
 
         gl.useProgram(getShader("default"));
 
