@@ -127,14 +127,15 @@ GRAPHICS.renderer = function(canv) {
         sprite.buffer = getBuffer(sprite.width, sprite.height);
         sprite.draw = function(shader, x, y) {
             gl.bindBuffer(gl.ARRAY_BUFFER, sprite.buffer);
-            gl.bindTexture(gl.TEXTURE_2D, sprite.texture.texture);
+            if (sprite.texture.ready){
+                gl.bindTexture(gl.TEXTURE_2D, sprite.texture.texture);
+            }
             gl.uniform2f(shader.positionUniform, x, y);
             gl.drawArrays(gl.TRIANGLE_STRIP, 0, sprite.buffer.numItems);
         };
     }
 
     function drawScene() {
-        if (texture.ready){
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
@@ -151,7 +152,6 @@ GRAPHICS.renderer = function(canv) {
 
         getSprite("player").draw(getShader("default"), 0, 0)
 
-        }
         window.requestAnimFrame(drawScene);
     }
 
