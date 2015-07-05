@@ -168,12 +168,12 @@ JS_GAME.game = (function() {
 
     function drawLevel(){
 
-        GRAPHICS.gl.useProgram(GRAPHICS.getShader("default"));
+        renderer.GL.useProgram(GRAPHICS.getShader("default"));
 
-        GRAPHICS.gl.uniform2f(GRAPHICS.getShader("default").halfScreenUniform, canvas.width / 2, canvas.height / 2);
-        GRAPHICS.gl.uniform2f(GRAPHICS.getShader("default").cameraUniform, 0, 0);
+        renderer.GL.uniform2f(GRAPHICS.getShader("default").halfScreenUniform, canvas.width / 2, canvas.height / 2);
+        renderer.GL.uniform2f(GRAPHICS.getShader("default").cameraUniform, 0, 0);
 
-        GRAPHICS.getSprite("player").draw(GRAPHICS.getShader("default"), 0, 0);
+        renderer.getSprite("player").draw(GRAPHICS.getShader("default"), 0, 0);
 
         return;
         //draw Tiles
