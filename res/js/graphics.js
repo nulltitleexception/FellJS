@@ -97,6 +97,7 @@ GRAPHICS.renderer = function(canv) {
     }
 
     function loadTexture(name) {
+        console.log(name);
         var tex = gl.createTexture();
         var image = new Image();
         var texo = {texture: tex, image: image, ready: false};
