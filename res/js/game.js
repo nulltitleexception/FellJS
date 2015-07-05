@@ -168,10 +168,10 @@ JS_GAME.game = (function() {
 
     function drawLevel(){
 
-        GRAPHICS.GL.useProgram(GRAPHICS.getShader("default"));
+        GRAPHICS.gl.useProgram(GRAPHICS.getShader("default"));
 
-        GRAPHICS.GL.uniform2f(GRAPHICS.getShader("default").halfScreenUniform, canvas.width / 2, canvas.height / 2);
-        GRAPHICS.GL.uniform2f(GRAPHICS.getShader("default").cameraUniform, 0, 0);
+        GRAPHICS.gl.uniform2f(GRAPHICS.getShader("default").halfScreenUniform, canvas.width / 2, canvas.height / 2);
+        GRAPHICS.gl.uniform2f(GRAPHICS.getShader("default").cameraUniform, 0, 0);
 
         GRAPHICS.getSprite("player").draw(GRAPHICS.getShader("default"), 0, 0);
 

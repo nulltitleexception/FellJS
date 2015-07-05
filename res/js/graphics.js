@@ -211,7 +211,7 @@ GRAPHICS.renderer = function(canv) {
     }
 
    return {
-        GL: gl,
+        gl: gl,
         webGLStart: webGLStart,
         getShader: getShader,
         getSprite, getSprite
