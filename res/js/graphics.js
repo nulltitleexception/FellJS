@@ -95,18 +95,18 @@ GRAPHICS.renderer = function(canv) {
         return buf;
     }
 
-    function createTexture(name) {
-        tex = gl.createTexture();
-        image = new Image();
+    function loadTexture(name) {
+        var tex = gl.createTexture();
+        var image = new Image();
         var texo = {texture: tex, image: image, ready: false};
-        image.onload = function() { handleTextureLoaded(image, texo); }
-        image.src = "res/tex/player.png";
+        image.onload = function() { handleTextureLoaded(image, texo); };
+        image.src = "res/tex/"+name+".png";
         return texo;
     }
 
-    function handleTextureLoaded(image, textureObj) {
+    function handleTextureLoaded(textureObj) {
         gl.bindTexture(gl.TEXTURE_2D, textureObj.texture);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, textureObj.image);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
@@ -116,27 +116,42 @@ GRAPHICS.renderer = function(canv) {
         textureObj.ready = true;
     }
 
-    var shader;
-    var buffer;
-    var texture
+    function loadSprite(name){
+        var str = getFileDataSync("res/sprite/"+name+".json");
+        var sprite = JSON.parse(str);
+        if ("tex" in sprite){
+            sprite.texture = getTexture(sprite.tex);
+        }else{
+            sprite.texture = getTexture(name);
+        }
+        sprite.buffer = getBuffer(sprite.width, sprite.height);
+        sprite.draw = function(shader, x, y) {
+            gl.bindBuffer(gl.ARRAY_BUFFER, sprite.buffer);
+            gl.bindTexture(gl.TEXTURE_2D, sprite.texture.texture);
+            gl.uniform2f(shader.positionUniform, x, y);
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, sprite.buffer.numItems);
+        };
+    }
+
     function drawScene() {
         if (texture.ready){
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-        gl.vertexAttribPointer(shader.vertexPositionAttribute, buffer.itemSize, gl.FLOAT, false, 0, 0);
-
-        gl.useProgram(shader);
-
+        //this may only need to be called once
         gl.activeTexture(gl.TEXTURE0);
-        gl.bindTexture(gl.TEXTURE_2D, texture.texture);
+        //this may not need to be called so often
+        gl.vertexAttribPointer(shader.vertexPositionAttribute, 2, gl.FLOAT, false, 0, 0);
 
-        gl.uniform2f(shader.cameraUniform, 0, 0);
-        gl.uniform2f(shader.positionUniform, 0, 0);
-        gl.uniform2f(shader.halfScreenUniform, canvas.width / 2, canvas.height / 2);
+        gl.useProgram(getShader("default"));
 
-        gl.drawArrays(gl.TRIANGLE_STRIP, 0, buffer.numItems);}
+        gl.uniform2f(getShader("default").halfScreenUniform, canvas.width / 2, canvas.height / 2);
+        gl.uniform2f(getShader("default").cameraUniform, 0, 0);
+
+
+        getSprite("player").draw(getShader("default"), 0, 0)
+
+        }
         window.requestAnimFrame(drawScene);
     }
 
@@ -154,9 +169,6 @@ GRAPHICS.renderer = function(canv) {
            };
         })();
        initGL(canvas);
-       texture = createTexture();
-       shader = loadShader("default");
-       buffer = createRectBuffer(400,400);
 
        gl.clearColor(0.0, 0.0, 0.0, 1.0);
        gl.enable(gl.DEPTH_TEST);
@@ -164,7 +176,50 @@ GRAPHICS.renderer = function(canv) {
        drawScene();
    }
 
+    var shaders = new Object();
+    function getShader(name) {
+        if ((name) in shaders) {
+            return shaders[name];
+        } else {
+            shaders[name] = loadShader(name);
+            return shaders[name];
+        }
+    }
+
+    var textures = new Object();
+    function getTexture(name) {
+        if ((name) in textures) {
+            return textures[name];
+        } else {
+            textures[name] = loadTexture(name);
+            return textures[name];
+        }
+    }
+
+    var sprites = new Object();
+    function getSprite(name) {
+        if((name) in sprites) {
+            return sprites[name];
+        } else {
+            sprites[name] = loadSprite(name);
+            return sprites[name];
+        }
+    }
+
+    var buffers = new Object();
+    function getBuffer(width, height){ 
+        var name = width + "x" + height;
+        if((name) in buffers) {
+            return buffers[name];
+        } else {
+            buffers[name] = createRectBuffer(width, height);
+            return buffers[name];
+        }
+    }
+
    return {
-        webGLStart: webGLStart
+        webGLStart: webGLStart,
+        getShader: getShader,
+        getTexture, getTexture
     };
 };
