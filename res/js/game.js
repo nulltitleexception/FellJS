@@ -179,6 +179,7 @@ JS_GAME.game = (function() {
                 if (tiles[a][b].id >= 0) {
                     //TODO
                     //drawImageSection("tilesheet", gPIVX(a * singleTileWidth), gPIVY(b * singleTileWidth), tiles[a][b].id, singleTileWidth, singleTileWidth);
+                    renderer.getSprite("tile"+tiles[a][b].id).draw(renderer.getShader("default"), a * singleTileWidth, b * singleTileWidth);
                 }
             }
         }
@@ -186,8 +187,6 @@ JS_GAME.game = (function() {
         var entityNameOffsetY = 5;
         for (i = 0; i < entityNum; i++) {
             var e = entities[i];
-            //TODO
-            //drawImage(e.state.type, gPIVX(e.x), gPIVY(e.y), e.width, e.height);
             renderer.getSprite(e.state.type).draw(renderer.getShader("default"), e.x, e.y);
             if ("weapon" in e.state) {
                 //TODO
