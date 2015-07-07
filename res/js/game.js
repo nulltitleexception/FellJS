@@ -171,16 +171,14 @@ JS_GAME.game = (function() {
         renderer.GL.useProgram(renderer.getShader("default"));
 
         renderer.GL.uniform2f(renderer.getShader("default").halfScreenUniform, canvas.width / 2, canvas.height / 2);
-        renderer.GL.uniform2f(renderer.getShader("default").cameraUniform, 0, 0);
+        renderer.GL.uniform2f(renderer.getShader("default").cameraUniform, playerData.x, playerData.y);
 
-        renderer.getSprite("player").draw(renderer.getShader("default"), 0, 0);
-
-        return;
         //draw Tiles
         for (a = 0; a < tilesWidth; a++) {
             for (b = 0; b < tilesHeight; b++) {
                 if (tiles[a][b].id >= 0) {
-                    drawImageSection("tilesheet", gPIVX(a * singleTileWidth), gPIVY(b * singleTileWidth), tiles[a][b].id, singleTileWidth, singleTileWidth);
+                    //TODO
+                    //drawImageSection("tilesheet", gPIVX(a * singleTileWidth), gPIVY(b * singleTileWidth), tiles[a][b].id, singleTileWidth, singleTileWidth);
                 }
             }
         }
@@ -188,21 +186,19 @@ JS_GAME.game = (function() {
         var entityNameOffsetY = 5;
         for (i = 0; i < entityNum; i++) {
             var e = entities[i];
-            context.fillStyle = e.color;
-            context.save();
-            context.translate(gPIVX(e.x + (e.width / 2)), gPIVY(e.y + (e.height / 2)));
-            context.rotate(e.angle);
-            context.translate(-gPIVX(e.x + (e.width / 2)), -gPIVY(e.y + (e.height / 2)));
-            //drawImageMasked("player", e.color, gPIVX(e.x), gPIVY(e.y), e.width, e.height);
-            drawImage(e.state.type, gPIVX(e.x), gPIVY(e.y), e.width, e.height);
+            //TODO
+            //drawImage(e.state.type, gPIVX(e.x), gPIVY(e.y), e.width, e.height);
+            renderer.getSprite(e.state.type).draw(renderer.getShader("default"), e.x, e.y);
             if ("weapon" in e.state) {
-                drawImage("dagger", gPIVX(e.x + e.state.weapon.x), gPIVY(e.y + e.state.weapon.y));
+                //TODO
+                //drawImage("dagger", gPIVX(e.x + e.state.weapon.x), gPIVY(e.y + e.state.weapon.y));
             }
-            context.restore();
             var nameText = e.name + " (" + e.state.health + "/" + e.state.schematic.maxHealth + ")";
-            context.fillText(nameText, (gPIVX(e.x) - (context.measureText(nameText).width / 2)) + (e.width / 2), gPIVY(e.y) - entityNameOffsetY);
+            //TODO
+            //context.fillText(nameText, (gPIVX(e.x) - (context.measureText(nameText).width / 2)) + (e.width / 2), gPIVY(e.y) - entityNameOffsetY);
         }
-        context.fillText("Pos: (" + playerData.x + ", " + playerData.y + ")", 5, 15);
+        //TODO OR REMOVE
+        //context.fillText("Pos: (" + playerData.x + ", " + playerData.y + ")", 5, 15);
 
     }
 
@@ -283,91 +279,6 @@ JS_GAME.game = (function() {
     function mouseUnclick(e) {
         mb[e.button] = false;
     }
-
-    function drawImageSection(name, x, y, id, spriteWidth, spriteHeight, xSize, ySize) {
-        xSize = typeof xSize !== 'undefined' ? xSize : spriteWidth;
-        ySize = typeof ySize !== 'undefined' ? ySize : spriteHeight;
-        sheetCols = Math.floor(getImage(name).width / (spriteWidth + 2));
-        sheetRows = Math.floor(getImage(name).height / (spriteHeight + 2));
-        context.drawImage(getImage(name), ((id % sheetCols) * (spriteWidth + 2)) + 1, (Math.floor(id / sheetRows) * (spriteHeight + 2)) + 1, spriteWidth, spriteHeight, x, y, xSize, ySize);
-    }
-
-    function drawImage(name, x, y, xSize, ySize) {
-        xSize = typeof xSize !== 'undefined' ? xSize : getImage(name).width;
-        ySize = typeof ySize !== 'undefined' ? ySize : getImage(name).height;
-        context.drawImage(getImage(name), x, y, xSize, ySize);
-    }
-
-    function drawImageMasked(name, color, x, y, xSize, ySize) {
-        xSize = typeof xSize !== 'undefined' ? xSize : getImage(name).width;
-        ySize = typeof ySize !== 'undefined' ? ySize : getImage(name).height;
-        context.drawImage(getImageMasked(name, color), x, y, xSize, ySize);
-    }
-
-    function getImageData(image) {
-        var tempCanv = document.createElement('canvas');
-        tempCanv.width = image.width;
-        tempCanv.height = image.height;
-        var tempCTX = tempCanv.getContext('2d');
-        tempCTX.drawImage(image, 0, 0, image.width, image.height);
-        return tempCTX.getImageData(0, 0, image.width, image.height);
-    }
-
-    function getImageFromData(data) {
-        var tempCanv = document.createElement('canvas');
-        tempCanv.width = data.width;
-        tempCanv.height = data.height;
-        var tempCTX = tempCanv.getContext('2d');
-        tempCTX.putImageData(data, 0, 0);
-        var src = tempCanv.toDataURL("image/png");
-        var img = new Image();
-        img.src = src;
-        return img;
-    }
-
-    function getImage(name) {
-        if ((name) in textures) {
-            return textures[name];
-        } else {
-            textures[name] = new Image;
-            textures[name].src = 'res/tex/' + name + '.png';
-            return textures[name];
-        }
-    }
-
-    function getImageMasked(name, color) {
-        if ((name + "-mask" + color) in textures) {
-            return textures[name + "-mask" + color];
-        }
-        var image = getImage(name);
-        var mask = getImage(name + "-mask");
-        if (image.width == 0 || image.height == 0 || mask.width == 0 || mask.height == 0) {
-            return new Image();
-        }
-        var maskData = getImageData(mask);
-        var regex = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i;
-        var colorRGBS = regex.exec(color);
-        var colorRGB = [];
-        for (i = 0; i < 3; i++) {
-            colorRGB[i] = parseInt(colorRGBS[i + 1], 16);
-        }
-        for (i = 0; i < maskData.data.length; i += 4) {
-            maskData.data[i] = colorRGB[0];
-            maskData.data[i + 1] = colorRGB[1];
-            maskData.data[i + 2] = colorRGB[2];
-        }
-        var tempCanv = document.createElement('canvas');
-        tempCanv.width = image.width;
-        tempCanv.height = image.height;
-        var tempCTX = tempCanv.getContext("2d");
-        tempCTX.drawImage(image, 0, 0, image.width, image.height);
-        tempCTX.drawImage(getImageFromData(maskData), 0, 0, maskData.width, maskData.height);
-        var ret = new Image();
-        ret.src = tempCanv.toDataURL("image/png");
-        textures[name + "-mask" + color] = ret;
-        return ret;
-    }
-
 
     function failedLogin() {
         alert("login failed"); //Just testing it out. I'll make it pretty later.
