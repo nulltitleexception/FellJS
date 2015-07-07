@@ -171,7 +171,7 @@ JS_GAME.game = (function() {
         renderer.GL.useProgram(renderer.getShader("default"));
 
         renderer.GL.uniform2f(renderer.getShader("default").halfScreenUniform, canvas.width / 2, canvas.height / 2);
-        renderer.GL.uniform2f(renderer.getShader("default").cameraUniform, playerData.x, playerData.y);
+        renderer.GL.uniform2f(renderer.getShader("default").cameraUniform, playerData.x + (playerData.width / 2), playerData.y + (playerData.height / 2));
 
         //draw Tiles
         for (a = 0; a < tilesWidth; a++) {
