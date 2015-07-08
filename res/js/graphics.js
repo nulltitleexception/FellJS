@@ -141,6 +141,7 @@ GRAPHICS.renderer = function(canv) {
             gl.uniform2f(shader.positionUniform, x, y);
             gl.drawArrays(gl.TRIANGLE_STRIP, 0, sprite.buffer.numItems);
         };
+        console.log(sprite);
         return sprite;
     }
 
