@@ -17,8 +17,8 @@ GRAPHICS.renderer = function(canv) {
             alert("Could not initialise WebGL.");
         }
         gl.activeTexture(gl.TEXTURE0);
-        gl.enable(gl.DEPTH_TEST);
-        gl.depthFunc(gl.LESS);
+        //gl.enable(gl.DEPTH_TEST);
+        //gl.depthFunc(gl.LESS);
         gl.enable(gl.BLEND);
         gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
     }
