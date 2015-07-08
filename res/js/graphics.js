@@ -16,6 +16,11 @@ GRAPHICS.renderer = function(canv) {
         if (!gl) {
             alert("Could not initialise WebGL.");
         }
+        gl.activeTexture(gl.TEXTURE0);
+        gl.enable(gl.DEPTH_TEST);
+        gl.depthFunc(gl.LESS);
+        gl.enable(gl.BLEND);
+        gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
     }
 
     function getFileDataSync(url) {
@@ -94,7 +99,6 @@ GRAPHICS.renderer = function(canv) {
     }
 
     function loadTexture(name) {
-        gl.activeTexture(gl.TEXTURE0);
         var tex = gl.createTexture();
         var image = new Image();
         var texo = {
