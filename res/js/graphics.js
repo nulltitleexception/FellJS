@@ -88,12 +88,13 @@ GRAPHICS.renderer = function(canv) {
             width / 2.0, height / -2.0,
             width / -2.0, height / -2.0
         ];
-        console.log(vertices);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
         gl.vertexAttribPointer(getShader("default").vertexPositionAttribute, 2, gl.FLOAT, false, 0, 0);
         buf.itemSize = 2;
         buf.numItems = 4;
+        buf.verts = vertices;
         buf.bind = function() {
+            console.log("bound " + buf.verts);
             gl.bindBuffer(gl.ARRAY_BUFFER, buf);
         }
         return buf;
