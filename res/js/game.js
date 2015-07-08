@@ -173,16 +173,6 @@ JS_GAME.game = (function() {
         renderer.GL.uniform2f(renderer.getShader("default").halfScreenUniform, canvas.width / 2, canvas.height / 2);
         renderer.GL.uniform2f(renderer.getShader("default").cameraUniform, playerData.x + (playerData.width / 2), playerData.y + (playerData.height / 2));
 
-        //draw Tiles
-        for (a = 0; a < tilesWidth; a++) {
-            for (b = 0; b < tilesHeight; b++) {
-                if (tiles[a][b].id >= 0) {
-                    //TODO
-                    //drawImageSection("tilesheet", gPIVX(a * singleTileWidth), gPIVY(b * singleTileWidth), tiles[a][b].id, singleTileWidth, singleTileWidth);
-                    renderer.getSprite("tile"+tiles[a][b].id).draw(renderer.getShader("default"), a * singleTileWidth, b * singleTileWidth);
-                }
-            }
-        }
         //draw entities
         var entityNameOffsetY = 5;
         for (i = 0; i < entityNum; i++) {
@@ -195,6 +185,16 @@ JS_GAME.game = (function() {
             var nameText = e.name + " (" + e.state.health + "/" + e.state.schematic.maxHealth + ")";
             //TODO
             //context.fillText(nameText, (gPIVX(e.x) - (context.measureText(nameText).width / 2)) + (e.width / 2), gPIVY(e.y) - entityNameOffsetY);
+        }
+        //draw Tiles
+        for (a = 0; a < tilesWidth; a++) {
+            for (b = 0; b < tilesHeight; b++) {
+                if (tiles[a][b].id >= 0) {
+                    //TODO
+                    //drawImageSection("tilesheet", gPIVX(a * singleTileWidth), gPIVY(b * singleTileWidth), tiles[a][b].id, singleTileWidth, singleTileWidth);
+                    renderer.getSprite("tile"+tiles[a][b].id).draw(renderer.getShader("default"), a * singleTileWidth, b * singleTileWidth);
+                }
+            }
         }
         //TODO OR REMOVE
         //context.fillText("Pos: (" + playerData.x + ", " + playerData.y + ")", 5, 15);
