@@ -141,7 +141,6 @@ GRAPHICS.renderer = function(canv) {
             gl.uniform2f(shader.positionUniform, x, y);
             gl.drawArrays(gl.TRIANGLE_STRIP, 0, sprite.buffer.numItems);
         };
-        console.log(sprite);
         return sprite;
     }
 
@@ -217,6 +216,7 @@ GRAPHICS.renderer = function(canv) {
 
     function getBuffer(width, height) {
         var name = width + "x" + height;
+        console.log(name);
         if ((name) in buffers) {
             return buffers[name];
         } else {
