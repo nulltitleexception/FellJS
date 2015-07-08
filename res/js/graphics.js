@@ -217,11 +217,11 @@ GRAPHICS.renderer = function(canv) {
     function getBuffer(width, height) {
         var name = width + "x" + height;
         if ((name) in buffers) {
-            console.log(name+" is extant");
+            console.log(buffers[name]);
             return buffers[name];
         } else {
-            console.log("creating " + name);
             buffers[name] = createRectBuffer(width, height);
+            console.log(buffers[name]);
             return buffers[name];
         }
     }
