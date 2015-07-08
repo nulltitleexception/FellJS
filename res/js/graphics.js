@@ -92,7 +92,6 @@ GRAPHICS.renderer = function(canv) {
         gl.vertexAttribPointer(getShader("default").vertexPositionAttribute, 2, gl.FLOAT, false, 0, 0);
         buf.itemSize = 2;
         buf.numItems = 4;
-        buf.verts = vertices;
         buf.bind = function() {
             gl.bindBuffer(gl.ARRAY_BUFFER, buf);
         }
