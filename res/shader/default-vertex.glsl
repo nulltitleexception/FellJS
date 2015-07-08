@@ -17,5 +17,5 @@
     	} else {
     		texCoord.y = 1.0;
     	}
-        gl_Position = vec4(((vertexPosition - camera) + pos) / -halfScreen, 0, 1.0);
+        gl_Position = vec4(((vertexPosition - camera) + pos) / vec2(halfScreen.x, -halfScreen.y), 0, 1.0);
     }
