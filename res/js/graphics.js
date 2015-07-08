@@ -94,7 +94,6 @@ GRAPHICS.renderer = function(canv) {
         buf.numItems = 4;
         buf.verts = vertices;
         buf.bind = function() {
-            console.log("bound " + buf.verts);
             gl.bindBuffer(gl.ARRAY_BUFFER, buf);
         }
         return buf;
