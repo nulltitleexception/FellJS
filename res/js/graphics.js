@@ -82,6 +82,7 @@ GRAPHICS.renderer = function(canv) {
         var buf;
         buf = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+        console.log(width+", "+height);
         vertices = [
             width / 2.0, height / 2.0,
             width / -2.0, height / 2.0,
