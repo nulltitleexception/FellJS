@@ -135,7 +135,7 @@ GRAPHICS.renderer = function(canv) {
         sprite.buffer = getBuffer(sprite.width, sprite.height);
         sprite.draw = function(shader, x, y) {
             sprite.buffer.bind();
-            gl.bindBuffer(gl.ARRAY_BUFFER, sprite.buffer);
+            gl.bindBuffer(gl.ARRAY_BUFFER, sprite.buffer); // duplicate
             if (sprite.texture.ready) {
                 gl.bindTexture(gl.TEXTURE_2D, sprite.texture.texture);
             }
