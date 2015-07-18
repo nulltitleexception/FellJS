@@ -134,13 +134,13 @@ GRAPHICS.renderer = function(canv) {
         }
         sprite.buffer = getBuffer(sprite.width, sprite.height);
         sprite.draw = function(shader, x, y) {
-            sprite.buffer.bind();
-            gl.bindBuffer(gl.ARRAY_BUFFER, sprite.buffer); // duplicate
-            if (sprite.texture.ready) {
-                gl.bindTexture(gl.TEXTURE_2D, sprite.texture.texture);
+            this.buffer.bind();
+            gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer); // duplicate
+            if (this.texture.ready) {
+                gl.bindTexture(gl.TEXTURE_2D, this.texture.texture);
             }
             gl.uniform2f(shader.positionUniform, x, y);
-            gl.drawArrays(gl.TRIANGLE_STRIP, 0, sprite.buffer.numItems);
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, this.buffer.numItems);
         };
         return sprite;
     }
