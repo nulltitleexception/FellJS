@@ -95,7 +95,7 @@ GRAPHICS.renderer = function(canv) {
         buf.width = width;
         buf.height = height;
         buf.bind = function() {
-        	console.log(this.width + ", " + this.height)
+        	console.log(this.width + ", " + this.height);
             gl.bindBuffer(gl.ARRAY_BUFFER, this);
         }
         return buf;
@@ -138,7 +138,6 @@ GRAPHICS.renderer = function(canv) {
         sprite.buffer = getBuffer(sprite.width, sprite.height);
         sprite.draw = function(shader, x, y) {
             this.buffer.bind();
-            gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer); // duplicate
             if (this.texture.ready) {
                 gl.bindTexture(gl.TEXTURE_2D, this.texture.texture);
             }
