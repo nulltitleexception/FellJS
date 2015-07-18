@@ -92,7 +92,10 @@ GRAPHICS.renderer = function(canv) {
         gl.vertexAttribPointer(getShader("default").vertexPositionAttribute, 2, gl.FLOAT, false, 0, 0);
         buf.itemSize = 2;
         buf.numItems = 4;
+        buf.width = width;
+        buf.height = height;
         buf.bind = function() {
+        	console.log(this.width + ", " + this.height)
             gl.bindBuffer(gl.ARRAY_BUFFER, this);
         }
         return buf;
@@ -132,7 +135,7 @@ GRAPHICS.renderer = function(canv) {
         } else {
             sprite.texture = getTexture(name);
         }
-        sprite.buffer = createRectBuffer(sprite.width, sprite.height);
+        sprite.buffer = getBuffer(sprite.width, sprite.height);
         sprite.draw = function(shader, x, y) {
             this.buffer.bind();
             gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer); // duplicate
