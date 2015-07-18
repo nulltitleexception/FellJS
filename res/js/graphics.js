@@ -136,7 +136,7 @@ GRAPHICS.renderer = (function(canv) {
         }
         sprite.buffer = getBuffer(sprite.width, sprite.height);
         sprite.draw = function(shader, x, y) {
-            //this.buffer.bind();
+            this.buffer.bind();
             if (this.texture.ready) {
                 gl.bindTexture(gl.TEXTURE_2D, this.texture.texture);
             }
@@ -231,6 +231,5 @@ GRAPHICS.renderer = (function(canv) {
         webGLStart: webGLStart,
         getShader: getShader,
         getSprite: getSprite,
-        getBuffer: getBuffer
     };
 });
