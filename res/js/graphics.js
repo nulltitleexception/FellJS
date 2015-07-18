@@ -93,7 +93,7 @@ GRAPHICS.renderer = function(canv) {
         buf.itemSize = 2;
         buf.numItems = 4;
         buf.bind = function() {
-            gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+            gl.bindBuffer(gl.ARRAY_BUFFER, this);
         }
         return buf;
     }
