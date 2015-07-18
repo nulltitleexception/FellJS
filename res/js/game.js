@@ -196,6 +196,7 @@ JS_GAME.game = (function() {
                 }
             }
         }
+        renderer.createRectBuffer(24,24);
         //TODO OR REMOVE
         //context.fillText("Pos: (" + playerData.x + ", " + playerData.y + ")", 5, 15);
 

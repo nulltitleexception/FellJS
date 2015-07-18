@@ -231,6 +231,7 @@ GRAPHICS.renderer = function(canv) {
         GL: gl,
         webGLStart: webGLStart,
         getShader: getShader,
-        getSprite: getSprite
+        getSprite: getSprite,
+        createRectBuffer: createRectBuffer
     };
 };
