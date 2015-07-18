@@ -6,7 +6,7 @@ if (typeof GRAPHICS === "undefined") {
 
 GRAPHICS.renderer = (function(canv) {
     var canvas = canv;
-    var gl = WebGLDebugUtils.makeDebugContext(canvas.getContext("experimental-webgl"));
+    var gl = canvas.getContext("webgl");
 
     function initGL() {
         try {
