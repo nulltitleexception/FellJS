@@ -98,14 +98,13 @@ JS_GAME.game = (function() {
                 tiles = msg.level.tiles;
                 tilesWidth = msg.level.width;
                 tilesHeight = msg.level.height;
-                socket.close();
             }
         };
 
         socket.onclose = function() {
-            //connected = false;
-            //$("body").empty();
-            //$('body').append('<h1>Disconnected</h1><br/><h2>Reason: ' + disconnectMessage);
+            connected = false;
+            $("body").empty();
+            $('body').append('<h1>Disconnected</h1><br/><h2>Reason: ' + disconnectMessage);
         };
 
         socket.onerror = function() {
