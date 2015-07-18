@@ -93,7 +93,7 @@ GRAPHICS.renderer = function(canv) {
         buf.itemSize = 2;
         buf.numItems = 4;
         buf.bind = function() {
-            gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+            gl.bindBuffer(gl.ARRAY_BUFFER, this);
         }
         return buf;
     }
@@ -134,13 +134,12 @@ GRAPHICS.renderer = function(canv) {
         }
         sprite.buffer = getBuffer(sprite.width, sprite.height);
         sprite.draw = function(shader, x, y) {
-            sprite.buffer.bind();
-            gl.bindBuffer(gl.ARRAY_BUFFER, sprite.buffer); // duplicate
-            if (sprite.texture.ready) {
-                gl.bindTexture(gl.TEXTURE_2D, sprite.texture.texture);
+            buffer.bind();
+            if (texture.ready) {
+                gl.bindTexture(gl.TEXTURE_2D, texture.texture);
             }
             gl.uniform2f(shader.positionUniform, x, y);
-            gl.drawArrays(gl.TRIANGLE_STRIP, 0, sprite.buffer.numItems);
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, buffer.numItems);
         };
         return sprite;
     }
