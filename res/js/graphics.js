@@ -90,12 +90,14 @@ GRAPHICS.renderer = function(canv) {
         ];
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
         gl.vertexAttribPointer(getShader("default").vertexPositionAttribute, 2, gl.FLOAT, false, 0, 0);
-        buf.itemSize = 2;
-        buf.numItems = 4;
-        buf.bind = function() {
-            gl.bindBuffer(gl.ARRAY_BUFFER, this);
+        var retbuf = new Object();
+        retbuf.buffer = buf;
+        retbuf.itemSize = 2;
+        retbuf.numItems = 4;
+        retbuf.bind = function() {
+            gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer);
         }
-        return buf;
+        return retbuf;
     }
 
     function loadTexture(name) {
