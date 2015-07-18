@@ -4,7 +4,7 @@ if (typeof GRAPHICS === "undefined") {
     alert("Unable to safely instantiate GRAPHICS");
 }
 
-GRAPHICS.renderer = function(canv) {
+GRAPHICS.renderer = (function(canv) {
     var canvas = canv;
     var gl = canvas.getContext("experimental-webgl");
 
@@ -233,4 +233,4 @@ GRAPHICS.renderer = function(canv) {
         getSprite: getSprite,
         createRectBuffer: createRectBuffer
     };
-};
+});
