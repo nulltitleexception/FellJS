@@ -177,6 +177,16 @@ JS_GAME.game = (function() {
         var entityNameOffsetY = 5;
         for (i = 0; i < entityNum; i++) {
             var e = entities[i];
+
+
+
+            var sprite = renderer.getSprite(e.state.type);
+            renderer.GL.bindBuffer(renderer.GL.ARRAY_BUFFER, renderer.getBuffer(sprite.width, sprite.height).buffer);
+
+
+
+
+
             renderer.getSprite(e.state.type).draw(renderer.getShader("default"), e.x, e.y);
             if ("weapon" in e.state) {
                 //TODO
