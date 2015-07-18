@@ -181,7 +181,7 @@ JS_GAME.game = (function() {
 
 
             var sprite = renderer.getSprite(e.state.type);
-            renderer.GL.bindBuffer(renderer.GL.ARRAY_BUFFER, renderer.getBuffer(sprite.width, sprite.height).buffer);
+            renderer.GL.bindBuffer(renderer.GL.ARRAY_BUFFER, renderer.createRectBuffer(sprite.width, sprite.height).buffer);
 
 
 
