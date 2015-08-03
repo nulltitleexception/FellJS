@@ -80,10 +80,10 @@ GRAPHICS.renderer = (function(canv) {
 
     function createRectBuffer(width, height) {
         var buf = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
         buf.bind = function() {
             gl.bindBuffer(gl.ARRAY_BUFFER, this);
         }
+        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
         var vertices = [
             width / 2.0, height / 2.0,
             width / -2.0, height / 2.0,
@@ -94,7 +94,7 @@ GRAPHICS.renderer = (function(canv) {
         gl.vertexAttribPointer(getShader("default").vertexPositionAttribute, 2, gl.FLOAT, false, 0, 0);
         buf.itemSize = 2;
         buf.numItems = 4;
-        return retbuf;
+        return buf;
     }
 
     function loadTexture(name) {
