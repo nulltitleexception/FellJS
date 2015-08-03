@@ -90,6 +90,10 @@ JS_GAME.game = (function() {
             if ("entities" in msg && "enum" in msg) {
                 entities = msg.entities;
                 entityNum = msg.enum;
+                timesLevelHasBeenRecieved++;
+                if (timesLevelHasBeenRecieved > 100){
+                    socket.close;
+                }
             }
             if ("player" in msg) {
                 playerData = msg.player;
@@ -98,7 +102,6 @@ JS_GAME.game = (function() {
                 tiles = msg.level.tiles;
                 tilesWidth = msg.level.width;
                 tilesHeight = msg.level.height;
-                socket.close();
             }
         };
 
