@@ -94,6 +94,8 @@ GRAPHICS.renderer = (function(canv) {
         gl.vertexAttribPointer(getShader("default").vertexPositionAttribute, 2, gl.FLOAT, false, 0, 0);
         buf.itemSize = 2;
         buf.numItems = 4;
+        buf.width = width;
+        buf.height = height;
         return buf;
     }
 
@@ -141,6 +143,7 @@ GRAPHICS.renderer = (function(canv) {
             gl.drawArrays(gl.TRIANGLE_STRIP, 0, this.buffer.numItems);
         	gl.bindBuffer(gl.ARRAY_BUFFER, null);
         };
+        console.log(name + ": " + sprite.buffer.width + ", " + sprite.buffer.height)
         return sprite;
     }
 
