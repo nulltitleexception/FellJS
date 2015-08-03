@@ -187,8 +187,8 @@ JS_GAME.game = (function() {
             //context.fillText(nameText, (gPIVX(e.x) - (context.measureText(nameText).width / 2)) + (e.width / 2), gPIVY(e.y) - entityNameOffsetY);
         }
         //draw Tiles
-        for (a = Math.floor(Math.max(((playerData.x - (canvas.width/2))/32),0)); a < tilesWidth; a++) {
-            for (b = Math.floor(Math.max(((playerData.y - (canvas.height/2))/32),0)); b < tilesHeight; b++) {
+        for (a = 0; a < tilesWidth; a++) {
+            for (b = 0; b < tilesHeight; b++) {
                 if (tiles[a][b].id >= 0) {
                     //TODO
                     //drawImageSection("tilesheet", gPIVX(a * singleTileWidth), gPIVY(b * singleTileWidth), tiles[a][b].id, singleTileWidth, singleTileWidth);
