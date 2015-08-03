@@ -215,12 +215,12 @@ GRAPHICS.renderer = (function(canv) {
     var buffers = new Object();
 
     function getBuffer(width, height) {
-        var name = width + "x" + height;
-        if ((name) in buffers) {
-            return buffers[name];
+        var bname = width + "x" + height;
+        if ((bname) in buffers) {
+            return buffers[bname];
         } else {
-            buffers[name] = createRectBuffer(width, height);
-            return buffers[name];
+            buffers[bname] = createRectBuffer(width, height);
+            return buffers[bname];
         }
     }
 
