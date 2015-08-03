@@ -169,6 +169,7 @@ JS_GAME.game = (function() {
     function drawLevel() {
         renderer.getSprite("tile0");
         renderer.getSprite("tile1");
+        renderer.getSprite("player");
 
         renderer.GL.useProgram(renderer.getShader("default"));
 
