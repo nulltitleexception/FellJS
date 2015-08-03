@@ -80,7 +80,6 @@ GRAPHICS.renderer = (function(canv) {
 
     function createRectBuffer(width, height) {
         var buf = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, null);
         buf.bind = function() {
             gl.bindBuffer(gl.ARRAY_BUFFER, this);
         };
@@ -140,6 +139,7 @@ GRAPHICS.renderer = (function(canv) {
             }
             gl.uniform2f(shader.positionUniform, x, y);
             gl.drawArrays(gl.TRIANGLE_STRIP, 0, this.buffer.numItems);
+        	gl.bindBuffer(gl.ARRAY_BUFFER, null);
         };
         return sprite;
     }
