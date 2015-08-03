@@ -81,7 +81,6 @@ GRAPHICS.renderer = (function(canv) {
     function createRectBuffer(width, height) {
         var buf = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, null);
-        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
         buf.bind = function() {
             gl.bindBuffer(gl.ARRAY_BUFFER, this);
         };
