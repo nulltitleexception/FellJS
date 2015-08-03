@@ -75,7 +75,6 @@ GRAPHICS.renderer = (function(canv) {
         shaderProgram.cameraUniform = gl.getUniformLocation(shaderProgram, "camera");
         shaderProgram.positionUniform = gl.getUniformLocation(shaderProgram, "pos");
         shaderProgram.halfScreenUniform = gl.getUniformLocation(shaderProgram, "halfScreen");
-        shaderProgram.sizeUniform = gl.getUniformLocation(shaderProgram, "size");
         return shaderProgram;
     }
 
@@ -142,7 +141,6 @@ GRAPHICS.renderer = (function(canv) {
                 gl.bindTexture(gl.TEXTURE_2D, this.texture.texture);
             }
             gl.uniform2f(shader.positionUniform, x, y);
-            gl.uniform2f(shader.sizeUniform, this.width, this.height);
             gl.drawArrays(gl.TRIANGLE_STRIP, 0, this.buffer.numItems);
         };
         return sprite;
@@ -216,13 +214,16 @@ GRAPHICS.renderer = (function(canv) {
         }
     }
 
-    var buffer;
+    var buffers = new Object();
 
-    function getBuffer() {
-    	if (!buffer){
-    		buffer = createRectBuffer(1,1);
-    	}
-    	return buffer;
+    function getBuffer(width, height) {
+        var name = width + "x" + height;
+        if ((name) in buffers) {
+            return buffers[name];
+        } else {
+            buffers[name] = createRectBuffer(width, height);
+            return buffers[name];
+        }
     }
 
     return {
