@@ -132,7 +132,7 @@ GRAPHICS.renderer = (function(canv) {
         } else {
             sprite.texture = getTexture(name);
         }
-        sprite.buffer = getBuffer(sprite.width, sprite.height);
+        sprite.buffer = createRectBuffer(sprite.width, sprite.height);
         sprite.draw = function(shader, x, y) {
             this.buffer.bind();
             if (this.texture.ready) {
