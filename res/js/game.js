@@ -217,6 +217,11 @@ JS_GAME.game = (function() {
                     "y": (my - Math.floor(windowHeight / 2))
                 }
             };
+            if(!timeSinceTheLastTimeInputStuffWasSentInMillis){
+                timeSinceTheLastTimeInputStuffWasSentInMillis = Date.now();
+            }
+            console.log("input sent every "+(Date.now() - timeSinceTheLastTimeInputStuffWasSentInMillis) + "ms");
+            timeSinceTheLastTimeInputStuffWasSentInMillis = Date.now();
             socket.send(JSON.stringify(ret));
         } catch (err) {}
 

@@ -96,8 +96,6 @@ GRAPHICS.renderer = (function(canv) {
         };
         buf.itemSize = 2;
         buf.numItems = 4;
-        buf.width = width;
-        buf.height = height;
         return buf;
     }
 
@@ -144,7 +142,6 @@ GRAPHICS.renderer = (function(canv) {
             gl.uniform2f(shader.positionUniform, x, y);
             gl.drawArrays(gl.TRIANGLE_STRIP, 0, this.buffer.numItems);
         };
-        console.log(name + ": " + sprite.buffer.width + ", " + sprite.buffer.height)
         return sprite;
     }
 
