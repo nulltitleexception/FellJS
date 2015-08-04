@@ -218,6 +218,7 @@ JS_GAME.game = (function() {
                 }
             };
             console.log("message: nope");
+            console.log("huh");
             if(!timeSinceTheLastTimeInputStuffWasSentInMillis){
                 timeSinceTheLastTimeInputStuffWasSentInMillis = Date.now();
             }
