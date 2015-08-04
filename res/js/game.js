@@ -219,7 +219,7 @@ JS_GAME.game = (function() {
             };
             console.log("message: nope");
             console.log("huh");
-            if(!timeSinceTheLastTimeInputStuffWasSentInMillis){
+            if(typeof timeSinceTheLastTimeInputStuffWasSentInMillis === 'undefined'){
                 timeSinceTheLastTimeInputStuffWasSentInMillis = Date.now();
             }
             console.log("message: double-nope");
