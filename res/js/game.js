@@ -226,7 +226,7 @@ JS_GAME.game = (function() {
             console.log("input sent every "+(Date.now() - timeSinceTheLastTimeInputStuffWasSentInMillis) + "ms");
             timeSinceTheLastTimeInputStuffWasSentInMillis = Date.now();
             socket.send(JSON.stringify(ret));
-        } catch (err) {}
+        } catch (err) { console.log(err); }
 
         setTimeout(gameLoop, frameLength);
     }
