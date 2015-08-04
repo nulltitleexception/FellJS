@@ -217,12 +217,9 @@ JS_GAME.game = (function() {
                     "y": (my - Math.floor(windowHeight / 2))
                 }
             };
-            console.log("message: nope");
-            console.log("huh");
             if(typeof timeSinceTheLastTimeInputStuffWasSentInMillis === 'undefined'){
                 timeSinceTheLastTimeInputStuffWasSentInMillis = Date.now();
             }
-            console.log("message: double-nope");
             console.log("input sent every "+(Date.now() - timeSinceTheLastTimeInputStuffWasSentInMillis) + "ms");
             timeSinceTheLastTimeInputStuffWasSentInMillis = Date.now();
             socket.send(JSON.stringify(ret));
