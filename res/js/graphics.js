@@ -136,13 +136,12 @@ GRAPHICS.renderer = (function(canv) {
         }
         sprite.buffer = getBuffer(sprite.width, sprite.height);
         sprite.draw = function(shader, x, y) {
-            gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer);
+           	this.buffer.bind();
             if (this.texture.ready) {
                 gl.bindTexture(gl.TEXTURE_2D, this.texture.texture);
             }
             gl.uniform2f(shader.positionUniform, x, y);
             gl.drawArrays(gl.TRIANGLE_STRIP, 0, this.buffer.numItems);
-        	gl.bindBuffer(gl.ARRAY_BUFFER, null);
         };
         console.log(name + ": " + sprite.buffer.width + ", " + sprite.buffer.height)
         return sprite;
