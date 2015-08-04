@@ -91,6 +91,7 @@ GRAPHICS.renderer = (function(canv) {
             width / -2.0, height / -2.0
         ];
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+        gl.enableVertexAttribArray(0);
         gl.vertexAttribPointer(getShader("default").vertexPositionAttribute, 2, gl.FLOAT, false, 0, 0);
         buf.itemSize = 2;
         buf.numItems = 4;
@@ -136,7 +137,6 @@ GRAPHICS.renderer = (function(canv) {
         sprite.buffer = getBuffer(sprite.width, sprite.height);
         sprite.draw = function(shader, x, y) {
             gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer);
-        	//gl.vertexAttribPointer(getShader("default").vertexPositionAttribute, 2, gl.FLOAT, false, 0, 0);
             if (this.texture.ready) {
                 gl.bindTexture(gl.TEXTURE_2D, this.texture.texture);
             }
