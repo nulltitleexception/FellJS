@@ -82,7 +82,7 @@ GRAPHICS.renderer = (function(canv) {
         var buf = gl.createBuffer();
         buf.bind = function() {
             gl.bindBuffer(gl.ARRAY_BUFFER, this);
-        	gl.enableVertexAttribArray(0);
+        	gl.vertexAttribPointer(getShader("default").vertexPositionAttribute, 2, gl.FLOAT, false, 0, 0);
         };
         buf.bind();
         var vertices = [
