@@ -88,6 +88,7 @@ GRAPHICS.renderer = (function(canv) {
             width / -2.0, height / -2.0
         ];
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+        gl.enableVertexAttribArray(getShader("default").vertexPositionAttribute);
         gl.vertexAttribPointer(getShader("default").vertexPositionAttribute, 2, gl.FLOAT, false, 0, 0);
         buf.bind = function() {
             gl.bindBuffer(gl.ARRAY_BUFFER, this);
