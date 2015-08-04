@@ -221,6 +221,7 @@ JS_GAME.game = (function() {
             if(!timeSinceTheLastTimeInputStuffWasSentInMillis){
                 timeSinceTheLastTimeInputStuffWasSentInMillis = Date.now();
             }
+            console.log("message: double-nope");
             console.log("input sent every "+(Date.now() - timeSinceTheLastTimeInputStuffWasSentInMillis) + "ms");
             timeSinceTheLastTimeInputStuffWasSentInMillis = Date.now();
             socket.send(JSON.stringify(ret));
