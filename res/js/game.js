@@ -217,6 +217,7 @@ JS_GAME.game = (function() {
                     "y": (my - Math.floor(windowHeight / 2))
                 }
             };
+            console.log("message: nope");
             if(!timeSinceTheLastTimeInputStuffWasSentInMillis){
                 timeSinceTheLastTimeInputStuffWasSentInMillis = Date.now();
             }
