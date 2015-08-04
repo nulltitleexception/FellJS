@@ -82,8 +82,9 @@ GRAPHICS.renderer = (function(canv) {
         var buf = gl.createBuffer();
         buf.bind = function() {
             gl.bindBuffer(gl.ARRAY_BUFFER, this);
+        	gl.enableVertexAttribArray(0);
         };
-        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+        buf.bind();
         var vertices = [
             width / 2.0, height / 2.0,
             width / -2.0, height / 2.0,
@@ -91,7 +92,6 @@ GRAPHICS.renderer = (function(canv) {
             width / -2.0, height / -2.0
         ];
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
-        gl.enableVertexAttribArray(0);
         gl.vertexAttribPointer(getShader("default").vertexPositionAttribute, 2, gl.FLOAT, false, 0, 0);
         buf.itemSize = 2;
         buf.numItems = 4;
