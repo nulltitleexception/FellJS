@@ -84,7 +84,7 @@ JS_GAME.game = (function() {
             if ("validated" in msg) {
                 if (msg.validated) {
                     gameInitialize();
-                    gameLoop();
+                    //gameLoop();
                 }
             }
             if ("entities" in msg && "enum" in msg) {
@@ -203,6 +203,7 @@ JS_GAME.game = (function() {
 
         console.log("During Frame: "+ (Date.now() - drawTiming) + "ms");
         drawTiming = Date.now();
+        gameLoop();
     }
 
     function gameLoop() {
@@ -224,8 +225,6 @@ JS_GAME.game = (function() {
             };
             socket.send(JSON.stringify(ret));
         } catch (err) { console.log(err); }
-
-        setTimeout(gameLoop, frameLength);
     }
 
     function gPIVX(x) {
