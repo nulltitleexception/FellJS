@@ -166,7 +166,10 @@ JS_GAME.game = (function() {
         renderer.webGLStart(drawLevel);
     }
 
+    var drawTiming = Date.now();
     function drawLevel() {
+        console.log("PreFrame: "+ (Date.now() - drawTiming) + "ms");
+        drawTiming = Date.now();
         renderer.GL.useProgram(renderer.getShader("default"));
 
         renderer.GL.uniform2f(renderer.getShader("default").halfScreenUniform, canvas.width / 2, canvas.height / 2);
@@ -198,6 +201,8 @@ JS_GAME.game = (function() {
         //TODO OR REMOVE
         //context.fillText("Pos: (" + playerData.x + ", " + playerData.y + ")", 5, 15);
 
+        console.log("During Frame: "+ (Date.now() - drawTiming) + "ms");
+        drawTiming = Date.now();
     }
 
     function gameLoop() {
@@ -217,11 +222,6 @@ JS_GAME.game = (function() {
                     "y": (my - Math.floor(windowHeight / 2))
                 }
             };
-            if(typeof timeSinceTheLastTimeInputStuffWasSentInMillis === 'undefined'){
-                timeSinceTheLastTimeInputStuffWasSentInMillis = Date.now();
-            }
-            console.log("input sent every "+(Date.now() - timeSinceTheLastTimeInputStuffWasSentInMillis) + "ms");
-            timeSinceTheLastTimeInputStuffWasSentInMillis = Date.now();
             socket.send(JSON.stringify(ret));
         } catch (err) { console.log(err); }
 
